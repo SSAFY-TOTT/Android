@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     kotlin("kapt")
     id("com.android.application")
@@ -28,6 +30,11 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "MAP_API_KEY", getKey("MAP_API_KEY"))
+        }
+
+        debug {
+            buildConfigField("String", "MAP_API_KEY", getKey("MAP_API_KEY"))
         }
     }
     compileOptions {
@@ -36,6 +43,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
+    }
+    buildFeatures {
+        buildConfig = true
+        viewBinding = true
     }
 }
 
@@ -78,3 +89,5 @@ dependencies {
 kapt {
     correctErrorTypes = true
 }
+
+fun getKey(keyName: String) = gradleLocalProperties(rootDir).getProperty(keyName)
