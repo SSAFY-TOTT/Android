@@ -4,6 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
 
     id("com.google.dagger.hilt.android")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -47,23 +48,23 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-
     implementation("androidx.activity:activity-ktx:1.7.2")
     implementation("androidx.fragment:fragment-ktx:1.6.1")
 
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-compiler:2.44")
+    val hiltVersion = "2.47"
+    implementation("com.google.dagger:hilt-android:$hiltVersion")
+    kapt("com.google.dagger:hilt-compiler:$hiltVersion")
 
     // 디바이스 위치
     implementation("com.google.android.gms:play-services-maps:18.1.0")
     implementation("com.google.android.gms:play-services-location:21.0.1")
-    implementation("com.google.maps.android:android-maps-utils:2.3.0")
+    implementation("com.google.maps.android:android-maps-utils:3.5.3")
     implementation("com.google.maps.android:maps-ktx:3.4.0")
     implementation("com.google.maps.android:maps-utils-ktx:3.4.0")
 
     // Glide
-    val glideVersion = "4.14.2"
+    val glideVersion = "4.16.0"
     implementation("com.github.bumptech.glide:glide:$glideVersion")
     annotationProcessor("com.github.bumptech.glide:compiler:$glideVersion")
 
