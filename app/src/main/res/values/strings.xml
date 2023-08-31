@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TOTT</string>
+    <string name="toolbar_set_filter">필터 설정</string>
 </resources>
