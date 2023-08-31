@@ -29,7 +29,7 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
         binding = ActivitySearchMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.fragment_search_map) as SupportMapFragment
+            .findFragmentById(R.id.fragmentContainer_searchMap) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
 
