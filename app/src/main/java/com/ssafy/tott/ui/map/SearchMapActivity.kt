@@ -22,6 +22,7 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivitySearchMapBinding
+    private val modalBottomSheet = SimpleHouseListDialogFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +32,8 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.fragmentContainer_searchMap) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        modalBottomSheet.show(supportFragmentManager, SimpleHouseListDialogFragment.TAG)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

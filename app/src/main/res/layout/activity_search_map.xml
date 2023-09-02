@@ -1,49 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar_searchMap"
-        style="@style/TOTT.Toolbar"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        app:layout_constraintBottom_toTopOf="@id/chipGroup_searchMap"
-        app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/menu_search_map"
-        app:title="집 검색" />
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        tools:context=".ui.map.SearchMapActivity">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/darkGray"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_searchMap" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_searchMap"
+            style="@style/TOTT.Toolbar"
+            android:layout_width="match_parent"
+            app:layout_constraintBottom_toTopOf="@id/chipGroup_searchMap"
+            app:layout_constraintTop_toTopOf="parent"
+            app:menu="@menu/menu_search_map"
+            app:title="집 검색" />
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipGroup_searchMap"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        app:layout_constraintBottom_toTopOf="@id/fragmentContainer_searchMap"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_searchMap">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/darkGray"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_searchMap" />
 
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup_searchMap"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="chip" />
-    </com.google.android.material.chip.ChipGroup>
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toTopOf="@id/fragmentContainer_searchMap"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_searchMap">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainer_searchMap"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/chipGroup_searchMap"
-        tools:context=".ui.map.SearchMapActivity"
-        tools:layout="@layout/fragment_dummy" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="chip" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainer_searchMap"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chipGroup_searchMap"
+            tools:context=".ui.map.SearchMapActivity"
+            tools:layout="@layout/fragment_dummy" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--    <com.google.android.material.circularreveal.CircularRevealFrameLayout-->
+<!--        android:id="@+id/standard_bottom_sheet"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">-->
+
+<!--        <com.google.android.material.textview.MaterialTextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:text="bottom sheet" />-->
+<!--    </com.google.android.material.circularreveal.CircularRevealFrameLayout>-->
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
