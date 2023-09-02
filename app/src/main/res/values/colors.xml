@@ -2,8 +2,16 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="background">#FFF4F6FC</color>
-    <color name="colorPrimary">#FF0076BE</color>
-    <color name="colorSecondary">#C795A7E0</color>
+    <color name="backgroundToolbar">#FFD4DAEC</color>
+    <color name="colorPrimary800">#FF0076BE</color>
+    <color name="colorPrimary600">#FF0099E6</color>
+    <color name="colorPrimary400">#FF25B4F7</color>
+    <color name="colorPrimary200">#FF80D3FB</color>
+    <color name="blueGray">#C795A7E0</color>
+    <color name="colorSecondary800">#C7C76600</color>
+    <color name="colorSecondary600">#C7D38301</color>
+    <color name="colorSecondary400">#C7DB9C27</color>
+    <color name="colorSecondary200">#C7E8C47d</color>
     <color name="font">#FF333333</color>
     <color name="white">#FFFFFFFF</color>
     <color name="darkGray">#FF777777</color>
