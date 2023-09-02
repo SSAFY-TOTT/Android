@@ -1,4 +1,4 @@
-package com.ssafy.tott.ui.search_filter
+package com.ssafy.tott.ui.searchfilter
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

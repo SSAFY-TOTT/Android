@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/DefaultConstraint"
-    tools:context=".ui.search_filter.SearchFilterActivity">
+    tools:context=".ui.searchfilter.SearchFilterActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_searchFilter"
