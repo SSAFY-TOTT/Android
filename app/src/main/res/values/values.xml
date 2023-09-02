@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="array_filter_price">
+        <item>200.0</item>
+        <item>350.0</item>
+    </array>
+    <array name="array_filter_area">
+        <item>20.0</item>
+        <item>30.0</item>
+    </array>
+</resources>
