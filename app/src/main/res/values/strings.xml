@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">TOTT</string>
+
+<!--    필터 설정 화면  -->
     <string name="toolbar_set_filter">필터 설정</string>
+    <string name="apartment_btn_search_filter">아파트</string>
+    <string name="officetel_btn_search_filter">오피스텔</string>
+    <string name="address_searchFilter">주소</string>
+    <string name="price_searchFilter">전세</string>
+    <string name="area_searchFilter">면적</string>
+    <string name="built_searchFilter">준공년도</string>
+    <string name="houseType_searchFilter">종류</string>
 </resources>
