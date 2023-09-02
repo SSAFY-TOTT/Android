@@ -12,4 +12,257 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/toolbar_set_filter" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_start_vertical_searchFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_end_vertical_searchFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top_horizontal_searchFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.12" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_bottom_horizontal_searchFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_address_searchFilter"
+        style="@style/TOTT.Text.H3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/address_searchFilter"
+        app:layout_constraintBottom_toTopOf="@id/inputLayout_address1_searchFilter"
+        app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_searchFilter"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_searchFilter" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputLayout_address1_searchFilter"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_price_searchFilter"
+        app:layout_constraintEnd_toStartOf="@id/inputLayout_address2_searchFilter"
+        app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_searchFilter"
+        app:layout_constraintTop_toBottomOf="@id/tv_address_searchFilter">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/autoTextView_address1_searchFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            tools:text="강남구" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputLayout_address2_searchFilter"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintBottom_toBottomOf="@+id/inputLayout_address1_searchFilter"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_searchFilter"
+        app:layout_constraintStart_toEndOf="@id/inputLayout_address1_searchFilter"
+        app:layout_constraintTop_toTopOf="@+id/inputLayout_address1_searchFilter">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/autoTextView_address2_searchFilter"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            tools:text="역삼1동" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_price_searchFilter"
+        style="@style/TOTT.Text.H3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/price_searchFilter"
+        app:layout_constraintBottom_toTopOf="@id/rangeSlider_price_searchFilter"
+        app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_searchFilter"
+        app:layout_constraintTop_toBottomOf="@id/inputLayout_address1_searchFilter" />
+
+
+    <com.google.android.material.slider.RangeSlider
+        android:id="@+id/rangeSlider_price_searchFilter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:valueFrom="0.0"
+        android:valueTo="1000.0"
+        app:layout_constraintBottom_toTopOf="@id/tv_area_searchFilter"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_searchFilter"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_searchFilter"
+        app:layout_constraintTop_toBottomOf="@+id/tv_price_searchFilter"
+        app:minSeparation="5dp"
+        app:values="@array/array_filter_price" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_area_searchFilter"
+        style="@style/TOTT.Text.H3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/area_searchFilter"
+        app:layout_constraintBottom_toTopOf="@id/rangeSlider_area_searchFilter"
+        app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_searchFilter"
+        app:layout_constraintTop_toBottomOf="@id/rangeSlider_price_searchFilter" />
+
+    <com.google.android.material.slider.RangeSlider
+        android:id="@+id/rangeSlider_area_searchFilter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:valueFrom="0.0"
+        android:valueTo="100.0"
+        app:layout_constraintBottom_toTopOf="@id/tv_houseType_searchFilter"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_searchFilter"
+        app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_searchFilter"
+        app:layout_constraintTop_toBottomOf="@+id/tv_area_searchFilter"
+        app:minSeparation="5dp"
+        app:values="@array/array_filter_area" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_houseType_searchFilter"
+        style="@style/TOTT.Text.H3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/houseType_searchFilter"
+        app:layout_constraintBottom_toTopOf="@id/btnGroup_houseType_searchFilter"
+        app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_searchFilter"
+        app:layout_constraintTop_toBottomOf="@id/rangeSlider_area_searchFilter" />
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/btnGroup_houseType_searchFilter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:checkedButton="@id/btn_houseType_apartment_searchFilter"
+        app:layout_constraintBottom_toTopOf="@id/tv_built_searchFilter"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_searchFilter"
+        app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_searchFilter"
+        app:layout_constraintTop_toBottomOf="@+id/tv_houseType_searchFilter"
+        app:selectionRequired="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_houseType_apartment_searchFilter"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/apartment_btn_search_filter" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_houseType_officetel_searchFilter"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/officetel_btn_search_filter" />
+
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_built_searchFilter"
+        style="@style/TOTT.Text.H3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/built_searchFilter"
+        app:layout_constraintBottom_toTopOf="@id/inputLayout_built_searchFilter"
+        app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_searchFilter"
+        app:layout_constraintTop_toBottomOf="@id/btnGroup_houseType_searchFilter" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputLayout_built_searchFilter"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_bottom_horizontal_searchFilter"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_searchFilter"
+        app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_searchFilter"
+        app:layout_constraintTop_toBottomOf="@+id/tv_built_searchFilter">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/autoTextView_built_searchFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            tools:text="5년전" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--    <com.google.android.material.button.MaterialButtonToggleGroup-->
+    <!--        android:id="@+id/chipGroup_built_searchFilter"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:scrollbarAlwaysDrawHorizontalTrack="false"-->
+    <!--        android:scrollbarAlwaysDrawVerticalTrack="false"-->
+    <!--        app:checkedButton="@id/btn_built_all_searchFilter"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/guideline_bottom_horizontal_searchFilter"-->
+    <!--        app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_searchFilter"-->
+    <!--        app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_searchFilter"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/tv_built_searchFilter"-->
+    <!--        app:selectionRequired="true"-->
+    <!--        app:singleSelection="true">-->
+
+    <!--        <com.google.android.material.button.MaterialButton-->
+    <!--            android:id="@+id/btn_built_5years_searchFilter"-->
+    <!--            style="?attr/materialButtonOutlinedStyle"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="5년전" />-->
+
+    <!--        <com.google.android.material.button.MaterialButton-->
+    <!--            android:id="@+id/btn_built_10years_searchFilter"-->
+    <!--            style="?attr/materialButtonOutlinedStyle"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="10년전" />-->
+
+    <!--        <com.google.android.material.button.MaterialButton-->
+    <!--            android:id="@+id/btn_built_15years_searchFilter"-->
+    <!--            style="?attr/materialButtonOutlinedStyle"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="15년전" />-->
+
+    <!--        <com.google.android.material.button.MaterialButton-->
+    <!--            android:id="@+id/btn_built_20years_searchFilter"-->
+    <!--            style="?attr/materialButtonOutlinedStyle"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="20년전" />-->
+
+    <!--        <com.google.android.material.button.MaterialButton-->
+    <!--            android:id="@+id/btn_built_25years_searchFilter"-->
+    <!--            style="?attr/materialButtonOutlinedStyle"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="25년전" />-->
+
+    <!--        <com.google.android.material.button.MaterialButton-->
+    <!--            android:id="@+id/btn_built_all_searchFilter"-->
+    <!--            style="?attr/materialButtonOutlinedStyle"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="전체" />-->
+
+    <!--    </com.google.android.material.button.MaterialButtonToggleGroup>-->
 </androidx.constraintlayout.widget.ConstraintLayout>
