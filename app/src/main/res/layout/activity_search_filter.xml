@@ -13,6 +13,13 @@
         app:menu="@menu/menu_toolbar_search_filter"
         app:title="@string/toolbar_set_filter" />
 
+<!--    <com.google.android.material.divider.MaterialDivider-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/toolbar_searchFilter" />-->
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_start_vertical_searchFilter"
         android:layout_width="wrap_content"
@@ -54,7 +61,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayout_address1_searchFilter"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
@@ -164,18 +171,17 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_houseType_apartment_searchFilter"
-            style="?attr/materialButtonOutlinedStyle"
+            style="@style/TOTT.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/apartment_btn_search_filter" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_houseType_officetel_searchFilter"
-            style="?attr/materialButtonOutlinedStyle"
+            style="@style/TOTT.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/officetel_btn_search_filter" />
-
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
