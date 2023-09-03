@@ -1,5 +1,9 @@
 package com.ssafy.tott.ui.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 // UI에 사용할 매물 데이터
 data class BuildingDetailUI(
     val id: Int,
@@ -9,4 +13,5 @@ data class BuildingDetailUI(
     val lat: Double,
     val lng: Double,
     val simpleAddress: String,
-)
+    val built: Int,
+) : Parcelable
