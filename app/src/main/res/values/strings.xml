@@ -11,4 +11,9 @@
     <string name="built_searchFilter">준공년도</string>
     <string name="houseType_searchFilter">종류</string>
     <string name="toolbar_saveFilter">저장</string>
+
+    <!--  매물 목록 화면  -->
+    <string name="area_buildingDetail_item">%1$d평</string>
+    <string name="address_buildingDetail_item">%1$s</string>
+    <string name="price_buildingDetail_item">%1$,d만원</string>
 </resources>
