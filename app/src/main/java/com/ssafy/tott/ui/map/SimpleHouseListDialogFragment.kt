@@ -6,22 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.ssafy.tott.databinding.RvSimpleHouseBinding
-import com.ssafy.tott.domain.model.SimpleHouse
-import com.ssafy.tott.ui.houselist.SimpleHouseListAdapter
+import com.ssafy.tott.databinding.RvBuildingDetailBinding
+import com.ssafy.tott.ui.houselist.BuildingDetailListAdapter
 
 const val ARG_ITEM_COUNT = "item_count"
 
 class SimpleHouseListDialogFragment : BottomSheetDialogFragment() {
 
-    private var _binding: RvSimpleHouseBinding? = null
+    private var _binding: RvBuildingDetailBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = RvSimpleHouseBinding.inflate(inflater, container, false)
+        _binding = RvBuildingDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -30,9 +29,9 @@ class SimpleHouseListDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun initRecycleView() {
-        val adapter = SimpleHouseListAdapter()
+        val adapter = BuildingDetailListAdapter()
         //TODO 임시 데이터
-        adapter.submitList(listOf(SimpleHouse(0.0, 0.1), SimpleHouse(123.0, 2.3)))
+        adapter.submitList(listOf())
         binding.rvSimpleHouse.layoutManager = LinearLayoutManager(context)
         binding.rvSimpleHouse.adapter = adapter
     }

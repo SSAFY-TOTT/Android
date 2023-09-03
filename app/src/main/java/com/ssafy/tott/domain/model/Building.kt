@@ -2,6 +2,7 @@ package com.ssafy.tott.domain.model
 
 import com.google.android.gms.maps.model.LatLng
 
+//건물
 data class Building(
     val lat: Double,
     val lng: Double,
