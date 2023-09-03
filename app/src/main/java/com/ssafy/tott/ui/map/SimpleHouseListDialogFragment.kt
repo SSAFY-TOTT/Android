@@ -8,9 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ssafy.tott.databinding.RvBuildingDetailBinding
 import com.ssafy.tott.ui.houselist.BuildingDetailListAdapter
+import com.ssafy.tott.ui.model.BuildingDetailUI
+import dagger.hilt.android.AndroidEntryPoint
 
 const val ARG_ITEM_COUNT = "item_count"
 
+@AndroidEntryPoint
 class SimpleHouseListDialogFragment : BottomSheetDialogFragment() {
 
     private var _binding: RvBuildingDetailBinding? = null
