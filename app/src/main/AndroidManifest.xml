@@ -13,13 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TOTT"
         tools:targetApi="31">
-        <activity
-            android:name=".ui.searchfilter.SearchFilterActivity"
-            android:exported="false" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAP_API_KEY}" />
+
+        <activity
+            android:name=".ui.buildingdetail.BuildingDetailActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.searchfilter.SearchFilterActivity"
+            android:exported="false" />
 
         <activity
             android:name=".ui.map.SearchMapActivity"
