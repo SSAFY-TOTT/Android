@@ -13,10 +13,26 @@
         <item name="android:textColor">@color/font</item>
     </style>
 
-    <style name="TOTT.Text.H3" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textSize">20sp</item>
-        <item name="android:layout_marginBottom">10dp</item>
+
+    <!--    글자      -->
+    <style name="TOTT.Text.H1" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="TOTT.Text.H2" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TOTT.Text.H3" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TOTT.Text.H4" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">16sp</item>
+    </style>
+    <!--    글자      -->
 
     <style name="DefaultConstraint">
         <item name="android:background">@color/background</item>
