@@ -43,8 +43,6 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun initToolbar() {
         setSupportActionBar(binding.toolbarSearchMap)
-        binding.toolbarSearchMap.showOverflowMenu()
-        binding.toolbarSearchMap.showContextMenu()
     }
 
 
