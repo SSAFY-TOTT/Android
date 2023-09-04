@@ -1,5 +1,6 @@
 package com.ssafy.tott.ui.searchfilter
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -9,6 +10,7 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputLayout
 import com.ssafy.tott.R
 import com.ssafy.tott.databinding.ActivitySearchFilterBinding
+import com.ssafy.tott.ui.map.SearchMapActivity
 
 class SearchFilterActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchFilterBinding
@@ -38,6 +40,11 @@ class SearchFilterActivity : AppCompatActivity() {
 
         R.id.action_saveFilter -> {
             Log.d(this::class.simpleName, "onOptionsItemSelected: save")
+            val intent = Intent(this, SearchMapActivity::class.java)
+            // TODO 실제 데이터로 변경 필요
+            // intent.putExtra(TAG_DISTRICT_NAME, searchFilter)
+            setResult(RESULT_OK, intent)
+            finish()
             true
         }
 
