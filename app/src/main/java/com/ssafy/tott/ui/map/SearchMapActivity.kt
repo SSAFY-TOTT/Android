@@ -1,6 +1,9 @@
 package com.ssafy.tott.ui.map
 
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -34,6 +37,39 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         modalBottomSheet.show(supportFragmentManager, SimpleHouseListDialogFragment.TAG)
+
+        initToolbar()
+    }
+
+    private fun initToolbar() {
+        setSupportActionBar(binding.toolbarSearchMap)
+        binding.toolbarSearchMap.showOverflowMenu()
+        binding.toolbarSearchMap.showContextMenu()
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_search_map, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        android.R.id.home -> {
+            Log.d(this::class.simpleName, "onOptionsItemSelected: home")
+            true
+        }
+
+        R.id.action_setFilter -> {
+            Log.d(this::class.simpleName, "onOptionsItemSelected: filter")
+            true
+        }
+
+        else -> {
+            Log.d(
+                this::class.simpleName, "onOptionsItemSelected: else -> ${item.itemId}"
+            )
+            super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
