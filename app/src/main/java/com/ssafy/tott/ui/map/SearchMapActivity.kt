@@ -1,10 +1,14 @@
 package com.ssafy.tott.ui.map
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -16,7 +20,9 @@ import com.google.android.gms.maps.model.Marker
 import com.google.maps.android.clustering.ClusterManager
 import com.ssafy.tott.R
 import com.ssafy.tott.databinding.ActivitySearchMapBinding
+import com.ssafy.tott.domain.model.SearchFilter
 import com.ssafy.tott.ui.model.ClusterMarker
+import com.ssafy.tott.ui.searchfilter.SearchFilterActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -26,6 +32,8 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivitySearchMapBinding
     private val modalBottomSheet = SimpleHouseListDialogFragment()
+
+    private val resultActivity by lazyOf(initResultActivityCallBack())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +48,22 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         initToolbar()
     }
+
+    private fun initResultActivityCallBack(): ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val districtName =
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        result.data?.getParcelableExtra(
+                            SearchFilterActivity.TAG_DISTRICT_NAME,
+                            SearchFilter::class.java
+                        )
+                    } else {
+                        result.data?.getParcelableExtra(SearchFilterActivity.TAG_DISTRICT_NAME)
+                    }
+                Log.d(this::class.simpleName, "initResultActivityCallBack : $districtName")
+            }
+        }
 
     private fun initToolbar() {
         setSupportActionBar(binding.toolbarSearchMap)
@@ -59,6 +83,16 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         R.id.action_setFilter -> {
             Log.d(this::class.simpleName, "onOptionsItemSelected: filter")
+
+            val intent = Intent(this, SearchFilterActivity::class.java)
+            resultActivity.launch(intent)
+            Log.d(
+                this::class.simpleName, "onOptionsItemSelected filter: ${
+                    this.intent.getStringExtra(
+                        SearchFilterActivity.TAG_DISTRICT_NAME
+                    )
+                }"
+            )
             true
         }
 
