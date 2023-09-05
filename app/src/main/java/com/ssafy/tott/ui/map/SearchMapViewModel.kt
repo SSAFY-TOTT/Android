@@ -8,10 +8,10 @@ import dagger.hilt.android.scopes.ViewModelScoped
 class SearchMapViewModel : ViewModel() {
     val districtName = MutableLiveData<String>("강남구")
     val legalDongName = MutableLiveData<String>("역삼1동")
-    val minPrice = MutableLiveData<Int>(13)
-    val maxPrice = MutableLiveData<Int>(17)
-    val minArea = MutableLiveData<Int>(13)
-    val maxArea = MutableLiveData<Int>(21)
+    private val minPrice = MutableLiveData<Int>(13)
+    private val maxPrice = MutableLiveData<Int>(17)
+    private val minArea = MutableLiveData<Int>(13)
+    private val maxArea = MutableLiveData<Int>(21)
     val type = MutableLiveData<List<String>>(listOf("아파트"))
     val built = MutableLiveData<String>("전체")
 
