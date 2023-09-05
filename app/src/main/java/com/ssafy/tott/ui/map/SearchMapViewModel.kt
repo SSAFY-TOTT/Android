@@ -1,4 +1,4 @@
-package com.ssafy.tott.ui.searchfilter
+package com.ssafy.tott.ui.map
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

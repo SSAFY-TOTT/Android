@@ -15,6 +15,7 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.ssafy.tott.R
 import com.ssafy.tott.databinding.FragmentSearchFilterBinding
 import com.ssafy.tott.ui.map.SearchMapActivity
+import com.ssafy.tott.ui.map.SearchMapViewModel
 
 class SearchFilterFragment : Fragment() {
     private val searchFilterViewModel: SearchMapViewModel by activityViewModels()
