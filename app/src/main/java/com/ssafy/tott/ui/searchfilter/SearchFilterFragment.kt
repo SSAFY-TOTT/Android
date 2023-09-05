@@ -36,16 +36,13 @@ class SearchFilterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.autoTextViewAddress1SearchFilter.initAutoTextView(
-            districtNames,
-            searchFilterViewModel.districtName.value ?: "선택"
+            districtNames, searchFilterViewModel.districtName.value ?: "선택"
         )
         binding.autoTextViewAddress2SearchFilter.initAutoTextView(
-            legalDongNames,
-            searchFilterViewModel.legalDongName.value ?: "선택"
+            legalDongNames, searchFilterViewModel.legalDongName.value ?: "선택"
         )
         binding.autoTextViewBuiltSearchFilter.initAutoTextView(
-            builtArray,
-            "전체"
+            builtArray, "전체"
         )
         binding.rangeSliderAreaSearchFilter.initRangeSlider(
             0f, 100f, 1f, searchFilterViewModel.areaList
