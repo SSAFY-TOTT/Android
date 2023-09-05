@@ -6,9 +6,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AutoCompleteTextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.google.android.material.slider.RangeSlider
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.ssafy.tott.R
 import com.ssafy.tott.databinding.FragmentSearchFilterBinding
 import com.ssafy.tott.ui.map.SearchMapActivity
@@ -26,6 +29,60 @@ class SearchFilterFragment : Fragment() {
         _binding = FragmentSearchFilterBinding.inflate(layoutInflater, container, false)
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.autoTextViewAddress1SearchFilter.initAutoTextView(
+            districtNames,
+            searchFilterViewModel.districtName.value ?: "선택"
+        )
+        binding.autoTextViewAddress2SearchFilter.initAutoTextView(
+            legalDongNames,
+            searchFilterViewModel.legalDongName.value ?: "선택"
+        )
+        binding.autoTextViewBuiltSearchFilter.initAutoTextView(
+            builtArray,
+            "전체"
+        )
+        binding.rangeSliderAreaSearchFilter.initRangeSlider(
+            0f, 100f, 1f, searchFilterViewModel.areaList
+        ) // 단위 백만
+        binding.rangeSliderPriceSearchFilter.initRangeSlider(
+            0f, 100f, 1f, searchFilterViewModel.priceList
+        ) // 단위 천만
+    }
+
+    private fun AutoCompleteTextView.initAutoTextView(array: Array<String>, value: String) {
+        setText(value)
+        val textView = this as? MaterialAutoCompleteTextView ?: return
+        textView.setSimpleItems(array)
+        textView.setOnItemClickListener { adapterView, view, i, l ->
+            //TODO 아이템 선택 리스너 구현
+        }
+    }
+
+    private fun RangeSlider.initRangeSlider(
+        from: Float,
+        to: Float,
+        separation: Float,
+        initValue: List<Float>,
+        unit: String? = null,
+    ) {
+        setMinSeparationValue(separation)
+        valueFrom = from
+        valueTo = to
+        values = initValue
+        setLabelFormatter { value ->
+            if (value >= to) {
+                "제한 없음"
+            } else if (unit == null) {
+                value.toInt().toString()
+            } else {
+                value.toInt().toString() + unit
+            }
+        }
     }
 
     private fun initOnBackPressedCallback(): OnBackPressedCallback {
@@ -51,5 +108,12 @@ class SearchFilterFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        //TODO 드롭다운 임시 데이터
+        private val districtNames = arrayOf("강남구", "서초구", "중구")
+        private val legalDongNames = arrayOf("역삼1동", "논현1동", "신사동")
+        private val builtArray = arrayOf("전체", "5년전", "10년전", "15년전")
     }
 }

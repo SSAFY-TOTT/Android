@@ -115,15 +115,11 @@
         android:id="@+id/rangeSlider_price_searchFilter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:valueFrom="0.0"
-        android:valueTo="1000.0"
         app:layout_constraintBottom_toTopOf="@id/tv_area_searchFilter"
         app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_searchFilter"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_searchFilter"
-        app:layout_constraintTop_toBottomOf="@+id/tv_price_searchFilter"
-        app:minSeparation="5dp"
-        app:values="@array/array_filter_price" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_price_searchFilter" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_area_searchFilter"
@@ -139,14 +135,10 @@
         android:id="@+id/rangeSlider_area_searchFilter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:valueFrom="0.0"
-        android:valueTo="100.0"
         app:layout_constraintBottom_toTopOf="@id/tv_houseType_searchFilter"
         app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_searchFilter"
         app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_searchFilter"
-        app:layout_constraintTop_toBottomOf="@+id/tv_area_searchFilter"
-        app:minSeparation="5dp"
-        app:values="@array/array_filter_area" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_area_searchFilter" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_houseType_searchFilter"
