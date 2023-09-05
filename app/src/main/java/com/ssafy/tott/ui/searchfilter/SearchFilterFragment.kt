@@ -16,7 +16,9 @@ import com.ssafy.tott.R
 import com.ssafy.tott.databinding.FragmentSearchFilterBinding
 import com.ssafy.tott.ui.map.SearchMapActivity
 import com.ssafy.tott.ui.map.SearchMapViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SearchFilterFragment : Fragment() {
     private val searchFilterViewModel: SearchMapViewModel by activityViewModels()
     private var _binding: FragmentSearchFilterBinding? = null
@@ -81,6 +83,20 @@ class SearchFilterFragment : Fragment() {
                 value.toInt().toString() + unit
             }
         }
+    }
+
+    fun loadFilterData() {
+        val districtName = binding.autoTextViewAddress1SearchFilter.editableText.toString()
+        val legalDongName = binding.autoTextViewAddress2SearchFilter.editableText.toString()
+        val built = binding.autoTextViewBuiltSearchFilter.editableText.toString()
+        val priceList = binding.rangeSliderPriceSearchFilter.values
+        val areaList = binding.rangeSliderAreaSearchFilter.values
+        val types = binding.btnGroupHouseTypeSearchFilter.checkedButtonIds
+        searchFilterViewModel.loadFilteredData(
+            districtName, legalDongName, built,
+            priceList, areaList, types.map { it.toString() }
+        )
+        requireActivity().onBackPressed()
     }
 
     private fun initOnBackPressedCallback(): OnBackPressedCallback {
