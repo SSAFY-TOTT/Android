@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/DefaultConstraint"
-    tools:context=".ui.searchfilter.SearchFilterActivity">
+    tools:context=".ui.searchfilter.SearchFilterFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_searchFilter"
@@ -13,12 +13,12 @@
         app:menu="@menu/menu_toolbar_search_filter"
         app:title="@string/toolbar_set_filter" />
 
-<!--    <com.google.android.material.divider.MaterialDivider-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/toolbar_searchFilter" />-->
+    <!--    <com.google.android.material.divider.MaterialDivider-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/toolbar_searchFilter" />-->
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_start_vertical_searchFilter"
