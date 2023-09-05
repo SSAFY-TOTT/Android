@@ -61,7 +61,11 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         android.R.id.home -> {
-            Log.d(this::class.simpleName, "onOptionsItemSelected: home")
+            Log.d(
+                this::class.simpleName,
+                "onOptionsItemSelected: home ${supportFragmentManager.backStackEntryCount}"
+            )
+            onBackPressed()
             true
         }
 
