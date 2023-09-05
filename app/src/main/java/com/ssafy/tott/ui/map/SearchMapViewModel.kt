@@ -8,14 +8,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchMapViewModel @Inject() constructor() : ViewModel() {
-    val districtName = MutableLiveData<String>("강남구")
-    val legalDongName = MutableLiveData<String>("역삼1동")
+    private val districtName = MutableLiveData<String>("강남구")
+    private val legalDongName = MutableLiveData<String>("역삼1동")
     private val minPrice = MutableLiveData<Int>(13)
     private val maxPrice = MutableLiveData<Int>(17)
     private val minArea = MutableLiveData<Int>(13)
     private val maxArea = MutableLiveData<Int>(21)
-    val type = MutableLiveData<List<String>>(listOf("아파트"))
-    val built = MutableLiveData<String>("전체")
+    private val type = MutableLiveData<List<String>>(listOf("아파트"))
+    private val built = MutableLiveData<String>("전체")
+
+    fun getDistrictName() = districtName.value
+
+    fun getLegalDongName() = legalDongName.value
 
     var priceList: List<Float> = listOf(0f, 0f)
         get() = listOf(minPrice.value?.toFloat() ?: 0f, maxPrice.value?.toFloat() ?: 200f)

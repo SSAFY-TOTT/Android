@@ -38,10 +38,10 @@ class SearchFilterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.autoTextViewAddress1SearchFilter.initAutoTextView(
-            districtNames, searchFilterViewModel.districtName.value ?: "선택"
+            districtNames, searchFilterViewModel.getDistrictName() ?: "선택"
         )
         binding.autoTextViewAddress2SearchFilter.initAutoTextView(
-            legalDongNames, searchFilterViewModel.legalDongName.value ?: "선택"
+            legalDongNames, searchFilterViewModel.getLegalDongName() ?: "선택"
         )
         binding.autoTextViewBuiltSearchFilter.initAutoTextView(
             builtArray, "전체"
