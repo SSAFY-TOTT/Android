@@ -1,11 +1,13 @@
 package com.ssafy.tott.ui.map
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import dagger.hilt.android.scopes.ViewModelScoped
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-@ViewModelScoped
-class SearchMapViewModel : ViewModel() {
+@HiltViewModel
+class SearchMapViewModel @Inject() constructor() : ViewModel() {
     val districtName = MutableLiveData<String>("강남구")
     val legalDongName = MutableLiveData<String>("역삼1동")
     private val minPrice = MutableLiveData<Int>(13)
@@ -29,4 +31,21 @@ class SearchMapViewModel : ViewModel() {
             maxArea.value = value[1].toInt()
             field = value
         }
+
+    fun loadFilteredData(
+        districtName: String, legalDongName: String, built: String,
+        priceList: List<Float>, areaList: List<Float>, types: List<String>,
+    ) {
+        Log.d(
+            this::class.java.simpleName, "loadData: $districtName $legalDongName $built" +
+                    "$priceList $areaList $types"
+        )
+        this.districtName.value = districtName
+        this.legalDongName.value = legalDongName
+        this.built.value = built
+        this.priceList = priceList
+        this.areaList = areaList
+        this.type.value = types
+        // TODO 필터 설정 데이터 전송 필요
+    }
 }
