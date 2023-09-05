@@ -32,7 +32,7 @@ class SearchMapViewModel @Inject() constructor() : ViewModel() {
             field = value
         }
 
-    fun loadFilteredData(
+    fun saveFilterSetting(
         districtName: String, legalDongName: String, built: String,
         priceList: List<Float>, areaList: List<Float>, types: List<String>,
     ) {
@@ -46,6 +46,10 @@ class SearchMapViewModel @Inject() constructor() : ViewModel() {
         this.priceList = priceList
         this.areaList = areaList
         this.type.value = types
+        loadFilteredData()
+    }
+
+    private fun loadFilteredData() {
         // TODO 필터 설정 데이터 전송 필요
     }
 }

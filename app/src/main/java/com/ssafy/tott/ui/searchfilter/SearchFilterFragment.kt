@@ -92,7 +92,7 @@ class SearchFilterFragment : Fragment() {
         val priceList = binding.rangeSliderPriceSearchFilter.values
         val areaList = binding.rangeSliderAreaSearchFilter.values
         val types = binding.btnGroupHouseTypeSearchFilter.checkedButtonIds
-        searchFilterViewModel.loadFilteredData(
+        searchFilterViewModel.saveFilterSetting(
             districtName, legalDongName, built,
             priceList, areaList, types.map { it.toString() }
         )
