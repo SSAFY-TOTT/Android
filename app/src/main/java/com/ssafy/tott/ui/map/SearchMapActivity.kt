@@ -71,6 +71,11 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
             true
         }
 
+        R.id.action_saveFilter -> {
+            Log.d(this::class.simpleName, "onOptionsItemSelected: save")
+            true
+        }
+
         else -> {
             Log.d(
                 this::class.simpleName, "onOptionsItemSelected: else -> ${item.itemId}"

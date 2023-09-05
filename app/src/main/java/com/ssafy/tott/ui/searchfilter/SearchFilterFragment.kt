@@ -41,38 +41,10 @@ class SearchFilterFragment : Fragment() {
         return callback
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initToolbar()
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-    }
-
-    private fun initToolbar() {
-        binding.toolbarSearchFilter.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
-                android.R.id.home -> {
-                    Log.d(this::class.simpleName, "onOptionsItemSelected: home")
-                    true
-                }
-
-                R.id.action_saveFilter -> {
-                    Log.d(this::class.simpleName, "onOptionsItemSelected: save")
-                    true
-                }
-
-                else -> {
-                    Log.d(
-                        this::class.simpleName, "onOptionsItemSelected: else -> ${item.itemId}"
-                    )
-                    false
-                }
-            }
-        }
     }
 
 
