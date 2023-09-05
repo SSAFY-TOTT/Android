@@ -15,8 +15,18 @@ class SearchMapViewModel : ViewModel() {
     val type = MutableLiveData<List<String>>(listOf("아파트"))
     val built = MutableLiveData<String>("전체")
 
-    val priceList: List<Float>
+    var priceList: List<Float> = listOf(0f, 0f)
         get() = listOf(minPrice.value?.toFloat() ?: 0f, maxPrice.value?.toFloat() ?: 200f)
-    val areaList
+        set(value) {
+            minPrice.value = value[0].toInt()
+            maxPrice.value = value[1].toInt()
+            field = value
+        }
+    var areaList = listOf(0f, 0f)
         get() = listOf(minArea.value?.toFloat() ?: 0f, maxArea.value?.toFloat() ?: 100f)
+        set(value) {
+            minArea.value = value[0].toInt()
+            maxArea.value = value[1].toInt()
+            field = value
+        }
 }
