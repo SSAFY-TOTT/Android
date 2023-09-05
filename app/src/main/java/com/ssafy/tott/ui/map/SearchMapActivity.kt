@@ -75,6 +75,12 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
         return true
     }
 
+    fun menuInflate(id: Int) {
+        val menu = binding.toolbarSearchMap.menu
+        menu.clear()
+        menuInflater.inflate(id, menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         android.R.id.home -> {
             Log.d(this::class.simpleName, "onOptionsItemSelected: home")
@@ -83,16 +89,7 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         R.id.action_setFilter -> {
             Log.d(this::class.simpleName, "onOptionsItemSelected: filter")
-
-            val intent = Intent(this, SearchFilterActivity::class.java)
-            resultActivity.launch(intent)
-            Log.d(
-                this::class.simpleName, "onOptionsItemSelected filter: ${
-                    this.intent.getStringExtra(
-                        SearchFilterActivity.TAG_DISTRICT_NAME
-                    )
-                }"
-            )
+            startFragment(SearchFilterFragment())
             true
         }
 
@@ -102,6 +99,17 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
             )
             super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun startFragment(fragment: Fragment) {
+        Log.d(
+            this::class.simpleName,
+            "startFragment: ${supportFragmentManager.backStackEntryCount}"
+        )
+        menuInflate(R.menu.menu_toolbar_search_filter)
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.layout_searchMap, fragment)
+        transaction.commit()
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
