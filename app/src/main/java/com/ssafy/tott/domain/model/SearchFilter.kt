@@ -1,9 +1,5 @@
 package com.ssafy.tott.domain.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
 data class SearchFilter(
     val districtName: String,
     val legalDongName: String,
@@ -13,4 +9,4 @@ data class SearchFilter(
     val maxArea: Int,
     val type: List<String>,
     val built: Int,
-) : Parcelable
+)
