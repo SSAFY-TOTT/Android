@@ -77,7 +77,7 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         R.id.action_saveFilter -> {
             Log.d(this::class.simpleName, "onOptionsItemSelected: save")
-            (supportFragmentManager.fragments.firstOrNull { it is SearchFilterFragment } as? SearchFilterFragment)?.loadFilterData()
+            (supportFragmentManager.fragments.firstOrNull { it is SearchFilterFragment } as? SearchFilterFragment)?.savedFilterSetting()
             true
         }
 

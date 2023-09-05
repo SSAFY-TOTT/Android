@@ -85,7 +85,7 @@ class SearchFilterFragment : Fragment() {
         }
     }
 
-    fun loadFilterData() {
+    fun savedFilterSetting() {
         val districtName = binding.autoTextViewAddress1SearchFilter.editableText.toString()
         val legalDongName = binding.autoTextViewAddress2SearchFilter.editableText.toString()
         val built = binding.autoTextViewBuiltSearchFilter.editableText.toString()
