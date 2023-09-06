@@ -19,17 +19,18 @@
             android:value="${MAP_API_KEY}" />
 
         <activity
+            android:name=".ui.register.RegisterActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".ui.login.LoginActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.buildingdetail.BuildingDetailActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.searchfilter.SearchFilterActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.map.SearchMapActivity"
             android:exported="false" />

@@ -29,4 +29,5 @@
     <string name="phone_hint">연락처(-없이 입력)</string>
     <string name="login_tv">로그인</string>
     <string name="register_tv">회원가입</string>
+    <string name="register_title_register">회원가입</string>
 </resources>
