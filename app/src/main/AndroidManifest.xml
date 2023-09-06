@@ -19,6 +19,14 @@
             android:value="${MAP_API_KEY}" />
 
         <activity
+            android:name=".ui.buildingdetail.BuildingDetailActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.searchfilter.SearchFilterActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.map.SearchMapActivity"
             android:exported="false" />
         <activity

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/DefaultConstraint"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.buildingdetail.BuildingDetailActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_buildingDetail"
+        style="@style/TOTT.Toolbar"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/menu_building_detail"
+        app:title="@string/toolbar_buildingDetail_item" />
+
+    <!--  TODO 임시로 main logo 이미지 수정 지정  -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_room_buildingDetail"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/main_logo"
+        app:layout_constraintDimensionRatio="5:3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_buildingDetail"
+        app:layout_constraintWidth_percent="0.7" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guildLine_start_buildingDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_address_buildingDetail"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_price_buildingDetail"
+        app:layout_constraintStart_toStartOf="@id/guildLine_start_buildingDetail"
+        app:layout_constraintTop_toBottomOf="@id/iv_room_buildingDetail"
+        tools:text="강남구 역삼1동 멀티 캠퍼스" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_price_buildingDetail"
+        style="@style/TextAppearance.MaterialComponents.Headline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_area_buildingDetail"
+        app:layout_constraintStart_toStartOf="@id/guildLine_start_buildingDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tv_address_buildingDetail"
+        tools:text="5800만원" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_area_buildingDetail"
+        style="@style/TextAppearance.Material3.BodyLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_floor_buildingDetail"
+        app:layout_constraintStart_toStartOf="@id/guildLine_start_buildingDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tv_price_buildingDetail"
+        tools:text="35평" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_floor_buildingDetail"
+        style="@style/TextAppearance.Material3.BodyLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_built_buildingDetail"
+        app:layout_constraintStart_toStartOf="@id/guildLine_start_buildingDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tv_area_buildingDetail"
+        tools:text="16층" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_built_buildingDetail"
+        style="@style/TextAppearance.Material3.BodyLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/map_buildingDetail"
+        app:layout_constraintStart_toStartOf="@id/guildLine_start_buildingDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tv_floor_buildingDetail"
+        tools:text="18년 건축" />
+
+    <fragment
+        android:id="@+id/map_buildingDetail"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="5:3"
+        map:cameraZoom="16"
+        map:liteMode="true"
+        tools:layout="@layout/fragment_dummy" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
