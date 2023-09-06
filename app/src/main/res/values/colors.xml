@@ -2,6 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="background">#FFF4F6FC</color>
+    <color name="backgroundLogo">#FFB6CCDD</color>
     <color name="backgroundToolbar">#FFD4DAEC</color>
     <color name="colorPrimary800">#FF0076BE</color>
     <color name="colorPrimary600">#FF0099E6</color>

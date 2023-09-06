@@ -19,4 +19,12 @@
     <string name="price_buildingDetail_item">%1$,d만원</string>
     <string name="built_buildingDetail_item">%1$d년 건축</string>
     <string name="floor_buildingDetail_item">%1$d층</string>
+
+    <!-- 로그인 화면-->
+    <string name="id_hint">ID</string>
+    <string name="pw_hint">Password</string>
+    <string name="accountNum_hint">계좌번호</string>
+    <string name="certNum_hint">인증번호</string>
+    <string name="login_tv">로그인</string>
+    <string name="register_tv">회원가입</string>
 </resources>

@@ -13,6 +13,10 @@
         <item name="android:textColor">@color/font</item>
     </style>
 
+    <style name="TOTT.FilledButton" parent="Widget.Material3.Button.TextButton">
+        <item name="android:backgroundTint">@color/colorPrimary600</item>
+        <item name="android:textColor">@color/font</item>
+    </style>
 
     <!--    글자      -->
     <style name="TOTT.Text.H1" parent="Widget.MaterialComponents.TextView">
