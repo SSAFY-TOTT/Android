@@ -66,7 +66,7 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.6.1")
 
     // Hilt
-    val hiltVersion = "2.47"
+    val hiltVersion = "2.48"
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-compiler:$hiltVersion")
 
