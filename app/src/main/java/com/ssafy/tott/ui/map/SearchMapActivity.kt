@@ -5,8 +5,11 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -24,7 +27,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
-
+    private val viewModel: SearchMapViewModel by viewModels()
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivitySearchMapBinding
     private val modalBottomSheet = SimpleHouseListDialogFragment()
@@ -119,6 +122,15 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
                 return View(applicationContext)
             }
         })
+        lifecycleScope.launch {
+            viewModel.buildings.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect { list ->
+                    list.forEach {
+                        clusterManager.addItem(ClusterMarker(it))
+                    }
+                    clusterManager.cluster()
+                }
+        }
         map.setOnCameraIdleListener(clusterManager)
 //        setupMapClickListener(clusterManager)
     }
