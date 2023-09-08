@@ -5,8 +5,11 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -24,15 +27,16 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
-
+    private val viewModel: SearchMapViewModel by viewModels()
     private lateinit var map: GoogleMap
-    private lateinit var binding: ActivitySearchMapBinding
+    private lateinit var clusterManager: ClusterManager<ClusterMarker>
+    private val binding: ActivitySearchMapBinding by lazy {
+        ActivitySearchMapBinding.inflate(layoutInflater)
+    }
     private val modalBottomSheet = SimpleHouseListDialogFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivitySearchMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.fragmentContainer_map_searchMap) as SupportMapFragment
@@ -98,6 +102,7 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+        clusterManager = ClusterManager<ClusterMarker>(this, map)
         lifecycleScope.launch {
             val lat = 38.0
             val lng = 127.0
@@ -108,18 +113,34 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun setUpCluster() {
-        val clusterManager = ClusterManager<ClusterMarker>(this, map)
-
         clusterManager.markerCollection.setInfoWindowAdapter(object : GoogleMap.InfoWindowAdapter {
-            override fun getInfoContents(p0: Marker): View {
+            override fun getInfoContents(marker: Marker): View {
                 return View(applicationContext)
             }
 
-            override fun getInfoWindow(p0: Marker): View {
+            override fun getInfoWindow(marker: Marker): View {
                 return View(applicationContext)
             }
         })
+        observeBuildings()
         map.setOnCameraIdleListener(clusterManager)
 //        setupMapClickListener(clusterManager)
+    }
+
+    private fun observeBuildings() {
+        lifecycleScope.launch {
+            viewModel.buildings.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect { list ->
+                    list.firstOrNull()?.let {
+                        map.moveCamera(
+                            CameraUpdateFactory.newLatLngZoom(LatLng(it.lat, it.lng), 13f)
+                        )
+                    }
+                    list.forEach {
+                        clusterManager.addItem(ClusterMarker(it))
+                    }
+                    clusterManager.cluster()
+                }
+        }
     }
 }
