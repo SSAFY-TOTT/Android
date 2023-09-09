@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface SearchBuildingService {
     @FormUrlEncoded
-    @GET("/api/auth/region/search")
+    @GET("/api/house/search")
     suspend fun fetchSearchedBuilding(
         @Query("districtName")
         districtName: String,
