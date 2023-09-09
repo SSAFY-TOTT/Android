@@ -26,8 +26,8 @@ class RegisterActivity : AppCompatActivity() {
             viewModel.makeCertNum(
                 RegisterUser(
                     id = binding.editTextIdRegister.text?.toString() ?: "",
-                    password = binding.editTextPwRegister.text?.toString() ?: "",
-                    password2 = binding.editTextPw2Register.text?.toString() ?: "",
+                    password = binding.editTextPasswordRegister.text?.toString() ?: "",
+                    validPassword = binding.editTextValidPasswordRegister.text?.toString() ?: "",
                     phone = binding.editTextPhoneRegister.text?.toString() ?: "",
                     accountNum = binding.editTextAccountNumRegister.text?.toString() ?: "",
                 )

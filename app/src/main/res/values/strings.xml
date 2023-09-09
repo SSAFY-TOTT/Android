@@ -22,8 +22,8 @@
 
     <!-- 로그인 화면-->
     <string name="id_hint">아이디</string>
-    <string name="pw_hint">비밀번호</string>
-    <string name="pw2_hint">비밀번호 재입력</string>
+    <string name="password_hint">비밀번호</string>
+    <string name="validPw_hint">비밀번호 재입력</string>
     <string name="accountNum_hint">계좌번호</string>
     <string name="certNum_hint">인증번호</string>
     <string name="phone_hint">연락처(-없이 입력)</string>
