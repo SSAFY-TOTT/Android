@@ -26,7 +26,7 @@ class SearchMapViewModel @Inject constructor(val useCase: SearchBuildingUseCase)
     private val minArea = MutableLiveData<Int>(13)
     private val maxArea = MutableLiveData<Int>(21)
     private val type = MutableLiveData<List<String>>(listOf("아파트"))
-    private val built = MutableLiveData<String>("전체")
+    private val built = MutableLiveData<Int>(0)
 
     fun getDistrictName() = districtName.value
 
@@ -48,7 +48,7 @@ class SearchMapViewModel @Inject constructor(val useCase: SearchBuildingUseCase)
         }
 
     fun saveFilterSetting(
-        districtName: String, legalDongName: String, built: String,
+        districtName: String, legalDongName: String, built: Int,
         priceList: List<Float>, areaList: List<Float>, types: List<String>,
     ) {
         Log.d(
@@ -67,7 +67,7 @@ class SearchMapViewModel @Inject constructor(val useCase: SearchBuildingUseCase)
     private fun loadFilteredData() {
         val districtName = districtName.value ?: return
         val legalDongName = legalDongName.value ?: return
-        val built = 0
+        val built = built.value ?: return
         val minArea = minArea.value ?: return
         val maxArea = maxArea.value ?: return
         val minPrice = minPrice.value ?: return

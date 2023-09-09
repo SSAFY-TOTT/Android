@@ -47,10 +47,10 @@ class SearchFilterFragment : Fragment() {
             builtArray, "전체"
         )
         binding.rangeSliderAreaSearchFilter.initRangeSlider(
-            0f, 100f, 1f, searchFilterViewModel.areaList
-        ) // 단위 백만
+            0f, 60f, 3f, searchFilterViewModel.areaList
+        ) // 단위 평
         binding.rangeSliderPriceSearchFilter.initRangeSlider(
-            0f, 100f, 1f, searchFilterViewModel.priceList
+            0f, 100f, 3f, searchFilterViewModel.priceList
         ) // 단위 천만
     }
 
@@ -89,6 +89,7 @@ class SearchFilterFragment : Fragment() {
         val districtName = binding.autoTextViewAddress1SearchFilter.editableText.toString()
         val legalDongName = binding.autoTextViewAddress2SearchFilter.editableText.toString()
         val built = binding.autoTextViewBuiltSearchFilter.editableText.toString()
+            .takeWhile { it.isDigit() }.takeIf { it.isNotBlank() }?.toInt() ?: 1000
         val priceList = binding.rangeSliderPriceSearchFilter.values
         val areaList = binding.rangeSliderAreaSearchFilter.values
         val types = binding.btnGroupHouseTypeSearchFilter.checkedButtonIds
