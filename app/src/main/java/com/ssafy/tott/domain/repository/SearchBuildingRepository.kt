@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface SearchBuildingRepository {
-    fun getBuildings(searchFilter: SearchFilter): Flow<List<Building>>
+    fun getBuildings(searchFilter: SearchFilter): Flow<Result<List<Building>>>
 }

@@ -79,9 +79,13 @@ class SearchMapViewModel @Inject constructor(val useCase: SearchBuildingUseCase)
             type, built
         )
         viewModelScope.launch {
-            useCase(searchFilter).collect {
-                Log.d(this::class.simpleName, "loadFilteredData: $it")
-                _buildings.value = it
+            useCase(searchFilter).collect { result ->
+                Log.d(this::class.simpleName, "loadFilteredData: $result")
+                result.onSuccess {
+                    _buildings.value = result.getOrThrow()
+                }.onFailure {
+                    Log.d(this::class.simpleName, "loadFilteredData: ${it.message}")
+                }
             }
         }
     }

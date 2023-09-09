@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class SearchBuildingUseCase @Inject constructor(private val buildingRepository: SearchBuildingRepository) {
-    operator fun invoke(searchFilter: SearchFilter): Flow<List<Building>> {
+    operator fun invoke(searchFilter: SearchFilter): Flow<Result<List<Building>>> {
         return buildingRepository.getBuildings(searchFilter)
     }
 }

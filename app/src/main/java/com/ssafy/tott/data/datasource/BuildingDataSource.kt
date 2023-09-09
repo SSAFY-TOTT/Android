@@ -1,9 +1,9 @@
 package com.ssafy.tott.data.datasource
 
-import com.ssafy.tott.domain.model.Building
-import com.ssafy.tott.domain.model.SearchFilter
+import com.ssafy.tott.data.model.request.SearchFilterRequest
+import com.ssafy.tott.data.model.response.BuildingListResponse
 import kotlinx.coroutines.flow.Flow
 
 interface BuildingDataSource {
-    fun searchBuilding(searchFilter: SearchFilter): Flow<List<Building>>
+    fun searchBuilding(searchFilter: SearchFilterRequest): Flow<Result<BuildingListResponse>>
 }
