@@ -1,5 +1,6 @@
 package com.ssafy.tott.ui.map
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,15 +8,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ssafy.tott.databinding.RvBuildingDetailBinding
+import com.ssafy.tott.ui.buildingdetail.BuildingDetailActivity
 import com.ssafy.tott.ui.houselist.BuildingDetailListAdapter
-import com.ssafy.tott.ui.model.BuildingDetailUI
 import dagger.hilt.android.AndroidEntryPoint
 
 const val ARG_ITEM_COUNT = "item_count"
 
 @AndroidEntryPoint
 class SimpleHouseListDialogFragment : BottomSheetDialogFragment() {
-
     private var _binding: RvBuildingDetailBinding? = null
     private val binding get() = _binding!!
 
@@ -32,7 +32,11 @@ class SimpleHouseListDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun initRecycleView() {
-        val adapter = BuildingDetailListAdapter()
+        val adapter = BuildingDetailListAdapter {
+            val intent = Intent(context, BuildingDetailActivity::class.java)
+            intent.putExtra(BuildingDetailActivity.TAG_BUILDING_DETAIL, it)
+            startActivity(intent)
+        }
         //TODO 임시 데이터
         adapter.submitList(listOf())
         binding.rvSimpleHouse.layoutManager = LinearLayoutManager(context)

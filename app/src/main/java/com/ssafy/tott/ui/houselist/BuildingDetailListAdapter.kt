@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.tott.databinding.ItemBuildingDetailBinding
 import com.ssafy.tott.ui.model.BuildingDetailUI
 
-class BuildingDetailListAdapter : ListAdapter<BuildingDetailUI, RecyclerView.ViewHolder>(diffUtil) {
+class BuildingDetailListAdapter(private val clickListener: (buildingDetailUI: BuildingDetailUI) -> Unit) :
+    ListAdapter<BuildingDetailUI, RecyclerView.ViewHolder>(diffUtil) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ItemBuildingDetailBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
@@ -17,7 +18,10 @@ class BuildingDetailListAdapter : ListAdapter<BuildingDetailUI, RecyclerView.Vie
         val holder = BuildingDetailViewHolder(binding)
         binding.root.setOnClickListener {
             Log.d("SimpleHouseListAdapter", it.toString())
-            // TODO 리스트 클릭
+            val position = holder.bindingAdapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                clickListener(getItem(position))
+            }
         }
         return holder
     }
