@@ -10,6 +10,7 @@ data class Building(
     val legalDongName: String,
     val districtName: String,
     val buildingName: String,
+    val built: Int,
 ) {
     val latLng = LatLng(lat, lng)
     val simpleAddress = "$districtName $legalDongName $buildingName"

@@ -34,6 +34,6 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun provideSearchBuildingDataSource(): BuildingDataSource =
-        BuildingRemoteDataSource()
+    fun provideSearchBuildingDataSource(buildingService: SearchBuildingService): BuildingDataSource =
+        BuildingRemoteDataSource(buildingService)
 }
