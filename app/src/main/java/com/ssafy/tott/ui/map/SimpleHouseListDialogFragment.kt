@@ -1,5 +1,6 @@
 package com.ssafy.tott.ui.map
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ssafy.tott.databinding.RvBuildingDetailBinding
+import com.ssafy.tott.ui.buildingdetail.BuildingDetailActivity
 import com.ssafy.tott.ui.houselist.BuildingDetailListAdapter
 import com.ssafy.tott.ui.model.BuildingDetailUI
 import com.ssafy.tott.ui.util.parcelableArray
@@ -14,7 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SimpleHouseListDialogFragment : BottomSheetDialogFragment() {
-
     private var _binding: RvBuildingDetailBinding? = null
     private val binding get() = _binding!!
     private var buildingDetailUIArray: Array<BuildingDetailUI>? = null
@@ -34,7 +35,11 @@ class SimpleHouseListDialogFragment : BottomSheetDialogFragment() {
     private fun initRecycleView() {
         buildingDetailUIArray =
             arguments?.parcelableArray(BUILDING_DETAIL_UI_TAG, BuildingDetailUI::class.java)
-        val adapter = BuildingDetailListAdapter()
+        val adapter = BuildingDetailListAdapter {
+            val intent = Intent(context, BuildingDetailActivity::class.java)
+            intent.putExtra(BuildingDetailActivity.TAG_BUILDING_DETAIL, it)
+            startActivity(intent)
+        }
         adapter.submitList(buildingDetailUIArray?.toList())
         binding.rvSimpleHouse.layoutManager = LinearLayoutManager(context)
         binding.rvSimpleHouse.adapter = adapter

@@ -1,8 +1,9 @@
 package com.ssafy.tott.ui.buildingdetail
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -15,6 +16,7 @@ import com.google.maps.android.ktx.addMarker
 import com.ssafy.tott.R
 import com.ssafy.tott.databinding.ActivityBuildingDetailBinding
 import com.ssafy.tott.ui.model.BuildingDetailUI
+import com.ssafy.tott.ui.util.getParcelable
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,13 +29,11 @@ class BuildingDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         binding = ActivityBuildingDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        buildingDetailUI = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(TAG_BUILDING_DETAIL, BuildingDetailUI::class.java)
-        } else {
-            intent.getParcelableExtra(TAG_BUILDING_DETAIL)
-        }
+        buildingDetailUI =
+            intent.getParcelable(TAG_BUILDING_DETAIL, BuildingDetailUI::class.java)
         initLayout()
         initMap()
+        initToolbar()
     }
 
     private fun initLayout() {
@@ -58,7 +58,6 @@ class BuildingDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map_buildingDetail) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -74,6 +73,30 @@ class BuildingDetailActivity : AppCompatActivity(), OnMapReadyCallback {
                 position(latLng)
                 title(simpleAddress)
             }
+        }
+    }
+
+    private fun initToolbar() {
+        setSupportActionBar(binding.toolbarBuildingDetail)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_search_map, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        android.R.id.home -> {
+            Log.d(
+                this::class.simpleName,
+                "onOptionsItemSelected: home ${supportFragmentManager.backStackEntryCount}"
+            )
+            onBackPressed()
+            true
+        }
+
+        else -> {
+            super.onOptionsItemSelected(item)
         }
     }
 
