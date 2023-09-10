@@ -3,6 +3,8 @@ package com.ssafy.tott.ui.buildingdetail
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -34,6 +36,7 @@ class BuildingDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         initLayout()
         initMap()
+        initToolbar()
     }
 
     private fun initLayout() {
@@ -58,7 +61,6 @@ class BuildingDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map_buildingDetail) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -74,6 +76,30 @@ class BuildingDetailActivity : AppCompatActivity(), OnMapReadyCallback {
                 position(latLng)
                 title(simpleAddress)
             }
+        }
+    }
+
+    private fun initToolbar() {
+        setSupportActionBar(binding.toolbarBuildingDetail)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_search_map, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        android.R.id.home -> {
+            Log.d(
+                this::class.simpleName,
+                "onOptionsItemSelected: home ${supportFragmentManager.backStackEntryCount}"
+            )
+            onBackPressed()
+            true
+        }
+
+        else -> {
+            super.onOptionsItemSelected(item)
         }
     }
 
