@@ -47,10 +47,16 @@ class SearchFilterFragment : Fragment() {
             builtArray, "전체"
         )
         binding.rangeSliderAreaSearchFilter.initRangeSlider(
-            0f, 60f, 3f, searchFilterViewModel.areaList
+            SearchMapViewModel.MIN_AREA.toFloat(),
+            SearchMapViewModel.MAX_AREA.toFloat(),
+            AREA_RANGE_SEPARATION,
+            searchFilterViewModel.areaList,
         ) // 단위 평
         binding.rangeSliderPriceSearchFilter.initRangeSlider(
-            0f, 100f, 3f, searchFilterViewModel.priceList
+            SearchMapViewModel.MIN_PRICE.toFloat(),
+            SearchMapViewModel.MAX_PRICE.toFloat(),
+            PRICE_RANGE_SEPARATION,
+            searchFilterViewModel.priceList,
         ) // 단위 천만
     }
 
@@ -130,5 +136,8 @@ class SearchFilterFragment : Fragment() {
         private val districtNames = arrayOf("강남구", "서초구", "중구")
         private val legalDongNames = arrayOf("역삼1동", "논현1동", "신사동")
         private val builtArray = arrayOf("전체", "5년전", "10년전", "15년전")
+
+        private const val PRICE_RANGE_SEPARATION = 3f
+        private const val AREA_RANGE_SEPARATION = 3f
     }
 }
