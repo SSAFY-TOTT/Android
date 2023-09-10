@@ -17,6 +17,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import com.google.android.material.snackbar.Snackbar
 import com.google.maps.android.clustering.ClusterManager
 import com.ssafy.tott.R
 import com.ssafy.tott.databinding.ActivitySearchMapBinding
@@ -128,6 +129,10 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun setupMapClickListener() {
         clusterManager.setOnClusterItemClickListener {
+            if (it.building.buildingDetails.isEmpty()) {
+                Snackbar.make(this, binding.root, "매물이 없습니다.", Snackbar.LENGTH_LONG).show()
+                return@setOnClusterItemClickListener true
+            }
             val modalBottomSheet = SimpleHouseListDialogFragment.newInstance(
                 it.building.toBuildingDetailUIList().toTypedArray()
             )
