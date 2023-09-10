@@ -19,8 +19,8 @@ class SearchMapViewModel @Inject constructor(val useCase: SearchBuildingUseCase)
     private val _buildings = MutableStateFlow<List<Building>>(listOf())
     val buildings = _buildings.asStateFlow()
 
-    private val districtName = MutableLiveData<String>("강남구")
-    private val legalDongName = MutableLiveData<String>("역삼1동")
+    private val districtName = MutableLiveData<String>(null)
+    private val legalDongName = MutableLiveData<String>(null)
     private val minPrice = MutableLiveData<Int>(MIN_PRICE)
     private val maxPrice = MutableLiveData<Int>(MAX_PRICE)
     private val minArea = MutableLiveData<Int>(MIN_AREA)
@@ -98,6 +98,6 @@ class SearchMapViewModel @Inject constructor(val useCase: SearchBuildingUseCase)
         const val MIN_AREA = 3
         const val MAX_AREA = 60
         const val DEFAULT_BUILT = 1000
-        val BUILDING_TYPES = listOf("아파트", "오피스텔")
+        var BUILDING_TYPES = listOf<String>()
     }
 }

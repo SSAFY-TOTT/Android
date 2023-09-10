@@ -30,7 +30,6 @@ class SearchFilterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSearchFilterBinding.inflate(layoutInflater, container, false)
-
         return binding.root
     }
 
@@ -82,7 +81,7 @@ class SearchFilterFragment : Fragment() {
         values = initValue
         setLabelFormatter { value ->
             if (value >= to) {
-                "제한 없음"
+                context.getString(R.string.MAX_RANGE_BAR)
             } else if (unit == null) {
                 value.toInt().toString()
             } else {
