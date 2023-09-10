@@ -2,17 +2,244 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/DefaultConstraint"
     tools:context=".ui.MainActivity">
 
-    <TextView
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_main"
+        style="@style/TOTT.Toolbar"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_start_vertical_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_end_vertical_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_totalMoney_main"
+        style="@style/TextAppearance.Material3.HeadlineMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/totalMoney_title"
+        app:layout_constraintBottom_toTopOf="@id/tv_totalAccountMoney_main"
+        app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_main"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_main" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_explain_totalAccountMoney_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_explain_totalExtraMoney_main"
+        app:layout_constraintStart_toStartOf="@id/tv_totalMoney_main"
+        app:layout_constraintTop_toBottomOf="@id/tv_totalMoney_main"
+        tools:text="계좌 잔액" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_totalAccountMoney_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/money_zero"
+        app:layout_constraintBottom_toBottomOf="@id/tv_explain_totalAccountMoney_main"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_main"
+        app:layout_constraintTop_toTopOf="@id/tv_explain_totalAccountMoney_main"
+        tools:text="계좌 잔액" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_explain_totalExtraMoney_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_explain_loanMoney_main"
+        app:layout_constraintStart_toStartOf="@id/tv_totalMoney_main"
+        app:layout_constraintTop_toBottomOf="@id/tv_explain_totalAccountMoney_main"
+        tools:text="추가 자금" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_totalExtraMoney_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/money_zero"
+        app:layout_constraintBottom_toBottomOf="@id/tv_explain_totalExtraMoney_main"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_main"
+        app:layout_constraintTop_toTopOf="@id/tv_explain_totalExtraMoney_main" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_explain_loanMoney_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_searchBuilding_main"
+        app:layout_constraintStart_toStartOf="@id/tv_totalMoney_main"
+        app:layout_constraintTop_toBottomOf="@id/tv_explain_totalExtraMoney_main" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_loanMoney_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/money_zero"
+        app:layout_constraintBottom_toBottomOf="@id/tv_explain_loanMoney_main"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_main"
+        app:layout_constraintTop_toTopOf="@id/tv_explain_loanMoney_main" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_searchBuilding_main"
+        style="@style/TextAppearance.Material3.HeadlineMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/searchBuilding_title"
+        app:layout_constraintBottom_toTopOf="@id/inputLayout_districtName_main"
+        app:layout_constraintStart_toStartOf="@id/tv_totalMoney_main"
+        app:layout_constraintTop_toBottomOf="@id/tv_explain_loanMoney_main" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputLayout_districtName_main"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_recentViewList_main"
+        app:layout_constraintEnd_toStartOf="@id/inputLayout_legalDongName_main"
+        app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_main"
+        app:layout_constraintTop_toBottomOf="@id/tv_searchBuilding_main">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/autoTextView_districtName_main"
+            style="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:text="강남구"
+            tools:text="강남구" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputLayout_legalDongName_main"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/inputLayout_districtName_main"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_main"
+        app:layout_constraintStart_toEndOf="@id/inputLayout_districtName_main"
+        app:layout_constraintTop_toTopOf="@+id/inputLayout_districtName_main">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/autoTextView_legalDongName_main"
+            style="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:text="역삼1동"
+            tools:text="역삼1동" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_recentViewList_main"
+        style="@style/TextAppearance.Material3.HeadlineMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/recentList_title"
+        app:layout_constraintBottom_toTopOf="@id/rv_recentViewList_main"
+        app:layout_constraintStart_toStartOf="@id/tv_totalMoney_main"
+        app:layout_constraintTop_toBottomOf="@id/inputLayout_districtName_main" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/tv_more_recentViewList_main"
+        style="@style/TOTT.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/moreView"
+        app:layout_constraintBottom_toTopOf="@id/rv_recentViewList_main"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_main" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_recentViewList_main"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="100dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/tv_favoriteViewList_main"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_main"
+        app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_main"
+        app:layout_constraintTop_toBottomOf="@id/tv_recentViewList_main"
+        tools:listitem="@layout/item_building_detail" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_empty_recentViewList_main"
+        style="@style/TextAppearance.Material3.TitleLarge"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.8"
+        android:background="@color/colorPrimary200"
+        android:gravity="center"
+        android:text="@string/recentList_empty"
+        app:layout_constraintBottom_toBottomOf="@id/rv_recentViewList_main"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_main"
+        app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_main"
+        app:layout_constraintTop_toTopOf="@id/rv_recentViewList_main" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_favoriteViewList_main"
+        style="@style/TextAppearance.Material3.HeadlineMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/favoriteList_title"
+        app:layout_constraintBottom_toTopOf="@id/rv_favoriteViewList_main"
+        app:layout_constraintStart_toStartOf="@id/tv_totalMoney_main"
+        app:layout_constraintTop_toBottomOf="@id/rv_recentViewList_main" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/tv_more_favoriteViewList_main"
+        style="@style/TOTT.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/moreView"
+        app:layout_constraintBottom_toTopOf="@id/rv_favoriteViewList_main"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_main" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_favoriteViewList_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:minHeight="100dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_main"
+        app:layout_constraintTop_toBottomOf="@id/tv_favoriteViewList_main"
+        tools:listitem="@layout/item_building_detail" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_empty_favoriteViewList_main"
+        style="@style/TextAppearance.Material3.TitleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/favoriteList_empty"
+        app:layout_constraintBottom_toBottomOf="@id/rv_favoriteViewList_main"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_main"
+        app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_main"
+        app:layout_constraintTop_toTopOf="@id/rv_favoriteViewList_main" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
