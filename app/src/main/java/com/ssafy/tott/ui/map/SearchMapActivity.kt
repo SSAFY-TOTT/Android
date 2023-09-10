@@ -17,9 +17,11 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import com.google.android.material.snackbar.Snackbar
 import com.google.maps.android.clustering.ClusterManager
 import com.ssafy.tott.R
 import com.ssafy.tott.databinding.ActivitySearchMapBinding
+import com.ssafy.tott.ui.model.BuildingDetailUI.Companion.toBuildingDetailUIList
 import com.ssafy.tott.ui.model.ClusterMarker
 import com.ssafy.tott.ui.searchfilter.SearchFilterFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +35,6 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
     private val binding: ActivitySearchMapBinding by lazy {
         ActivitySearchMapBinding.inflate(layoutInflater)
     }
-    private val modalBottomSheet = SimpleHouseListDialogFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +42,6 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.fragmentContainer_map_searchMap) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
-//        modalBottomSheet.show(supportFragmentManager, SimpleHouseListDialogFragment.TAG)
         SearchMapViewModel.BUILDING_TYPES =
             resources.getStringArray(R.array.building_types).toList()
 
@@ -125,8 +124,24 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         })
         observeBuildings()
-        map.setOnCameraIdleListener(clusterManager)
-//        setupMapClickListener(clusterManager)
+        setupMapClickListener()
+    }
+
+    private fun setupMapClickListener() {
+        clusterManager.setOnClusterItemClickListener {
+            if (it.building.buildingDetails.isEmpty()) {
+                Snackbar.make(this, binding.root, "매물이 없습니다.", Snackbar.LENGTH_LONG).show()
+                return@setOnClusterItemClickListener true
+            }
+            val modalBottomSheet = SimpleHouseListDialogFragment.newInstance(
+                it.building.toBuildingDetailUIList().toTypedArray()
+            )
+            modalBottomSheet.show(
+                supportFragmentManager,
+                SimpleHouseListDialogFragment.BUILDING_lIST_MODAL_TAG
+            )
+            true
+        }
     }
 
     private fun observeBuildings() {

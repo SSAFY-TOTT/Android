@@ -10,14 +10,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ssafy.tott.databinding.RvBuildingDetailBinding
 import com.ssafy.tott.ui.buildingdetail.BuildingDetailActivity
 import com.ssafy.tott.ui.houselist.BuildingDetailListAdapter
+import com.ssafy.tott.ui.model.BuildingDetailUI
+import com.ssafy.tott.ui.util.parcelableArray
 import dagger.hilt.android.AndroidEntryPoint
-
-const val ARG_ITEM_COUNT = "item_count"
 
 @AndroidEntryPoint
 class SimpleHouseListDialogFragment : BottomSheetDialogFragment() {
     private var _binding: RvBuildingDetailBinding? = null
     private val binding get() = _binding!!
+    private var buildingDetailUIArray: Array<BuildingDetailUI>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,26 +33,28 @@ class SimpleHouseListDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun initRecycleView() {
+        buildingDetailUIArray =
+            arguments?.parcelableArray(BUILDING_DETAIL_UI_TAG, BuildingDetailUI::class.java)
         val adapter = BuildingDetailListAdapter {
             val intent = Intent(context, BuildingDetailActivity::class.java)
             intent.putExtra(BuildingDetailActivity.TAG_BUILDING_DETAIL, it)
             startActivity(intent)
         }
-        //TODO 임시 데이터
-        adapter.submitList(listOf())
+        adapter.submitList(buildingDetailUIArray?.toList())
         binding.rvSimpleHouse.layoutManager = LinearLayoutManager(context)
         binding.rvSimpleHouse.adapter = adapter
     }
 
     companion object {
-        fun newInstance(itemCount: Int): SimpleHouseListDialogFragment =
+        fun newInstance(items: Array<BuildingDetailUI>): SimpleHouseListDialogFragment =
             SimpleHouseListDialogFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(ARG_ITEM_COUNT, itemCount)
+                    putParcelableArray(BUILDING_DETAIL_UI_TAG, items)
                 }
             }
 
-        const val TAG = "ModalBottomSheet"
+        const val BUILDING_lIST_MODAL_TAG = "BUILDING_lIST_MODAL_TAG"
+        private const val BUILDING_DETAIL_UI_TAG = "BUILDING_DETAIL_UI"
     }
 
     override fun onDestroyView() {
