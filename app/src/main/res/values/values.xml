@@ -8,4 +8,8 @@
         <item>20.0</item>
         <item>30.0</item>
     </array>
+    <string-array name = "building_types">
+        <item>아파트</item>
+        <item>오피스텔</item>
+    </string-array>
 </resources>

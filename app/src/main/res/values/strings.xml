@@ -13,6 +13,7 @@
     <string name="toolbar_saveFilter">저장</string>
     <string name="price_unit_searchFilter">단위: 천만원</string>
     <string name="price_area_searchFilter">단위: 평</string>
+    <string name="MAX_RANGE_BAR">제한 없음</string>
 
     <!--  매물 화면  -->
     <string name="toolbar_buildingDetail_item">상세 정보</string>
