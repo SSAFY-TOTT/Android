@@ -11,6 +11,7 @@
 
     <style name="TOTT.OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:textColor">@color/font</item>
+        <item name="android:textAppearance">@style/TextAppearance.Material3.BodyLarge</item>
     </style>
 
     <style name="TOTT.FilledButton" parent="Widget.Material3.Button.TextButton">

@@ -30,7 +30,6 @@ class SearchFilterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSearchFilterBinding.inflate(layoutInflater, container, false)
-
         return binding.root
     }
 
@@ -47,10 +46,16 @@ class SearchFilterFragment : Fragment() {
             builtArray, "전체"
         )
         binding.rangeSliderAreaSearchFilter.initRangeSlider(
-            0f, 100f, 1f, searchFilterViewModel.areaList
-        ) // 단위 백만
+            SearchMapViewModel.MIN_AREA.toFloat(),
+            SearchMapViewModel.MAX_AREA.toFloat(),
+            AREA_RANGE_SEPARATION,
+            searchFilterViewModel.areaList,
+        ) // 단위 평
         binding.rangeSliderPriceSearchFilter.initRangeSlider(
-            0f, 100f, 1f, searchFilterViewModel.priceList
+            SearchMapViewModel.MIN_PRICE.toFloat(),
+            SearchMapViewModel.MAX_PRICE.toFloat(),
+            PRICE_RANGE_SEPARATION,
+            searchFilterViewModel.priceList,
         ) // 단위 천만
     }
 
@@ -76,7 +81,7 @@ class SearchFilterFragment : Fragment() {
         values = initValue
         setLabelFormatter { value ->
             if (value >= to) {
-                "제한 없음"
+                context.getString(R.string.MAX_RANGE_BAR)
             } else if (unit == null) {
                 value.toInt().toString()
             } else {
@@ -89,6 +94,7 @@ class SearchFilterFragment : Fragment() {
         val districtName = binding.autoTextViewAddress1SearchFilter.editableText.toString()
         val legalDongName = binding.autoTextViewAddress2SearchFilter.editableText.toString()
         val built = binding.autoTextViewBuiltSearchFilter.editableText.toString()
+            .takeWhile { it.isDigit() }.takeIf { it.isNotBlank() }?.toInt() ?: 1000
         val priceList = binding.rangeSliderPriceSearchFilter.values
         val areaList = binding.rangeSliderAreaSearchFilter.values
         val types = binding.btnGroupHouseTypeSearchFilter.checkedButtonIds
@@ -129,5 +135,8 @@ class SearchFilterFragment : Fragment() {
         private val districtNames = arrayOf("강남구", "서초구", "중구")
         private val legalDongNames = arrayOf("역삼1동", "논현1동", "신사동")
         private val builtArray = arrayOf("전체", "5년전", "10년전", "15년전")
+
+        private const val PRICE_RANGE_SEPARATION = 3f
+        private const val AREA_RANGE_SEPARATION = 3f
     }
 }

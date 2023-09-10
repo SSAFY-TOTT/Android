@@ -42,7 +42,9 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.fragmentContainer_map_searchMap) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        modalBottomSheet.show(supportFragmentManager, SimpleHouseListDialogFragment.TAG)
+//        modalBottomSheet.show(supportFragmentManager, SimpleHouseListDialogFragment.TAG)
+        SearchMapViewModel.BUILDING_TYPES =
+            resources.getStringArray(R.array.building_types).toList()
 
         initToolbar()
     }
