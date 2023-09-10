@@ -30,19 +30,19 @@ class HomeActivity : AppCompatActivity() {
             intent.putExtra(BuildingDetailActivity.TAG_BUILDING_DETAIL, it)
             startActivity(intent)
         }
-        binding.rvRecentViewListMain.adapter = recentListAdapter
+        binding.rvRecentViewListHome.adapter = recentListAdapter
 
         val favoriteListAdapter = BuildingDetailListAdapter {
             val intent = Intent(this, BuildingDetailActivity::class.java)
             intent.putExtra(BuildingDetailActivity.TAG_BUILDING_DETAIL, it)
             startActivity(intent)
         }
-        binding.rvFavoriteViewListMain.adapter = favoriteListAdapter
+        binding.rvFavoriteViewListHome.adapter = favoriteListAdapter
 
         lifecycleScope.launch {
             viewModel.recentBuildingDetails.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collect {
-                    binding.tvEmptyRecentViewListMain.visibility = if (it.isNotEmpty()) {
+                    binding.tvEmptyRecentViewListHome.visibility = if (it.isNotEmpty()) {
                         View.GONE
                     } else {
                         View.VISIBLE
@@ -51,7 +51,7 @@ class HomeActivity : AppCompatActivity() {
                 }
             viewModel.favoriteBuildingDetails.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collect {
-                    binding.tvEmptyFavoriteViewListMain.visibility = if (it.isNotEmpty()) {
+                    binding.tvEmptyFavoriteViewListHome.visibility = if (it.isNotEmpty()) {
                         View.GONE
                     } else {
                         View.VISIBLE
