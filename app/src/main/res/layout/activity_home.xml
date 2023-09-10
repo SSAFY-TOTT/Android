@@ -41,32 +41,33 @@
         android:id="@+id/tv_explain_totalAccountMoney_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/totalAccount_explain"
         app:layout_constraintBottom_toTopOf="@id/tv_explain_totalExtraMoney_main"
         app:layout_constraintStart_toStartOf="@id/tv_totalMoney_main"
-        app:layout_constraintTop_toBottomOf="@id/tv_totalMoney_main"
-        tools:text="계좌 잔액" />
+        app:layout_constraintTop_toBottomOf="@id/tv_totalMoney_main" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_totalAccountMoney_main"
+        style="@style/TextAppearance.Material3.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/money_zero"
         app:layout_constraintBottom_toBottomOf="@id/tv_explain_totalAccountMoney_main"
         app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_main"
-        app:layout_constraintTop_toTopOf="@id/tv_explain_totalAccountMoney_main"
-        tools:text="계좌 잔액" />
+        app:layout_constraintTop_toTopOf="@id/tv_explain_totalAccountMoney_main" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_explain_totalExtraMoney_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/totalExtra_explain"
         app:layout_constraintBottom_toTopOf="@id/tv_explain_loanMoney_main"
         app:layout_constraintStart_toStartOf="@id/tv_totalMoney_main"
-        app:layout_constraintTop_toBottomOf="@id/tv_explain_totalAccountMoney_main"
-        tools:text="추가 자금" />
+        app:layout_constraintTop_toBottomOf="@id/tv_explain_totalAccountMoney_main" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_totalExtraMoney_main"
+        style="@style/TextAppearance.Material3.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/money_zero"
@@ -78,12 +79,14 @@
         android:id="@+id/tv_explain_loanMoney_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/loan_explain"
         app:layout_constraintBottom_toTopOf="@id/tv_searchBuilding_main"
         app:layout_constraintStart_toStartOf="@id/tv_totalMoney_main"
         app:layout_constraintTop_toBottomOf="@id/tv_explain_totalExtraMoney_main" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_loanMoney_main"
+        style="@style/TextAppearance.Material3.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/money_zero"
@@ -233,8 +236,10 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_empty_favoriteViewList_main"
         style="@style/TextAppearance.Material3.TitleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.8"
+        android:background="@color/colorPrimary200"
         android:gravity="center"
         android:text="@string/favoriteList_empty"
         app:layout_constraintBottom_toBottomOf="@id/rv_favoriteViewList_main"

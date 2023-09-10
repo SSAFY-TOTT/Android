@@ -43,4 +43,7 @@
     <string name="moreView">더보기</string>
     <string name="recentList_empty">최근 조회한 매물이 없습니다.</string>
     <string name="favoriteList_empty">찜한 매물이 없습니다.</string>
+    <string name="totalAccount_explain">계좌 잔액</string>
+    <string name="totalExtra_explain">추가 자금</string>
+    <string name="loan_explain">대출 가능 금액</string>
 </resources>
