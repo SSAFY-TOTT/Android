@@ -1,6 +1,5 @@
 package com.ssafy.tott.ui.buildingdetail
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -17,6 +16,7 @@ import com.google.maps.android.ktx.addMarker
 import com.ssafy.tott.R
 import com.ssafy.tott.databinding.ActivityBuildingDetailBinding
 import com.ssafy.tott.ui.model.BuildingDetailUI
+import com.ssafy.tott.ui.util.getParcelable
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,11 +29,8 @@ class BuildingDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         binding = ActivityBuildingDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        buildingDetailUI = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(TAG_BUILDING_DETAIL, BuildingDetailUI::class.java)
-        } else {
-            intent.getParcelableExtra(TAG_BUILDING_DETAIL)
-        }
+        buildingDetailUI =
+            intent.getParcelable(TAG_BUILDING_DETAIL, BuildingDetailUI::class.java)
         initLayout()
         initMap()
         initToolbar()
