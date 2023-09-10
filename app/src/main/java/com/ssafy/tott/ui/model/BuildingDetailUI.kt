@@ -1,6 +1,7 @@
 package com.ssafy.tott.ui.model
 
 import android.os.Parcelable
+import com.ssafy.tott.domain.model.Building
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -14,4 +15,19 @@ data class BuildingDetailUI(
     val lng: Double,
     val simpleAddress: String,
     val built: Int,
-) : Parcelable
+) : Parcelable {
+    companion object {
+        fun Building.toBuildingDetailUIList() = buildingDetails.map {
+            BuildingDetailUI(
+                id = it.id,
+                price = it.price,
+                area = it.area,
+                floor = it.floor,
+                lat = lat,
+                lng = lng,
+                simpleAddress = simpleAddress,
+                built = built,
+            )
+        }
+    }
+}
