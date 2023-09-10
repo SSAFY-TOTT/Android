@@ -11,6 +11,8 @@
     <string name="built_searchFilter">준공년도</string>
     <string name="houseType_searchFilter">종류</string>
     <string name="toolbar_saveFilter">저장</string>
+    <string name="price_unit_searchFilter">단위: 천만원</string>
+    <string name="price_area_searchFilter">단위: 평</string>
 
     <!--  매물 화면  -->
     <string name="toolbar_buildingDetail_item">상세 정보</string>

@@ -102,7 +102,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_price_searchFilter"
-        style="@style/TOTT.Text.H3"
+        style="@style/TextAppearance.Material3.HeadlineMedium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/price_searchFilter"
@@ -110,6 +110,16 @@
         app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_searchFilter"
         app:layout_constraintTop_toBottomOf="@id/inputLayout_address1_searchFilter" />
 
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_price_unit_searchFilter"
+        android:layout_marginStart="10dp"
+        style="@style/TextAppearance.Material3.HeadlineSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/price_unit_searchFilter"
+        app:layout_constraintStart_toEndOf="@id/tv_price_searchFilter"
+        app:layout_constraintBottom_toBottomOf="@id/tv_price_searchFilter" />
 
     <com.google.android.material.slider.RangeSlider
         android:id="@+id/rangeSlider_price_searchFilter"
@@ -130,6 +140,16 @@
         app:layout_constraintBottom_toTopOf="@id/rangeSlider_area_searchFilter"
         app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_searchFilter"
         app:layout_constraintTop_toBottomOf="@id/rangeSlider_price_searchFilter" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_area_unit_searchFilter"
+        android:layout_marginStart="10dp"
+        style="@style/TextAppearance.Material3.HeadlineSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/price_area_searchFilter"
+        app:layout_constraintStart_toEndOf="@id/tv_area_searchFilter"
+        app:layout_constraintBottom_toBottomOf="@id/tv_area_searchFilter" />
 
     <com.google.android.material.slider.RangeSlider
         android:id="@+id/rangeSlider_area_searchFilter"
