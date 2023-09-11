@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TOTT</string>
+    <string name="app_name">전세역전</string>
 
     <!--    필터 설정 화면  -->
     <string name="toolbar_set_filter">필터 설정</string>
@@ -33,4 +33,20 @@
     <string name="login_tv">로그인</string>
     <string name="register_tv">회원가입</string>
     <string name="register_title_register">회원가입</string>
+
+    <!--  메인 화면  -->
+    <string name="favoriteList_title">찜 목록</string>
+    <string name="recentList_title">최근 본 매물</string>
+    <string name="searchBuilding_title">매물 찾기</string>
+    <string name="money_zero">0원</string>
+    <string name="totalMoney_title">자금</string>
+    <string name="moreView">더보기</string>
+    <string name="recentList_empty">최근 조회한 매물이 없습니다.</string>
+    <string name="favoriteList_empty">찜한 매물이 없습니다.</string>
+    <string name="totalAccount_explain">계좌 잔액</string>
+    <string name="totalExtra_explain">추가 자금</string>
+    <string name="loan_explain">대출 가능 금액</string>
+    <string name="logout_home">로그아웃</string>
+    <string name="extraMoney_home">정보 변경</string>
+    <string name="searchBuilding_btn">검색</string>
 </resources>
