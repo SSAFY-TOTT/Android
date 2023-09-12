@@ -57,10 +57,7 @@ class RegisterActivity : AppCompatActivity() {
                         binding.editTextCertNumRegister.isEnabled = true
                     }
                 }
-
             }
         }
-
-
     }
 }

@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.tott.R
 import com.ssafy.tott.databinding.ItemBuildingDetailBinding
-import com.ssafy.tott.ui.model.BuildingDetailUI
+import com.ssafy.tott.domain.model.HouseSaleArticle
 import com.ssafy.tott.ui.util.loadImage
 
-class BuildingDetailListAdapter(private val clickListener: (buildingDetailUI: BuildingDetailUI) -> Unit) :
-    ListAdapter<BuildingDetailUI, RecyclerView.ViewHolder>(diffUtil) {
+class BuildingDetailListAdapter(private val clickListener: (buildingDetailUI: HouseSaleArticle) -> Unit) :
+    ListAdapter<HouseSaleArticle, RecyclerView.ViewHolder>(diffUtil) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ItemBuildingDetailBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
@@ -36,12 +36,12 @@ class BuildingDetailListAdapter(private val clickListener: (buildingDetailUI: Bu
 
     private class BuildingDetailViewHolder(private val binding: ItemBuildingDetailBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: BuildingDetailUI) {
+        fun bind(item: HouseSaleArticle) {
             binding.root.context.run {
                 binding.tvAreaItemBuildingDetail.text =
                     getString(R.string.area_buildingDetail_item, item.area)
                 binding.tvAddressItemBuildingDetail.text =
-                    getString(R.string.address_buildingDetail_item, item.simpleAddress)
+                    getString(R.string.address_buildingDetail_item, item.address)
                 binding.tvPriceItemBuildingDetail.text =
                     getString(R.string.price_buildingDetail_item, item.price)
                 // TODO: 실제 사진으로 변경
@@ -52,17 +52,17 @@ class BuildingDetailListAdapter(private val clickListener: (buildingDetailUI: Bu
 
 
     companion object {
-        private val diffUtil = object : DiffUtil.ItemCallback<BuildingDetailUI>() {
+        private val diffUtil = object : DiffUtil.ItemCallback<HouseSaleArticle>() {
             override fun areItemsTheSame(
-                oldItem: BuildingDetailUI,
-                newItem: BuildingDetailUI
+                oldItem: HouseSaleArticle,
+                newItem: HouseSaleArticle
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: BuildingDetailUI,
-                newItem: BuildingDetailUI
+                oldItem: HouseSaleArticle,
+                newItem: HouseSaleArticle
             ): Boolean {
                 return oldItem == newItem
             }

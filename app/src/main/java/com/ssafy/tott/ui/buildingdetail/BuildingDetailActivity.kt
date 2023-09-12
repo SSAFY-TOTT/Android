@@ -15,7 +15,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ktx.addMarker
 import com.ssafy.tott.R
 import com.ssafy.tott.databinding.ActivityBuildingDetailBinding
-import com.ssafy.tott.ui.model.BuildingDetailUI
+import com.ssafy.tott.domain.model.HouseSaleArticle
 import com.ssafy.tott.ui.util.getParcelable
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,14 +23,14 @@ import dagger.hilt.android.AndroidEntryPoint
 class BuildingDetailActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityBuildingDetailBinding
-    private var buildingDetailUI: BuildingDetailUI? = null
+    private var buildingDetailUI: HouseSaleArticle? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBuildingDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         buildingDetailUI =
-            intent.getParcelable(TAG_BUILDING_DETAIL, BuildingDetailUI::class.java)
+            intent.getParcelable(TAG_BUILDING_DETAIL, HouseSaleArticle::class.java)
         initLayout()
         initMap()
         initToolbar()
@@ -38,7 +38,7 @@ class BuildingDetailActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun initLayout() {
         buildingDetailUI?.run {
-            binding.tvAddressBuildingDetail.text = simpleAddress
+            binding.tvAddressBuildingDetail.text = address
             binding.tvAreaBuildingDetail.text = getString(R.string.area_buildingDetail_item, area)
             binding.tvPriceBuildingDetail.text =
                 getString(R.string.price_buildingDetail_item, price)
@@ -71,7 +71,7 @@ class BuildingDetailActivity : AppCompatActivity(), OnMapReadyCallback {
             map.moveCamera(CameraUpdateFactory.newLatLng(latLng))
             map.addMarker {
                 position(latLng)
-                title(simpleAddress)
+                title(address)
             }
         }
     }

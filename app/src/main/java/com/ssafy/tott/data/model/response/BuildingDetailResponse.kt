@@ -12,11 +12,14 @@ data class BuildingDetailResponse(
     val area: Int, // 면적 단위: 평
     @SerializedName("floor")
     val floor: Int?,
+    @SerializedName("isWishList")
+    val isWish: Boolean = false,
 ) {
     fun toDomain() = BuildingDetail(
         id = id,
         price = price,
         area = area,
         floor = floor,
+        isWish = isWish,
     )
 }

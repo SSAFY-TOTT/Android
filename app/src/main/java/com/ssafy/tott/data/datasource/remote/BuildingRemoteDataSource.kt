@@ -28,7 +28,7 @@ class BuildingRemoteDataSource @Inject constructor(private val buildingService: 
                 )
             }
             if (response.isSuccessful) {
-                val data = response.body() ?: BuildingListResponse(listOf())
+                val data = response.body() ?: BuildingListResponse(listOf(), "")
                 Log.d("BuildingRemoteDataSource", "searchBuilding suspendOnSuccess: $data")
                 emit(Result.success(data))
             } else {
