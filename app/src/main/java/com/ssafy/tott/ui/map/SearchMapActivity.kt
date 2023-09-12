@@ -21,7 +21,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.maps.android.clustering.ClusterManager
 import com.ssafy.tott.R
 import com.ssafy.tott.databinding.ActivitySearchMapBinding
-import com.ssafy.tott.ui.model.BuildingDetailUI.Companion.toBuildingDetailUIList
 import com.ssafy.tott.ui.model.ClusterMarker
 import com.ssafy.tott.ui.searchfilter.SearchFilterFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -134,7 +133,7 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
                 return@setOnClusterItemClickListener true
             }
             val modalBottomSheet = SimpleHouseListDialogFragment.newInstance(
-                it.building.toBuildingDetailUIList().toTypedArray()
+                it.building.toHouseSaleArticle().toTypedArray()
             )
             modalBottomSheet.show(
                 supportFragmentManager,

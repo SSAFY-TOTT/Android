@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ssafy.tott.databinding.RvBuildingDetailBinding
+import com.ssafy.tott.domain.model.HouseSaleArticle
 import com.ssafy.tott.ui.buildingdetail.BuildingDetailActivity
 import com.ssafy.tott.ui.houselist.BuildingDetailListAdapter
-import com.ssafy.tott.ui.model.BuildingDetailUI
 import com.ssafy.tott.ui.util.parcelableArray
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SimpleHouseListDialogFragment : BottomSheetDialogFragment() {
     private var _binding: RvBuildingDetailBinding? = null
     private val binding get() = _binding!!
-    private var buildingDetailUIArray: Array<BuildingDetailUI>? = null
+    private var buildingDetailUIArray: Array<HouseSaleArticle>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +34,7 @@ class SimpleHouseListDialogFragment : BottomSheetDialogFragment() {
 
     private fun initRecycleView() {
         buildingDetailUIArray =
-            arguments?.parcelableArray(BUILDING_DETAIL_UI_TAG, BuildingDetailUI::class.java)
+            arguments?.parcelableArray(BUILDING_DETAIL_UI_TAG, HouseSaleArticle::class.java)
         val adapter = BuildingDetailListAdapter {
             val intent = Intent(context, BuildingDetailActivity::class.java)
             intent.putExtra(BuildingDetailActivity.TAG_BUILDING_DETAIL, it)
@@ -46,7 +46,7 @@ class SimpleHouseListDialogFragment : BottomSheetDialogFragment() {
     }
 
     companion object {
-        fun newInstance(items: Array<BuildingDetailUI>): SimpleHouseListDialogFragment =
+        fun newInstance(items: Array<HouseSaleArticle>): SimpleHouseListDialogFragment =
             SimpleHouseListDialogFragment().apply {
                 arguments = Bundle().apply {
                     putParcelableArray(BUILDING_DETAIL_UI_TAG, items)
