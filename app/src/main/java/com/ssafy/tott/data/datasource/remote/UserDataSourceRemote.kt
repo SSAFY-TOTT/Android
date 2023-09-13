@@ -5,7 +5,9 @@ import com.ssafy.tott.data.datasource.UserDataSource
 import com.ssafy.tott.data.model.RegisterAccountRequest
 import com.ssafy.tott.data.model.response.JWTRemoteResponse
 import com.ssafy.tott.di.LoginService
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class UserDataSourceRemote @Inject constructor(private val loginService: LoginService) :
@@ -30,5 +32,5 @@ class UserDataSourceRemote @Inject constructor(private val loginService: LoginSe
             Log.d("UserDataSourceRemote", "login: ${response.errorBody()?.string()}")
             emit(Result.failure(Throwable(response.errorBody()?.string())))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 }
