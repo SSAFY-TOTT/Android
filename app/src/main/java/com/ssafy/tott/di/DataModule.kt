@@ -1,8 +1,8 @@
 package com.ssafy.tott.di
 
-import com.ssafy.tott.data.datasource.AccountDataSource
+import com.ssafy.tott.data.datasource.UserDataSource
 import com.ssafy.tott.data.datasource.BuildingDataSource
-import com.ssafy.tott.data.datasource.remote.AccountDataSourceRemote
+import com.ssafy.tott.data.datasource.remote.UserDataSourceRemote
 import com.ssafy.tott.data.datasource.remote.BuildingRemoteDataSource
 import com.ssafy.tott.data.repository.BuildingRepositoryImpl
 import com.ssafy.tott.data.repository.UserRepositoryImpl
@@ -19,13 +19,13 @@ import javax.inject.Singleton
 object DataModule {
     @Provides
     @Singleton
-    fun provideUserRepository(regisDataSource: AccountDataSource): UserRepository =
+    fun provideUserRepository(regisDataSource: UserDataSource): UserRepository =
         UserRepositoryImpl(regisDataSource)
 
     @Provides
     @Singleton
-    fun provideAccountDataSource(): AccountDataSource =
-        AccountDataSourceRemote()
+    fun provideAccountDataSource(loginService: LoginService): UserDataSource =
+        UserDataSourceRemote(loginService)
 
     @Provides
     @Singleton
