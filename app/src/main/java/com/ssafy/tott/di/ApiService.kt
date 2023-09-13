@@ -1,10 +1,10 @@
 package com.ssafy.tott.di
 
-import com.ssafy.tott.data.model.response.BuildingListResponse
+import com.ssafy.tott.data.model.request.LoginRequest
 import com.ssafy.tott.data.model.response.AuthTokenRemoteResponse
+import com.ssafy.tott.data.model.response.BuildingListResponse
 import retrofit2.Response
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -32,12 +32,9 @@ interface SearchBuildingService {
 }
 
 interface LoginService {
-    @FormUrlEncoded
-    @POST("/api/login")
+    @POST("/api/auth/login")
     suspend fun fetchLogin(
-        @Field("id")
-        id: String,
-        @Field("password")
-        password: String,
+        @Body
+        loginRequest: LoginRequest,
     ): Response<AuthTokenRemoteResponse>
 }
