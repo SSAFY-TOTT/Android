@@ -1,6 +1,7 @@
 package com.ssafy.tott.data.repository
 
 import com.ssafy.tott.data.datasource.UserDataSource
+import com.ssafy.tott.data.datasource.local.UserTokenDataSource
 import com.ssafy.tott.data.datasource.mapper.toData
 import com.ssafy.tott.data.model.response.AuthTokenRemoteResponse
 import com.ssafy.tott.domain.model.AuthToken
@@ -10,8 +11,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class UserRepositoryImpl @Inject constructor(private val userDataSource: UserDataSource) :
-    UserRepository {
+class UserRepositoryImpl @Inject constructor(
+    private val userDataSource: UserDataSource,
+    private val userTokenDataSource: UserTokenDataSource
+) : UserRepository {
     override fun makeCertNum(registerUser: RegisterUser): Result<Unit> {
         return userDataSource.makeCertNum(registerUser.toData())
     }
@@ -22,15 +25,15 @@ class UserRepositoryImpl @Inject constructor(private val userDataSource: UserDat
         }
     }
 
-    override fun refreshToken(token: String): Flow<Result<AuthToken>> {
-        TODO("Not yet implemented")
+    override fun saveToken(authToken: AuthToken): Flow<Unit> {
+        return userTokenDataSource.setToken(authToken.accessToken, authToken.refreshToken)
     }
 
-    override fun saveToken(authToken: AuthToken): Flow<Result<Unit>> {
-        TODO("Not yet implemented")
+    override fun getAccessToken(): Flow<Result<String>> {
+        return userTokenDataSource.getAccessToken()
     }
 
-    override fun getToken(): Flow<Result<String>> {
-        TODO("Not yet implemented")
+    override fun getRefreshToken(): Flow<Result<String>> {
+        return userTokenDataSource.getRefreshToken()
     }
 }
