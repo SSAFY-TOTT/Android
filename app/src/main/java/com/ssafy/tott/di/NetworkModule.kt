@@ -47,4 +47,10 @@ object NetworkModule {
     fun provideApiService(retrofit: Retrofit): SearchBuildingService {
         return retrofit.create(SearchBuildingService::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideUserApiService(retrofit: Retrofit):LoginService {
+        return retrofit.create(LoginService::class.java)
+    }
 }
