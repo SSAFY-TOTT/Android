@@ -1,7 +1,7 @@
 package com.ssafy.tott.di
 
 import com.ssafy.tott.data.model.response.BuildingListResponse
-import com.ssafy.tott.data.model.response.JWTRemoteResponse
+import com.ssafy.tott.data.model.response.AuthTokenRemoteResponse
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -39,5 +39,5 @@ interface LoginService {
         id: String,
         @Field("password")
         password: String,
-    ): Response<JWTRemoteResponse>
+    ): Response<AuthTokenRemoteResponse>
 }
