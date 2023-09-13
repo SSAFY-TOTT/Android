@@ -3,7 +3,7 @@ package com.ssafy.tott.data.datasource.remote
 import android.util.Log
 import com.ssafy.tott.data.datasource.UserDataSource
 import com.ssafy.tott.data.model.RegisterAccountRequest
-import com.ssafy.tott.data.model.response.JWTRemoteResponse
+import com.ssafy.tott.data.model.response.AuthTokenRemoteResponse
 import com.ssafy.tott.di.LoginService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
@@ -21,7 +21,7 @@ class UserDataSourceRemote @Inject constructor(private val loginService: LoginSe
         TODO("Not yet implemented")
     }
 
-    override fun login(id: String, password: String) = flow<Result<JWTRemoteResponse>> {
+    override fun login(id: String, password: String) = flow<Result<AuthTokenRemoteResponse>> {
         val response = loginService.fetchLogin(id, password)
         if (response.isSuccessful) {
             val jwtRemoteResponse = response.body() ?: return@flow emit(
