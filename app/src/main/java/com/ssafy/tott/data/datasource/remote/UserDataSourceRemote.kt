@@ -2,7 +2,9 @@ package com.ssafy.tott.data.datasource.remote
 
 import android.util.Log
 import com.ssafy.tott.data.datasource.UserDataSource
+import com.ssafy.tott.data.datasource.mapper.getErrorResponse
 import com.ssafy.tott.data.model.RegisterAccountRequest
+import com.ssafy.tott.data.model.request.LoginRequest
 import com.ssafy.tott.data.model.response.AuthTokenRemoteResponse
 import com.ssafy.tott.di.LoginService
 import kotlinx.coroutines.Dispatchers
@@ -22,15 +24,16 @@ class UserDataSourceRemote @Inject constructor(private val loginService: LoginSe
     }
 
     override fun login(id: String, password: String) = flow<Result<AuthTokenRemoteResponse>> {
-        val response = loginService.fetchLogin(id, password)
+        val response = loginService.fetchLogin(LoginRequest(id, password))
         if (response.isSuccessful) {
             val jwtRemoteResponse = response.body() ?: return@flow emit(
                 Result.failure(Throwable("데이터가 없습니다."))
             )
             emit(Result.success(jwtRemoteResponse))
         } else {
-            Log.d("UserDataSourceRemote", "login: ${response.errorBody()?.string()}")
-            emit(Result.failure(Throwable(response.errorBody()?.string())))
+            val errorResponse = getErrorResponse(response.errorBody()?.string() ?: "")
+            Log.d("UserDataSourceRemote", "login: $errorResponse}")
+            emit(Result.failure(errorResponse.toNetworkException()))
         }
     }.flowOn(Dispatchers.IO)
 }
