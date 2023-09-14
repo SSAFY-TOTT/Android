@@ -23,15 +23,23 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnCertRegister.setOnClickListener {
-            viewModel.makeCertNum(
-                RegisterUser(
-                    id = binding.editTextIdRegister.text?.toString() ?: "",
-                    password = binding.editTextPasswordRegister.text?.toString() ?: "",
-                    validPassword = binding.editTextValidPasswordRegister.text?.toString() ?: "",
-                    phone = binding.editTextPhoneRegister.text?.toString() ?: "",
-                    accountNum = binding.editTextAccountNumRegister.text?.toString() ?: "",
+            if (viewModel.canCertUser.value == true) {
+                viewModel.certUser(
+                    binding.editTextAccountNumRegister.text?.toString() ?: "",
+                    binding.editTextCertNumRegister.text?.toString() ?: "",
                 )
-            )
+            } else {
+                viewModel.makeCertNum(
+                    RegisterUser(
+                        id = binding.editTextIdRegister.text?.toString() ?: "",
+                        password = binding.editTextPasswordRegister.text?.toString() ?: "",
+                        validPassword = binding.editTextValidPasswordRegister.text?.toString()
+                            ?: "",
+                        phone = binding.editTextPhoneRegister.text?.toString() ?: "",
+                        accountNum = binding.editTextAccountNumRegister.text?.toString() ?: "",
+                    )
+                )
+            }
         }
 
         lifecycleScope.launch {
@@ -41,7 +49,7 @@ class RegisterActivity : AppCompatActivity() {
                         Snackbar.make(
                             binding.root, it.throwable.message ?: "오류 발생", Snackbar.LENGTH_SHORT
                         ).show()
-
+                        viewModel.setUiStateToWait()
                     }
 
                     is UiState.Loading -> {
@@ -54,7 +62,21 @@ class RegisterActivity : AppCompatActivity() {
                         Snackbar.make(
                             binding.root, "인증 번호 전송", Snackbar.LENGTH_SHORT
                         ).show()
-                        binding.editTextCertNumRegister.isEnabled = true
+                        if (viewModel.canCertUser.value == true) {
+                            Snackbar.make(
+                                binding.root, "회원가입 완료", Snackbar.LENGTH_SHORT
+                            ).setAction("돌아가기") {
+                                finish()
+                            }.show()
+                        } else {
+                            viewModel.setCanCertUser(true)
+                            binding.editTextCertNumRegister.isEnabled = true
+                        }
+                        viewModel.setUiStateToWait()
+                    }
+
+                    is UiState.Wait -> {
+
                     }
                 }
             }
