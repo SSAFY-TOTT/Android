@@ -1,6 +1,7 @@
 package com.ssafy.tott.data.datasource.remote.service
 
 import com.ssafy.tott.data.model.request.LoginRequest
+import com.ssafy.tott.data.model.request.SignupRequest
 import com.ssafy.tott.data.model.request.VerificationRequest
 import com.ssafy.tott.data.model.response.AuthTokenRemoteResponse
 import retrofit2.Response
@@ -20,4 +21,10 @@ interface UserService {
         @Body
         loginRequest: LoginRequest,
     ): Response<AuthTokenRemoteResponse>
+
+    @POST("/api/member/signup")
+    suspend fun fetchSignup(
+        @Body
+        signupRequest: SignupRequest,
+    ):Response<Unit>
 }
