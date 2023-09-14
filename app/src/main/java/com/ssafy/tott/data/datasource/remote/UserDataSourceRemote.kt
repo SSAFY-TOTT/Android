@@ -5,6 +5,7 @@ import com.ssafy.tott.data.datasource.UserDataSource
 import com.ssafy.tott.data.datasource.remote.service.UserService
 import com.ssafy.tott.data.mapper.getErrorResponse
 import com.ssafy.tott.data.model.request.LoginRequest
+import com.ssafy.tott.data.model.request.SignupRequest
 import com.ssafy.tott.data.model.request.VerificationRequest
 import com.ssafy.tott.data.model.response.AuthTokenRemoteResponse
 import kotlinx.coroutines.Dispatchers
@@ -14,16 +15,25 @@ import javax.inject.Inject
 
 class UserDataSourceRemote @Inject constructor(private val userService: UserService) :
     UserDataSource {
-    override fun makeCertNum(request: RegisterAccountRequest): Result<Unit> {
-//        return Result.failure(ConnectException("연결에 실패했습니다."))
-        return Result.success(Unit)
-    }
+    override fun makeCertNum(request: SignupRequest) = flow<Result<Unit>> {
+        val response =
+            userService.fetchSignup(request)
+        if (response.isSuccessful) {
+            Log.d("UserDataSourceRemote", "requestCert: $${response.body()}}")
+            emit(Result.success(Unit))
+        } else {
+            val errorResponse = getErrorResponse(response.errorBody()?.string() ?: "")
+            Log.d("UserDataSourceRemote", "requestCert: $errorResponse}")
+            emit(Result.failure(errorResponse.toNetworkException()))
+        }
+    }.flowOn(Dispatchers.IO)
 
-    override fun requestCert(email: String, certNum: String) =
+    override fun requestCert(accountNum: String, certNum: String) =
         flow<Result<Unit>> {
             val response =
-                userService.fetchVerification(VerificationRequest(email, certNum))
+                userService.fetchVerification(VerificationRequest(accountNum, certNum))
             if (response.isSuccessful) {
+                Log.d("UserDataSourceRemote", "requestCert: ${response.body()}")
                 emit(Result.success(Unit))
             } else {
                 val errorResponse = getErrorResponse(response.errorBody()?.string() ?: "")
