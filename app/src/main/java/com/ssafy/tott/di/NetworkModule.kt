@@ -14,7 +14,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-    private const val BASE_URL = "https://www.google.com/"
+    private const val BASE_URL = "http://www.tott.site:8080"
 
     @Provides
     fun provideBaseUrl() = BASE_URL
@@ -46,5 +46,11 @@ object NetworkModule {
     @Singleton
     fun provideApiService(retrofit: Retrofit): SearchBuildingService {
         return retrofit.create(SearchBuildingService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserApiService(retrofit: Retrofit):LoginService {
+        return retrofit.create(LoginService::class.java)
     }
 }

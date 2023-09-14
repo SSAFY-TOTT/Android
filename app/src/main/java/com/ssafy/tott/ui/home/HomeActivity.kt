@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import com.ssafy.tott.databinding.ActivityHomeBinding
 import com.ssafy.tott.ui.buildingdetail.BuildingDetailActivity
 import com.ssafy.tott.ui.houselist.BuildingDetailListAdapter
-import com.ssafy.tott.ui.map.SearchMapActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -22,7 +21,6 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        startActivity(Intent(this, SearchMapActivity::class.java))
         initRecycleView()
     }
 
