@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class RegisterCertUseCase @Inject constructor(private val userRepository: UserRepository) {
-    operator fun invoke(email: String, certNum: String): Flow<Result<Unit>> {
-        return userRepository.requestCert(email, certNum)
+    operator fun invoke(accountNum: String, certNum: String): Flow<Result<Unit>> {
+        return userRepository.requestCert(accountNum, certNum)
     }
 }
