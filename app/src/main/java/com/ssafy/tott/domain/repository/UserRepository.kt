@@ -10,4 +10,5 @@ interface UserRepository {
     fun saveToken(authToken: AuthToken): Flow<Unit>
     fun getAccessToken(): Flow<Result<String>>
     fun getRefreshToken(): Flow<Result<String>>
+    fun requestCert(email: String, certNum: String): Flow<Result<Unit>>
 }

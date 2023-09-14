@@ -19,6 +19,10 @@ class UserRepositoryImpl @Inject constructor(
         return userDataSource.makeCertNum(registerUser.toData())
     }
 
+    override fun requestCert(email: String, certNum: String): Flow<Result<Unit>> {
+        return userDataSource.requestCert(email, certNum)
+    }
+
     override fun login(id: String, password: String): Flow<Result<AuthToken>> {
         return userDataSource.login(id, password).map { result ->
             result.map(AuthTokenRemoteResponse::toDomain)
