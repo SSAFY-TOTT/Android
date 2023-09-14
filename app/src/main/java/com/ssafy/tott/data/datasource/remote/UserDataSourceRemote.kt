@@ -2,9 +2,8 @@ package com.ssafy.tott.data.datasource.remote
 
 import android.util.Log
 import com.ssafy.tott.data.datasource.UserDataSource
-import com.ssafy.tott.data.datasource.mapper.getErrorResponse
 import com.ssafy.tott.data.datasource.remote.service.UserService
-import com.ssafy.tott.data.model.RegisterAccountRequest
+import com.ssafy.tott.data.mapper.getErrorResponse
 import com.ssafy.tott.data.model.request.LoginRequest
 import com.ssafy.tott.data.model.request.VerificationRequest
 import com.ssafy.tott.data.model.response.AuthTokenRemoteResponse

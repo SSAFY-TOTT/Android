@@ -1,4 +1,4 @@
-package com.ssafy.tott.data.datasource.mapper
+package com.ssafy.tott.data.mapper
 
 import com.google.gson.Gson
 import com.ssafy.tott.data.model.request.ErrorRemoteResponse
