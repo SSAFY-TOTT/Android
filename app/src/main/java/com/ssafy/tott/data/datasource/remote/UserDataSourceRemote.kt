@@ -20,10 +20,10 @@ class UserDataSourceRemote @Inject constructor(private val userService: UserServ
         return Result.success(Unit)
     }
 
-    override fun requestCert(id: String, password: String, certNum: Int) =
+    override fun requestCert(email: String, certNum: String) =
         flow<Result<Unit>> {
             val response =
-                userService.fetchVerification(VerificationRequest(id, certNum = certNum.toString()))
+                userService.fetchVerification(VerificationRequest(email, certNum))
             if (response.isSuccessful) {
                 emit(Result.success(Unit))
             } else {
