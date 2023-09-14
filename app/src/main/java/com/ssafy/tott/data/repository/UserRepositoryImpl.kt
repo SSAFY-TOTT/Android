@@ -2,7 +2,7 @@ package com.ssafy.tott.data.repository
 
 import com.ssafy.tott.data.datasource.UserDataSource
 import com.ssafy.tott.data.datasource.local.UserTokenDataSource
-import com.ssafy.tott.data.datasource.mapper.toData
+import com.ssafy.tott.data.model.request.SignupRequest.Companion.toData
 import com.ssafy.tott.data.model.response.AuthTokenRemoteResponse
 import com.ssafy.tott.domain.model.AuthToken
 import com.ssafy.tott.domain.model.RegisterUser
@@ -15,12 +15,12 @@ class UserRepositoryImpl @Inject constructor(
     private val userDataSource: UserDataSource,
     private val userTokenDataSource: UserTokenDataSource
 ) : UserRepository {
-    override fun makeCertNum(registerUser: RegisterUser): Result<Unit> {
+    override fun makeCertNum(registerUser: RegisterUser): Flow<Result<Unit>> {
         return userDataSource.makeCertNum(registerUser.toData())
     }
 
-    override fun requestCert(email: String, certNum: String): Flow<Result<Unit>> {
-        return userDataSource.requestCert(email, certNum)
+    override fun requestCert(accountNum: String, certNum: String): Flow<Result<Unit>> {
+        return userDataSource.requestCert(accountNum, certNum)
     }
 
     override fun login(id: String, password: String): Flow<Result<AuthToken>> {
