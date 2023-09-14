@@ -1,6 +1,7 @@
 package com.ssafy.tott.di
 
 import com.google.maps.android.v3.ktx.BuildConfig
+import com.ssafy.tott.data.datasource.remote.service.UserService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -50,7 +51,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideUserApiService(retrofit: Retrofit):LoginService {
-        return retrofit.create(LoginService::class.java)
+    fun provideUserApiService(retrofit: Retrofit): UserService {
+        return retrofit.create(UserService::class.java)
     }
 }
