@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserDataSource {
     fun makeCertNum(request: RegisterAccountRequest): Result<Unit>
-    fun requestCert(id: String, password: String, certNum: Int): Result<Nothing>
+    fun requestCert(id: String, password: String, certNum: Int): Flow<Result<Unit>>
     fun login(id: String, password: String): Flow<Result<AuthTokenRemoteResponse>>
 }
