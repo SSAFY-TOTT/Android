@@ -25,4 +25,12 @@ class BuildingRepositoryImpl(private val buildingDataSource: BuildingDataSource)
             }
         }
     }
+
+    override fun getWishList(): Flow<Result<List<HouseSaleArticle>>> {
+        return buildingDataSource.getWishList().map { result ->
+            result.map {
+                it?.houseDetailResponseList?.map(HouseDetailResponse::toDomain) ?: emptyList()
+            }
+        }
+    }
 }

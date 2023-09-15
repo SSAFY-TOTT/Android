@@ -9,4 +9,5 @@ import kotlinx.coroutines.flow.Flow
 interface BuildingRepository {
     fun getBuildings(searchFilter: SearchFilter): Flow<Result<List<Building>>>
     fun getRecentBuildingDetails(ids: List<Int>): Flow<Result<List<HouseSaleArticle>>>
+    fun getWishList(): Flow<Result<List<HouseSaleArticle>>>
 }
