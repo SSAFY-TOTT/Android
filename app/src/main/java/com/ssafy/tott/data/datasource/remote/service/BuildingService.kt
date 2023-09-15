@@ -22,7 +22,7 @@ interface BuildingService {
         @Query("built") built: Int,
     ): Response<BuildingListResponse>
 
-    @POST
+    @POST("/api/house/auth/recent")
     suspend fun fetchGetRecentBuildings(
         @Body buildingDetailIdListRequest: BuildingDetailIdListRequest
     ): Response<BuildingDetailsResponse>
