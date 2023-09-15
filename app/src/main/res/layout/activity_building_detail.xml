@@ -22,11 +22,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/main_logo"
-        app:layout_constraintDimensionRatio="5:3"
+        app:layout_constraintDimensionRatio="7:3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_buildingDetail"
-        app:layout_constraintWidth_percent="0.7" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_buildingDetail" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guildLine_start_buildingDetail"
@@ -35,35 +34,43 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.1" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_address_buildingDetail"
-        style="@style/TextAppearance.MaterialComponents.Headline5"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guildLine_end_buildingDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toTopOf="@id/tv_price_buildingDetail"
-        app:layout_constraintStart_toStartOf="@id/guildLine_start_buildingDetail"
-        app:layout_constraintTop_toBottomOf="@id/iv_room_buildingDetail"
+        android:orientation="vertical"
+        map:layout_constraintGuide_percent="0.9" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_address_buildingDetail"
+        style="@style/TextAppearance.Material3.BodyLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/guildLine_start_buildingDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tv_position_buildingDetail"
         tools:text="강남구 역삼1동 멀티 캠퍼스" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_price_buildingDetail"
-        style="@style/TextAppearance.MaterialComponents.Headline4"
+        android:id="@+id/tv_position_buildingDetail"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/tv_area_buildingDetail"
-        app:layout_constraintStart_toStartOf="@id/guildLine_start_buildingDetail"
-        app:layout_constraintTop_toBottomOf="@+id/tv_address_buildingDetail"
-        tools:text="5800만원" />
+        android:layout_marginTop="16dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/tv_built_buildingDetail"
+        map:layout_constraintStart_toStartOf="@+id/guildLine_start_buildingDetail"
+        tools:text="위치" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_area_buildingDetail"
         style="@style/TextAppearance.Material3.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/tv_floor_buildingDetail"
-        app:layout_constraintStart_toStartOf="@id/guildLine_start_buildingDetail"
-        app:layout_constraintTop_toBottomOf="@+id/tv_price_buildingDetail"
+        android:layout_marginTop="8dp"
+        android:drawableStart="@drawable/ic_area"
+        android:drawablePadding="8dp"
+        app:layout_constraintStart_toStartOf="@+id/guildLine_start_buildingDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rate_hint_buildingDetail"
         tools:text="35평" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -71,9 +78,11 @@
         style="@style/TextAppearance.Material3.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/tv_built_buildingDetail"
-        app:layout_constraintStart_toStartOf="@id/guildLine_start_buildingDetail"
-        app:layout_constraintTop_toBottomOf="@+id/tv_area_buildingDetail"
+        android:layout_marginStart="16dp"
+        android:drawableStart="@drawable/ic_floor"
+        android:drawablePadding="8dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_area_buildingDetail"
+        app:layout_constraintTop_toTopOf="@+id/tv_area_buildingDetail"
         tools:text="16층" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -81,20 +90,77 @@
         style="@style/TextAppearance.Material3.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/map_buildingDetail"
-        app:layout_constraintStart_toStartOf="@id/guildLine_start_buildingDetail"
-        app:layout_constraintTop_toBottomOf="@+id/tv_floor_buildingDetail"
+        android:layout_marginTop="4dp"
+        android:drawableStart="@drawable/ic_home"
+        android:drawablePadding="8dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_area_buildingDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tv_area_buildingDetail"
         tools:text="18년 건축" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_rent_price_buildingDetail"
+        style="@style/TextAppearance.Material3.BodyLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/guildLine_end_buildingDetail"
+        app:layout_constraintStart_toStartOf="@+id/guildLine_start_buildingDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tv_price_fix_buildingDetail"
+        map:layout_constraintStart_toStartOf="@id/guildLine_start_buildingDetail"
+        tools:text="현재 추가로 필요한 금액은 4,000만원 입니다." />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_rate_interest_buildingDetail"
+        style="@style/TextAppearance.Material3.BodyLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/guildLine_end_buildingDetail"
+        app:layout_constraintStart_toStartOf="@+id/guildLine_start_buildingDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rent_price_buildingDetail"
+        map:layout_constraintEnd_toEndOf="parent"
+        tools:text="연 이율은 8% 산정 총 32,000/년 입니다." />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/slider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/guildLine_end_buildingDetail"
+        app:layout_constraintStart_toStartOf="@+id/guildLine_start_buildingDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rate_interest_buildingDetail" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_rate_hint_buildingDetail"
+        style="@style/TextAppearance.Material3.BodySmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/guildLine_end_buildingDetail"
+        app:layout_constraintTop_toBottomOf="@+id/slider"
+        tools:text="* 파란색 바는 추가 대출이 필요한 금액입니다." />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_price_fix_buildingDetail"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        map:layout_constraintStart_toStartOf="@id/guildLine_start_buildingDetail"
+        map:layout_constraintTop_toBottomOf="@+id/iv_room_buildingDetail"
+        tools:text="전세 1억 4000만원" />
 
     <fragment
         android:id="@+id/map_buildingDetail"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="5:3"
+        app:layout_constraintDimensionRatio=""
+        app:layout_constraintTop_toBottomOf="@+id/tv_address_buildingDetail"
         map:cameraZoom="16"
         map:liteMode="true"
-        tools:layout="@layout/fragment_dummy" />
+        tools:layout="@layout/fragment_dummy"
+        tools:layout_editor_absoluteX="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
