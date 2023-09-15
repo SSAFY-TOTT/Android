@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import com.ssafy.tott.databinding.ActivityHomeBinding
 import com.ssafy.tott.ui.buildingdetail.BuildingDetailActivity
 import com.ssafy.tott.ui.houselist.BuildingDetailListAdapter
@@ -22,6 +23,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         initRecycleView()
+        initViewState()
     }
 
     private fun initRecycleView() {
@@ -58,6 +60,15 @@ class HomeActivity : AppCompatActivity() {
                     }
                     favoriteListAdapter.submitList(it)
                 }
+        }
+    }
+
+    private fun initViewState() {
+        lifecycleScope.launch {
+            viewModel.errorState.flowWithLifecycle(lifecycle).collect {
+                Snackbar.make(binding.root, it?.message ?: "오류가 발생했습니다.", Snackbar.LENGTH_LONG)
+                    .show()
+            }
         }
     }
 }

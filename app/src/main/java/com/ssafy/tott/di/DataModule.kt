@@ -7,10 +7,11 @@ import com.ssafy.tott.data.datasource.local.UserTokenDataSource
 import com.ssafy.tott.data.datasource.local.UserTokenDataSourceImpl
 import com.ssafy.tott.data.datasource.remote.BuildingRemoteDataSource
 import com.ssafy.tott.data.datasource.remote.UserDataSourceRemote
+import com.ssafy.tott.data.datasource.remote.service.BuildingService
 import com.ssafy.tott.data.datasource.remote.service.UserService
 import com.ssafy.tott.data.repository.BuildingRepositoryImpl
 import com.ssafy.tott.data.repository.UserRepositoryImpl
-import com.ssafy.tott.domain.repository.SearchBuildingRepository
+import com.ssafy.tott.domain.repository.BuildingRepository
 import com.ssafy.tott.domain.repository.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -36,12 +37,12 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun provideSearchBuildingRepository(buildingDataSource: BuildingDataSource): SearchBuildingRepository =
+    fun provideSearchBuildingRepository(buildingDataSource: BuildingDataSource): BuildingRepository =
         BuildingRepositoryImpl(buildingDataSource)
 
     @Provides
     @Singleton
-    fun provideSearchBuildingDataSource(buildingService: SearchBuildingService): BuildingDataSource =
+    fun provideSearchBuildingDataSource(buildingService: BuildingService): BuildingDataSource =
         BuildingRemoteDataSource(buildingService)
 
     @Provides

@@ -21,26 +21,29 @@
             tools:src="@drawable/main_logo" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_address_item_buildingDetail"
-            style="@style/TOTT.Text.H4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="5dp"
-            app:layout_constraintBottom_toTopOf="@id/tv_price_item_buildingDetail"
-            app:layout_constraintStart_toEndOf="@id/iv_room_item_buildingDetail"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="강남구 역삼동 멀티캠퍼스" />
-
-        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_price_item_buildingDetail"
             style="@style/TOTT.Text.H2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/tv_area_item_buildingDetail"
+            android:layout_marginTop="5dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_address_item_buildingDetail"
             app:layout_constraintStart_toStartOf="@id/tv_address_item_buildingDetail"
-            app:layout_constraintTop_toBottomOf="@id/tv_address_item_buildingDetail"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="1억 5300만원" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_address_item_buildingDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            app:layout_constraintBottom_toTopOf="@id/tv_area_item_buildingDetail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_room_item_buildingDetail"
+            app:layout_constraintTop_toBottomOf="@id/tv_price_item_buildingDetail"
+            tools:text="강남구 역삼동 멀티캠퍼스" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_area_item_buildingDetail"
@@ -50,7 +53,7 @@
             android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_address_item_buildingDetail"
-            app:layout_constraintTop_toBottomOf="@id/tv_price_item_buildingDetail"
+            app:layout_constraintTop_toBottomOf="@id/tv_address_item_buildingDetail"
             tools:text="23평" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
