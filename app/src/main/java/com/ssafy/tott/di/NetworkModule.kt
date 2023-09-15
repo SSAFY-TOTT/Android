@@ -3,8 +3,10 @@ package com.ssafy.tott.di
 import android.util.Log
 import com.google.maps.android.v3.ktx.BuildConfig
 import com.ssafy.tott.data.datasource.local.DataStoreManager
+import com.ssafy.tott.data.datasource.remote.service.BuildingService
 import com.ssafy.tott.data.datasource.remote.service.UserService
 import com.ssafy.tott.data.model.response.AuthTokenRemoteResponse
+import com.ssafy.tott.domain.exception.NetworkException
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,11 +14,13 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -30,23 +34,44 @@ object NetworkModule {
     @Provides
     fun provideAuthOkHttpClient(
         authAuthenticator: Authenticator,
+        dataStoreManager: DataStoreManager,
     ) = if (BuildConfig.DEBUG) {
         OkHttpClient.Builder().authenticator(authAuthenticator).addInterceptor(
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-        ).build()
+        ).addNetworkInterceptor(AppInterceptor(dataStoreManager)).build()
     } else {
-        OkHttpClient.Builder().authenticator(authAuthenticator).build()
+        OkHttpClient.Builder().authenticator(authAuthenticator)
+            .addNetworkInterceptor(AppInterceptor(dataStoreManager)).build()
     }
 
     @OtherOkHttpClient
     @Singleton
     @Provides
-    fun provideOtherOkHttpClient() = if (BuildConfig.DEBUG) {
+    fun provideOtherOkHttpClient(
+    ) = if (BuildConfig.DEBUG) {
         OkHttpClient.Builder().addInterceptor(
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         ).build()
     } else {
         OkHttpClient.Builder().build()
+    }
+
+    class AppInterceptor(
+        private val dataStoreManager: DataStoreManager
+    ) : Interceptor {
+        @Throws(IOException::class)
+        override fun intercept(chain: Interceptor.Chain): okhttp3.Response = with(chain) {
+            runBlocking {
+                val accessToken = dataStoreManager.accessToken.first() ?: throw NetworkException(
+                    null, "토큰이 없습니다."
+                )
+                Log.d("NetworkModule", "intercept: accessToken $accessToken")
+                val newRequest = request().newBuilder()
+                    .addHeader("Authorization", accessToken) // 헤더에 authorization라는 key로 JWT 를 넣어준다.
+                    .build()
+                proceed(newRequest)
+            }
+        }
     }
 
     @AuthRetrofit
@@ -67,8 +92,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideBuildingApiService(@AuthRetrofit retrofit: Retrofit): SearchBuildingService {
-        return retrofit.create(SearchBuildingService::class.java)
+    fun provideBuildingApiService(@AuthRetrofit retrofit: Retrofit): BuildingService {
+        return retrofit.create(BuildingService::class.java)
     }
 
     @Provides
