@@ -2,16 +2,16 @@ package com.ssafy.tott.data.datasource.remote
 
 import android.util.Log
 import com.ssafy.tott.data.datasource.BuildingDataSource
+import com.ssafy.tott.data.datasource.remote.service.BuildingService
 import com.ssafy.tott.data.model.request.SearchFilterRequest
 import com.ssafy.tott.data.model.response.BuildingListResponse
-import com.ssafy.tott.di.SearchBuildingService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class BuildingRemoteDataSource @Inject constructor(private val buildingService: SearchBuildingService) :
+class BuildingRemoteDataSource @Inject constructor(private val buildingService: BuildingService) :
     BuildingDataSource {
     override fun searchBuilding(searchFilter: SearchFilterRequest): Flow<Result<BuildingListResponse>> =
         flow {

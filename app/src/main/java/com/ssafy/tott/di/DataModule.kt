@@ -7,6 +7,7 @@ import com.ssafy.tott.data.datasource.local.UserTokenDataSource
 import com.ssafy.tott.data.datasource.local.UserTokenDataSourceImpl
 import com.ssafy.tott.data.datasource.remote.BuildingRemoteDataSource
 import com.ssafy.tott.data.datasource.remote.UserDataSourceRemote
+import com.ssafy.tott.data.datasource.remote.service.BuildingService
 import com.ssafy.tott.data.datasource.remote.service.UserService
 import com.ssafy.tott.data.repository.BuildingRepositoryImpl
 import com.ssafy.tott.data.repository.UserRepositoryImpl
@@ -41,7 +42,7 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun provideSearchBuildingDataSource(buildingService: SearchBuildingService): BuildingDataSource =
+    fun provideSearchBuildingDataSource(buildingService: BuildingService): BuildingDataSource =
         BuildingRemoteDataSource(buildingService)
 
     @Provides

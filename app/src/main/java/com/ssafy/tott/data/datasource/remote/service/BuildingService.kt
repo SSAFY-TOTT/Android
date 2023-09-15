@@ -1,11 +1,12 @@
-package com.ssafy.tott.di
+package com.ssafy.tott.data.datasource.remote.service
 
+import com.ssafy.tott.data.model.response.BuildingDetailsResponse
 import com.ssafy.tott.data.model.response.BuildingListResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface SearchBuildingService {
+interface BuildingService {
     @GET("/api/house/search")
     suspend fun fetchSearchedBuilding(
         @Query("districtName")
@@ -25,4 +26,8 @@ interface SearchBuildingService {
         @Query("built")
         built: Int,
     ): Response<BuildingListResponse>
+
+    @GET
+    suspend fun fetchGetRecentBuildings(
+    ): Response<BuildingDetailsResponse>
 }
