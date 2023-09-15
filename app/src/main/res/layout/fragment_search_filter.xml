@@ -226,6 +226,15 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/textView"
+        style="@style/TextAppearance.Material3.BodyMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="전세대출 한도액 : 50,000만원"
+        app:layout_constraintBottom_toTopOf="@+id/rangeSlider_price_searchFilter"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_end_vertical_searchFilter" />
+
     <!--    <com.google.android.material.button.MaterialButtonToggleGroup-->
     <!--        android:id="@+id/chipGroup_built_searchFilter"-->
     <!--        android:layout_width="0dp"-->
