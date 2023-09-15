@@ -9,8 +9,9 @@ class LoginUseCase @Inject constructor(private val userRepository: UserRepositor
     operator fun invoke(id: String, password: String): Flow<Result<Unit>> = flow {
         userRepository.login(id, password).collect { result ->
             result.onSuccess {
-                emit(Result.success(Unit))
-                userRepository.saveToken(it)
+                userRepository.saveToken(it).collect {
+                    emit(Result.success(Unit))
+                }
             }.onFailure {
                 emit(Result.failure(it))
             }

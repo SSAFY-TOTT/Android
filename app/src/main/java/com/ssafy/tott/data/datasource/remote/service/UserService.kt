@@ -26,5 +26,12 @@ interface UserService {
     suspend fun fetchSignup(
         @Body
         signupRequest: SignupRequest,
-    ):Response<Unit>
+    ): Response<Unit>
+
+    @POST("api/auth/refresh")
+    suspend fun refreshToken(
+        @Body
+        refreshToken: String,
+        // TODO request 내용 작성 필요
+    ): Response<AuthTokenRemoteResponse>
 }

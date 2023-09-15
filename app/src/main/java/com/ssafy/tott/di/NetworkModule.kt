@@ -1,15 +1,23 @@
 package com.ssafy.tott.di
 
+import android.util.Log
 import com.google.maps.android.v3.ktx.BuildConfig
+import com.ssafy.tott.data.datasource.local.DataStoreManager
 import com.ssafy.tott.data.datasource.remote.service.UserService
+import com.ssafy.tott.data.model.response.AuthTokenRemoteResponse
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
+import okhttp3.Authenticator
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
@@ -17,41 +25,100 @@ import javax.inject.Singleton
 object NetworkModule {
     private const val BASE_URL = "http://www.tott.site:8080"
 
-    @Provides
-    fun provideBaseUrl() = BASE_URL
-
+    @AuthOkHttpClient
     @Singleton
     @Provides
-    fun provideOkHttpClient() = if (BuildConfig.DEBUG) {
-        OkHttpClient.Builder()
-            .addInterceptor(
-                HttpLoggingInterceptor()
-                    .setLevel(HttpLoggingInterceptor.Level.BODY)
-            )
-            .build()
+    fun provideAuthOkHttpClient(
+        authAuthenticator: Authenticator,
+    ) = if (BuildConfig.DEBUG) {
+        OkHttpClient.Builder().authenticator(authAuthenticator).addInterceptor(
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        ).build()
+    } else {
+        OkHttpClient.Builder().authenticator(authAuthenticator).build()
+    }
+
+    @OtherOkHttpClient
+    @Singleton
+    @Provides
+    fun provideOtherOkHttpClient() = if (BuildConfig.DEBUG) {
+        OkHttpClient.Builder().addInterceptor(
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        ).build()
     } else {
         OkHttpClient.Builder().build()
     }
 
+    @AuthRetrofit
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        return Retrofit.Builder()
-            .client(okHttpClient)
-            .baseUrl(provideBaseUrl())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+    fun provideAuthRetrofit(@AuthOkHttpClient okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder().client(okHttpClient).baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+    }
+
+    @OtherRetrofit
+    @Singleton
+    @Provides
+    fun provideOtherRetrofit(@OtherOkHttpClient okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder().client(okHttpClient).baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build()
     }
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): SearchBuildingService {
+    fun provideBuildingApiService(@AuthRetrofit retrofit: Retrofit): SearchBuildingService {
         return retrofit.create(SearchBuildingService::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideUserApiService(retrofit: Retrofit): UserService {
+    fun provideUserApiService(@OtherRetrofit retrofit: Retrofit): UserService {
         return retrofit.create(UserService::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideTokenAuthenticator(
+        dataStoreManager: DataStoreManager,
+        userService: UserService,
+    ) = Authenticator { _, response ->
+        runBlocking {
+            val newTokenResponse = getNewToken(dataStoreManager.refreshToken.first(), userService)
+
+            if (!newTokenResponse.isSuccessful || newTokenResponse.body() == null) { //Couldn't refresh the token, so restart the login process
+                // TODO Refresh가 불가능하면 Home 화면으로 이동
+                Log.d("NetworkModule", "provideTokenAuthenticator: refresh fail")
+            }
+
+            newTokenResponse.body()?.let {
+                dataStoreManager.setAccessToken(it.accessToken)
+                dataStoreManager.setRefreshToken(it.refreshToken)
+                response.request.newBuilder().header("Authorization", it.accessToken).build()
+            }
+        }
+    }
+
+    private suspend fun getNewToken(
+        refreshToken: String?,
+        userService: UserService,
+    ): Response<AuthTokenRemoteResponse> {
+        return userService.refreshToken(refreshToken ?: "")
+    }
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class AuthOkHttpClient
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class OtherOkHttpClient
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class AuthRetrofit
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class OtherRetrofit
 }

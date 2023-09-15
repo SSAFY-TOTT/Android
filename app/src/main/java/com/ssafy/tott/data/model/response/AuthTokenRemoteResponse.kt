@@ -6,11 +6,11 @@ data class AuthTokenRemoteResponse(
     val accessToken: String,
     val accessTokenExpiresIn: Long,
     val grantType: String,
-    val refreshToken: String
+    val refreshToken: String,
 ) {
     fun toDomain() = AuthToken(
-        accessToken = "$grantType $accessToken",
-        refreshToken = "$grantType $refreshToken",
+        accessToken = "${grantType.trim()} $accessToken",
+        refreshToken = "${grantType.trim()} $refreshToken",
         accessTokenExpiresIn = accessTokenExpiresIn,
     )
 }
