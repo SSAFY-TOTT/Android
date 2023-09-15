@@ -17,6 +17,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
@@ -24,44 +25,55 @@ import javax.inject.Singleton
 object NetworkModule {
     private const val BASE_URL = "http://www.tott.site:8080"
 
-    @Provides
-    fun provideBaseUrl() = BASE_URL
-
+    @AuthOkHttpClient
     @Singleton
     @Provides
-    fun provideOkHttpClient(
+    fun provideAuthOkHttpClient(
         authAuthenticator: Authenticator,
     ) = if (BuildConfig.DEBUG) {
-        OkHttpClient.Builder()
-            .authenticator(authAuthenticator)
-            .addInterceptor(
-                HttpLoggingInterceptor()
-                    .setLevel(HttpLoggingInterceptor.Level.BODY)
-            )
-            .build()
+        OkHttpClient.Builder().authenticator(authAuthenticator).addInterceptor(
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        ).build()
     } else {
         OkHttpClient.Builder().authenticator(authAuthenticator).build()
     }
 
+    @OtherOkHttpClient
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        return Retrofit.Builder()
-            .client(okHttpClient)
-            .baseUrl(provideBaseUrl())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+    fun provideOtherOkHttpClient() = if (BuildConfig.DEBUG) {
+        OkHttpClient.Builder().addInterceptor(
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        ).build()
+    } else {
+        OkHttpClient.Builder().build()
+    }
+
+    @AuthRetrofit
+    @Singleton
+    @Provides
+    fun provideAuthRetrofit(@AuthOkHttpClient okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder().client(okHttpClient).baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+    }
+
+    @OtherRetrofit
+    @Singleton
+    @Provides
+    fun provideOtherRetrofit(@OtherOkHttpClient okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder().client(okHttpClient).baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build()
     }
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): SearchBuildingService {
+    fun provideBuildingApiService(@AuthRetrofit retrofit: Retrofit): SearchBuildingService {
         return retrofit.create(SearchBuildingService::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideUserApiService(retrofit: Retrofit): UserService {
+    fun provideUserApiService(@OtherRetrofit retrofit: Retrofit): UserService {
         return retrofit.create(UserService::class.java)
     }
 
@@ -81,9 +93,7 @@ object NetworkModule {
             newTokenResponse.body()?.let {
                 dataStoreManager.setAccessToken(it.accessToken)
                 dataStoreManager.setRefreshToken(it.refreshToken)
-                response.request.newBuilder()
-                    .header("Authorization", it.accessToken)
-                    .build()
+                response.request.newBuilder().header("Authorization", it.accessToken).build()
             }
         }
     }
@@ -93,12 +103,26 @@ object NetworkModule {
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         val okHttpClient = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
-            .build()
+        val retrofit =
+            Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient).build()
         val service = retrofit.create(UserService::class.java)
         return service.refreshToken(refreshToken ?: "")
     }
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class AuthOkHttpClient
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class OtherOkHttpClient
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class AuthRetrofit
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class OtherRetrofit
 }
