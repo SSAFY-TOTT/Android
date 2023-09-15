@@ -81,9 +81,10 @@ object NetworkModule {
     @Provides
     fun provideTokenAuthenticator(
         dataStoreManager: DataStoreManager,
+        userService: UserService,
     ) = Authenticator { _, response ->
         runBlocking {
-            val newTokenResponse = getNewToken(dataStoreManager.refreshToken.first())
+            val newTokenResponse = getNewToken(dataStoreManager.refreshToken.first(), userService)
 
             if (!newTokenResponse.isSuccessful || newTokenResponse.body() == null) { //Couldn't refresh the token, so restart the login process
                 // TODO Refresh가 불가능하면 Home 화면으로 이동
@@ -98,16 +99,11 @@ object NetworkModule {
         }
     }
 
-    private suspend fun getNewToken(refreshToken: String?): Response<AuthTokenRemoteResponse> {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        val okHttpClient = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
-
-        val retrofit =
-            Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient).build()
-        val service = retrofit.create(UserService::class.java)
-        return service.refreshToken(refreshToken ?: "")
+    private suspend fun getNewToken(
+        refreshToken: String?,
+        userService: UserService,
+    ): Response<AuthTokenRemoteResponse> {
+        return userService.refreshToken(refreshToken ?: "")
     }
 
     @Qualifier
