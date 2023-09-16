@@ -63,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/totalExtra_explain"
-        app:layout_constraintBottom_toTopOf="@id/tv_explain_loanMoney_home"
+        app:layout_constraintBottom_toTopOf="@id/tv_searchBuilding_home"
         app:layout_constraintStart_toStartOf="@id/tv_totalMoney_home"
         app:layout_constraintTop_toBottomOf="@id/tv_explain_totalAccountMoney_home" />
 
@@ -77,24 +77,6 @@
         app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_home"
         app:layout_constraintTop_toTopOf="@id/tv_explain_totalExtraMoney_home" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_explain_loanMoney_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/loan_explain"
-        app:layout_constraintBottom_toTopOf="@id/tv_searchBuilding_home"
-        app:layout_constraintStart_toStartOf="@id/tv_totalMoney_home"
-        app:layout_constraintTop_toBottomOf="@id/tv_explain_totalExtraMoney_home" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_loanMoney_home"
-        style="@style/TextAppearance.Material3.BodyLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/money_zero"
-        app:layout_constraintBottom_toBottomOf="@id/tv_explain_loanMoney_home"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_home"
-        app:layout_constraintTop_toTopOf="@id/tv_explain_loanMoney_home" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_searchBuilding_home"
@@ -106,7 +88,7 @@
         android:text="@string/searchBuilding_title"
         app:layout_constraintBottom_toTopOf="@id/inputLayout_districtName_home"
         app:layout_constraintStart_toStartOf="@id/tv_totalMoney_home"
-        app:layout_constraintTop_toBottomOf="@id/tv_explain_loanMoney_home" />
+        app:layout_constraintTop_toBottomOf="@id/tv_explain_totalExtraMoney_home" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_searchBuilding_home"

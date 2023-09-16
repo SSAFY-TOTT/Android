@@ -2,7 +2,9 @@ package com.ssafy.tott.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ssafy.tott.domain.model.ComprehensiveBudget
 import com.ssafy.tott.domain.model.HouseSaleArticle
+import com.ssafy.tott.domain.usecase.GetComprehensiveMoneyUseCase
 import com.ssafy.tott.domain.usecase.GetRecentHouseArticlesUseCase
 import com.ssafy.tott.domain.usecase.GetWishListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,6 +17,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getRecentHouseArticlesUseCase: GetRecentHouseArticlesUseCase,
     private val getWishListUseCase: GetWishListUseCase,
+    private val getComprehensiveBudgetUseCase: GetComprehensiveMoneyUseCase,
 ) : ViewModel() {
     private val _recentBuildingDetails = MutableStateFlow<List<HouseSaleArticle>>(listOf())
     val recentBuildingDetails = _recentBuildingDetails.asStateFlow()
@@ -22,12 +25,17 @@ class HomeViewModel @Inject constructor(
     private val _wishList = MutableStateFlow<List<HouseSaleArticle>>(listOf())
     val wishList = _wishList.asStateFlow()
 
+    private val _comprehensiveBudget =
+        MutableStateFlow<ComprehensiveBudget>(ComprehensiveBudget(0, 0, 0))
+    val comprehensiveBudget = _comprehensiveBudget.asStateFlow()
+
     private val _errorState = MutableStateFlow<Exception?>(null)
     val errorState = _errorState.asStateFlow()
 
     init {
         loadRecentBuildingDetails()
         loadWishList()
+        loadBudget()
     }
 
     private fun loadWishList() {
@@ -56,6 +64,18 @@ class HomeViewModel @Inject constructor(
                     }.onFailure {
                         _errorState.value = Exception(it.message)
                     }
+                }
+            }
+        }
+    }
+
+    private fun loadBudget() {
+        viewModelScope.launch {
+            getComprehensiveBudgetUseCase(null).collect { result ->
+                result.onSuccess {
+                    _comprehensiveBudget.value = it
+                }.onFailure {
+                    _errorState.value = Exception(it.message)
                 }
             }
         }

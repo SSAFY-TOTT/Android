@@ -1,6 +1,7 @@
 package com.ssafy.tott.domain.repository
 
 import com.ssafy.tott.domain.model.AuthToken
+import com.ssafy.tott.domain.model.ComprehensiveBudget
 import com.ssafy.tott.domain.model.ExtraMoney
 import com.ssafy.tott.domain.model.RegisterUser
 import kotlinx.coroutines.flow.Flow
@@ -14,4 +15,5 @@ interface UserRepository {
     fun requestCert(accountNum: String, certNum: String): Flow<Result<Unit>>
     fun saveBudget(extraMoneyList: List<ExtraMoney>): Flow<Result<Unit>>
     fun getBudget(): Flow<Result<List<ExtraMoney>>>
+    fun getComprehensiveBudget(price: Int): Flow<Result<ComprehensiveBudget>>
 }

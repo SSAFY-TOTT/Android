@@ -22,6 +22,7 @@
     <string name="price_buildingDetail_item">%1$,d만원</string>
     <string name="built_buildingDetail_item">%1$d년 건축</string>
     <string name="floor_buildingDetail_item">%1$d층</string>
+    <string name="price_buildingDetail_one">%1$,d원</string>
 
     <!-- 로그인 화면-->
     <string name="id_hint">아이디(이메일)</string>

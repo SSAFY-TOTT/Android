@@ -10,6 +10,7 @@ import com.ssafy.tott.data.model.request.SignupRequest
 import com.ssafy.tott.data.model.request.VerificationRequest
 import com.ssafy.tott.data.model.response.AuthTokenRemoteResponse
 import com.ssafy.tott.data.model.response.BudgetResponse
+import com.ssafy.tott.data.model.response.ComprehensiveBudgetResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -79,6 +80,22 @@ class UserRemoteRemoteDataSourceImpl @Inject constructor(
         } else {
             val errorResponse = getErrorResponse(response.errorBody()?.string() ?: "")
             Log.d("UserDataSourceRemote", "login: $errorResponse}")
+            emit(Result.failure(errorResponse.toNetworkException()))
+        }
+    }.flowOn(Dispatchers.IO)
+
+
+    override fun getComprehensiveBudget(price: Int) = flow<Result<ComprehensiveBudgetResponse>> {
+        val response = userAuthService.fetchGetComprehensiveBudget(price)
+        if (response.isSuccessful) {
+            val budgetResponse = response.body() ?: return@flow emit(
+                Result.failure(Throwable("데이터가 없습니다."))
+            )
+            emit(Result.success(budgetResponse))
+        } else {
+            val error = response.errorBody()?.string()
+            Log.d("BuildingDataSourceRemote", "getComprehensiveBudget: $error}")
+            val errorResponse = getErrorResponse(error ?: "")
             emit(Result.failure(errorResponse.toNetworkException()))
         }
     }.flowOn(Dispatchers.IO)
