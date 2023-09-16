@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.maps.android.v3.ktx.BuildConfig
 import com.ssafy.tott.data.datasource.local.DataStoreManager
 import com.ssafy.tott.data.datasource.remote.service.BuildingService
+import com.ssafy.tott.data.datasource.remote.service.RegionService
 import com.ssafy.tott.data.datasource.remote.service.UserService
 import com.ssafy.tott.data.model.response.AuthTokenRemoteResponse
 import com.ssafy.tott.domain.exception.NetworkException
@@ -100,6 +101,12 @@ object NetworkModule {
     @Singleton
     fun provideUserApiService(@OtherRetrofit retrofit: Retrofit): UserService {
         return retrofit.create(UserService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRegionApiService(@AuthRetrofit retrofit: Retrofit): RegionService {
+        return retrofit.create(RegionService::class.java)
     }
 
     @Singleton
