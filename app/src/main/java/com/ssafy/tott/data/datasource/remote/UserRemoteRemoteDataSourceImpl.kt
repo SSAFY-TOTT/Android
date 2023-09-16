@@ -3,6 +3,7 @@ package com.ssafy.tott.data.datasource.remote
 import android.util.Log
 import com.ssafy.tott.data.datasource.remote.service.UserService
 import com.ssafy.tott.data.mapper.getErrorResponse
+import com.ssafy.tott.data.model.request.BudgetRequest
 import com.ssafy.tott.data.model.request.LoginRequest
 import com.ssafy.tott.data.model.request.SignupRequest
 import com.ssafy.tott.data.model.request.VerificationRequest
@@ -45,6 +46,17 @@ class UserRemoteRemoteDataSourceImpl @Inject constructor(private val userService
                 Result.failure(Throwable("데이터가 없습니다."))
             )
             emit(Result.success(jwtRemoteResponse))
+        } else {
+            val errorResponse = getErrorResponse(response.errorBody()?.string() ?: "")
+            Log.d("UserDataSourceRemote", "login: $errorResponse}")
+            emit(Result.failure(errorResponse.toNetworkException()))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    override fun saveBudget(budgetRequest: BudgetRequest) = flow<Result<Unit>> {
+        val response = userService.fetchSaveBudgetMoney(budgetRequest)
+        if (response.isSuccessful) {
+            emit(Result.success(Unit))
         } else {
             val errorResponse = getErrorResponse(response.errorBody()?.string() ?: "")
             Log.d("UserDataSourceRemote", "login: $errorResponse}")
