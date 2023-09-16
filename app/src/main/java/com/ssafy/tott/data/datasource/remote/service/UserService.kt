@@ -1,5 +1,6 @@
 package com.ssafy.tott.data.datasource.remote.service
 
+import com.ssafy.tott.data.model.request.BudgetRequest
 import com.ssafy.tott.data.model.request.LoginRequest
 import com.ssafy.tott.data.model.request.SignupRequest
 import com.ssafy.tott.data.model.request.VerificationRequest
@@ -14,8 +15,6 @@ interface UserService {
         @Body
         verificationRequest: VerificationRequest,
     ): Response<Unit>
-
-
     @POST("/api/auth/login")
     suspend fun fetchLogin(
         @Body
@@ -28,10 +27,16 @@ interface UserService {
         signupRequest: SignupRequest,
     ): Response<Unit>
 
-    @POST("api/auth/refresh")
+    @POST("/api/auth/refresh")
     suspend fun refreshToken(
         @Body
         refreshToken: String,
         // TODO request 내용 작성 필요
     ): Response<AuthTokenRemoteResponse>
+
+    @POST("/api/budget/auth/save")
+    suspend fun fetchSaveBudgetMoney(
+        @Body
+        budgetRequest: BudgetRequest
+    ): Response<Unit>
 }
