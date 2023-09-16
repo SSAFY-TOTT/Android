@@ -11,6 +11,7 @@ import com.ssafy.tott.data.datasource.remote.RegionRemoteDataSourceImpl
 import com.ssafy.tott.data.datasource.remote.UserRemoteRemoteDataSourceImpl
 import com.ssafy.tott.data.datasource.remote.service.BuildingService
 import com.ssafy.tott.data.datasource.remote.service.RegionService
+import com.ssafy.tott.data.datasource.remote.service.UserAuthService
 import com.ssafy.tott.data.datasource.remote.service.UserService
 import com.ssafy.tott.data.repository.BuildingRepositoryImpl
 import com.ssafy.tott.data.repository.RegionRepositoryImpl
@@ -37,8 +38,11 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun provideAccountDataSource(userService: UserService): UserRemoteDataSource =
-        UserRemoteRemoteDataSourceImpl(userService)
+    fun provideAccountDataSource(
+        userService: UserService,
+        userAuthService: UserAuthService,
+    ): UserRemoteDataSource =
+        UserRemoteRemoteDataSourceImpl(userService, userAuthService)
 
     @Provides
     @Singleton

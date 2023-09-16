@@ -1,6 +1,7 @@
 package com.ssafy.tott.data.datasource.remote
 
 import android.util.Log
+import com.ssafy.tott.data.datasource.remote.service.UserAuthService
 import com.ssafy.tott.data.datasource.remote.service.UserService
 import com.ssafy.tott.data.mapper.getErrorResponse
 import com.ssafy.tott.data.model.request.BudgetRequest
@@ -14,7 +15,10 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class UserRemoteRemoteDataSourceImpl @Inject constructor(private val userService: UserService) :
+class UserRemoteRemoteDataSourceImpl @Inject constructor(
+    private val userService: UserService,
+    private val userAuthService: UserAuthService,
+) :
     UserRemoteDataSource {
     override fun makeCertNum(request: SignupRequest) = flow<Result<Unit>> {
         val response = userService.fetchSignup(request)
@@ -55,7 +59,7 @@ class UserRemoteRemoteDataSourceImpl @Inject constructor(private val userService
     }.flowOn(Dispatchers.IO)
 
     override fun saveBudget(budgetRequest: BudgetRequest) = flow<Result<Unit>> {
-        val response = userService.fetchSaveBudgetMoney(budgetRequest)
+        val response = userAuthService.fetchSaveBudgetMoney(budgetRequest)
         if (response.isSuccessful) {
             emit(Result.success(Unit))
         } else {
@@ -66,7 +70,7 @@ class UserRemoteRemoteDataSourceImpl @Inject constructor(private val userService
     }.flowOn(Dispatchers.IO)
 
     override fun getBudget() = flow<Result<BudgetResponse>> {
-        val response = userService.fetchGetBudgetMoney()
+        val response = userAuthService.fetchGetBudgetMoney()
         if (response.isSuccessful) {
             val budgetResponse = response.body() ?: return@flow emit(
                 Result.failure(Throwable("데이터가 없습니다."))
