@@ -23,6 +23,22 @@ class ExtraMoneyActivity : AppCompatActivity() {
         setContentView(binding.root)
         initToolbar()
         initStateObserve()
+        initBudget()
+    }
+
+    private fun initBudget() {
+        lifecycleScope.launch {
+            viewModel.extraMoneyList.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).collect {
+                binding.editTextDescription.setText(it[0].name)
+                binding.editTextMoneyExtraMoney.setText(it[0].money)
+                binding.editTextDescription2.setText(it[1].name)
+                binding.editTextMoneyExtraMoney2.setText(it[1].money)
+                binding.editTextDescription3.setText(it[2].name)
+                binding.editTextMoneyExtraMoney3.setText(it[2].money)
+                binding.editTextDescription4.setText(it[3].name)
+                binding.editTextMoneyExtraMoney4.setText(it[3].money)
+            }
+        }
     }
 
     private fun initToolbar() {
