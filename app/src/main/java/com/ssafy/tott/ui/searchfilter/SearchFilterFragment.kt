@@ -1,9 +1,11 @@
 package com.ssafy.tott.ui.searchfilter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
@@ -27,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchFilterFragment : Fragment() {
+class SearchFilterFragment() : Fragment() {
     private val searchMapViewModel: SearchMapViewModel by activityViewModels()
     private val searchFilterViewModel: SearchFilterViewModel by viewModels()
     private var _binding: FragmentSearchFilterBinding? = null
@@ -41,6 +43,7 @@ class SearchFilterFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.autoTextViewBuiltSearchFilter.setAutoTextView(
@@ -58,6 +61,15 @@ class SearchFilterFragment : Fragment() {
             PRICE_RANGE_SEPARATION,
             searchMapViewModel.priceList,
         ) // 단위 천만
+        binding.rangeSliderPriceSearchFilter.setOnTouchListener { v, event ->
+            val rangeSlider = v as RangeSlider
+            Log.d(this::class.simpleName, "onViewCreated: ${v.values}")
+            if (event?.action == MotionEvent.ACTION_UP) {
+                Log.d(this::class.simpleName, "onViewCreated: action up ${v.values}")
+                searchFilterViewModel.setMaxPrice(rangeSlider.values[1].toInt())
+            }
+            false
+        }
         initObserve()
     }
 
@@ -90,6 +102,12 @@ class SearchFilterFragment : Fragment() {
                 binding.autoTextViewAddress2SearchFilter.setAutoTextView(
                     array, array.firstOrNull() ?: "선택"
                 )
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            searchFilterViewModel.creditLine.flowWithLifecycle(lifecycle).collect {
+                binding.tvMaxRentSearchFilter.text =
+                    resources.getString(R.string.creditLine_filter, it)
             }
         }
     }

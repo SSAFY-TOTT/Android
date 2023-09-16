@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ssafy.tott.domain.usecase.GetComprehensiveMoneyUseCase
 import com.ssafy.tott.domain.usecase.GetDistrictListUseCase
 import com.ssafy.tott.domain.usecase.GetLegalDongListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,12 +17,16 @@ import javax.inject.Inject
 class SearchFilterViewModel @Inject constructor(
     private val getDistrictUseCase: GetDistrictListUseCase,
     private val getLegalDongUseCase: GetLegalDongListUseCase,
+    private val getComprehensiveMoneyUseCase: GetComprehensiveMoneyUseCase,
 ) : ViewModel() {
     private val _districtMap = MutableLiveData<Map<String, Int>>(mapOf())
     val districtMap: LiveData<Map<String, Int>> = _districtMap
 
     private val _legalDongMap = MutableLiveData<Map<String, Int>>(mapOf())
     val legalDongMap: LiveData<Map<String, Int>> = _legalDongMap
+
+    private val _creditLine = MutableStateFlow<Int>(0)
+    val creditLine = _creditLine.asStateFlow()
 
     private val _uiError = MutableStateFlow<Throwable?>(null)
     val uiError = _uiError.asStateFlow()
@@ -54,7 +59,7 @@ class SearchFilterViewModel @Inject constructor(
         }
     }
 
-    fun loadLegalDongMap(districtCode: Int) {
+    private fun loadLegalDongMap(districtCode: Int) {
         viewModelScope.launch {
             getLegalDongUseCase(districtCode).collect { dongResult ->
                 dongResult.onSuccess { map ->
@@ -63,6 +68,18 @@ class SearchFilterViewModel @Inject constructor(
                     } else {
                         _uiError.value = Exception("데이터가 없습니다.")
                     }
+                }.onFailure {
+                    _uiError.value = it
+                }
+            }
+        }
+    }
+
+    fun setMaxPrice(maxPrice: Int) {
+        viewModelScope.launch {
+            getComprehensiveMoneyUseCase(minOf(maxPrice * 10000, 21000)).collect { result ->
+                result.onSuccess { budget ->
+                    _creditLine.value = budget.creditLine / 10000
                 }.onFailure {
                     _uiError.value = it
                 }
