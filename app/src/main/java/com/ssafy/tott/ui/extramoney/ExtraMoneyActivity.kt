@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.ssafy.tott.R
 import com.ssafy.tott.databinding.ActivityExtraMoneyBinding
+import com.ssafy.tott.domain.model.ExtraMoney
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -18,6 +19,8 @@ import kotlinx.coroutines.launch
 class ExtraMoneyActivity : AppCompatActivity() {
     private val binding by lazy { ActivityExtraMoneyBinding.inflate(layoutInflater) }
     private val viewModel: ExtraMoneyViewModel by viewModels()
+    private var clickedSaveButton: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -28,16 +31,25 @@ class ExtraMoneyActivity : AppCompatActivity() {
 
     private fun initBudget() {
         lifecycleScope.launch {
-            viewModel.extraMoneyList.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).collect {
-                binding.editTextDescription.setText(it[0].name)
-                binding.editTextMoneyExtraMoney.setText(it[0].money)
-                binding.editTextDescription2.setText(it[1].name)
-                binding.editTextMoneyExtraMoney2.setText(it[1].money)
-                binding.editTextDescription3.setText(it[2].name)
-                binding.editTextMoneyExtraMoney3.setText(it[2].money)
-                binding.editTextDescription4.setText(it[3].name)
-                binding.editTextMoneyExtraMoney4.setText(it[3].money)
-            }
+            viewModel.extraMoneyList.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect { list ->
+                    list.getOrElse(0) { ExtraMoney("연소득", 0) }.let {
+                        binding.editTextDescription.setText(it.name)
+                        binding.editTextMoneyExtraMoney.setText(it.money.toString())
+                    }
+                    list.getOrNull(1)?.let {
+                        binding.editTextDescription2.setText(it.name)
+                        binding.editTextMoneyExtraMoney2.setText(it.money.toString())
+                    } ?: return@collect
+                    list.getOrNull(2)?.let {
+                        binding.editTextDescription3.setText(it.name)
+                        binding.editTextMoneyExtraMoney3.setText(it.money.toString())
+                    } ?: return@collect
+                    list.getOrNull(3)?.let {
+                        binding.editTextDescription4.setText(it.name)
+                        binding.editTextMoneyExtraMoney4.setText(it.money.toString())
+                    } ?: return@collect
+                }
         }
     }
 
@@ -46,7 +58,7 @@ class ExtraMoneyActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_search_map, menu)
+        menuInflater.inflate(R.menu.menu_toolbar_search_filter, menu)
         return true
     }
 
@@ -58,6 +70,7 @@ class ExtraMoneyActivity : AppCompatActivity() {
 
         R.id.action_saveFilter -> {
             saveExtraMoneyList()
+            clickedSaveButton = true
             true
         }
 
@@ -69,13 +82,13 @@ class ExtraMoneyActivity : AppCompatActivity() {
     private fun saveExtraMoneyList() {
         viewModel.saveExtraMoneyList(
             binding.editTextDescription.text.toString() to
-                    binding.editTextMoneyExtraMoney.text.toString().toInt(),
+                    (binding.editTextMoneyExtraMoney.text.toString().toIntOrNull() ?: 0),
             binding.editTextDescription2.text.toString() to
-                    binding.editTextMoneyExtraMoney2.text.toString().toInt(),
+                    (binding.editTextMoneyExtraMoney2.text.toString().toIntOrNull() ?: 0),
             binding.editTextDescription3.text.toString() to
-                    binding.editTextMoneyExtraMoney3.text.toString().toInt(),
+                    (binding.editTextMoneyExtraMoney3.text.toString().toIntOrNull() ?: 0),
             binding.editTextDescription4.text.toString() to
-                    binding.editTextMoneyExtraMoney4.text.toString().toInt(),
+                    (binding.editTextMoneyExtraMoney4.text.toString().toIntOrNull() ?: 0),
         )
     }
 
@@ -88,13 +101,16 @@ class ExtraMoneyActivity : AppCompatActivity() {
                     }
 
                     is ExtraMoneyViewModel.UiState.Success -> {
-                        finish()
+                        if (clickedSaveButton) {
+                            finish()
+                        }
                     }
 
                     is ExtraMoneyViewModel.UiState.Error -> {
                         Snackbar.make(
                             binding.root, it.throwable.message ?: "오류 발생", Snackbar.LENGTH_LONG
                         ).show()
+                        clickedSaveButton = false
                     }
 
                     is ExtraMoneyViewModel.UiState.Wait -> {
