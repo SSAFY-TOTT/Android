@@ -1,7 +1,6 @@
 package com.ssafy.tott.data.datasource.remote
 
 import android.util.Log
-import com.ssafy.tott.data.datasource.UserDataSource
 import com.ssafy.tott.data.datasource.remote.service.UserService
 import com.ssafy.tott.data.mapper.getErrorResponse
 import com.ssafy.tott.data.model.request.LoginRequest
@@ -13,11 +12,10 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class UserDataSourceRemote @Inject constructor(private val userService: UserService) :
-    UserDataSource {
+class UserRemoteRemoteDataSourceImpl @Inject constructor(private val userService: UserService) :
+    UserRemoteDataSource {
     override fun makeCertNum(request: SignupRequest) = flow<Result<Unit>> {
-        val response =
-            userService.fetchSignup(request)
+        val response = userService.fetchSignup(request)
         if (response.isSuccessful) {
             Log.d("UserDataSourceRemote", "requestCert: $${response.body()}}")
             emit(Result.success(Unit))
@@ -28,19 +26,17 @@ class UserDataSourceRemote @Inject constructor(private val userService: UserServ
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun requestCert(accountNum: String, certNum: String) =
-        flow<Result<Unit>> {
-            val response =
-                userService.fetchVerification(VerificationRequest(accountNum, certNum))
-            if (response.isSuccessful) {
-                Log.d("UserDataSourceRemote", "requestCert: ${response.body()}")
-                emit(Result.success(Unit))
-            } else {
-                val errorResponse = getErrorResponse(response.errorBody()?.string() ?: "")
-                Log.d("UserDataSourceRemote", "requestCert: $errorResponse}")
-                emit(Result.failure(errorResponse.toNetworkException()))
-            }
-        }.flowOn(Dispatchers.IO)
+    override fun requestCert(accountNum: String, certNum: String) = flow<Result<Unit>> {
+        val response = userService.fetchVerification(VerificationRequest(accountNum, certNum))
+        if (response.isSuccessful) {
+            Log.d("UserDataSourceRemote", "requestCert: ${response.body()}")
+            emit(Result.success(Unit))
+        } else {
+            val errorResponse = getErrorResponse(response.errorBody()?.string() ?: "")
+            Log.d("UserDataSourceRemote", "requestCert: $errorResponse}")
+            emit(Result.failure(errorResponse.toNetworkException()))
+        }
+    }.flowOn(Dispatchers.IO)
 
     override fun login(id: String, password: String) = flow<Result<AuthTokenRemoteResponse>> {
         val response = userService.fetchLogin(LoginRequest(id, password))
