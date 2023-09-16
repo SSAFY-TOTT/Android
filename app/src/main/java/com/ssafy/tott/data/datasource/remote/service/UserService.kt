@@ -5,7 +5,7 @@ import com.ssafy.tott.data.model.request.LoginRequest
 import com.ssafy.tott.data.model.request.SignupRequest
 import com.ssafy.tott.data.model.request.VerificationRequest
 import com.ssafy.tott.data.model.response.AuthTokenRemoteResponse
-import com.ssafy.tott.data.model.response.BudgeResponse
+import com.ssafy.tott.data.model.response.BudgetResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -45,5 +45,5 @@ interface UserService {
 
     @GET("/api/budget/auth/find")
     suspend fun fetchGetBudgetMoney(
-    ): Response<BudgeResponse>
+    ): Response<BudgetResponse>
 }

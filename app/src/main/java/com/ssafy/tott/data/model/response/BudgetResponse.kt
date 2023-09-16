@@ -3,7 +3,7 @@ package com.ssafy.tott.data.model.response
 
 import com.google.gson.annotations.SerializedName
 
-data class BudgeResponse(
+data class BudgetResponse(
     @SerializedName("annualIncome")
     val annualIncome: Int,
     @SerializedName("budgets")
