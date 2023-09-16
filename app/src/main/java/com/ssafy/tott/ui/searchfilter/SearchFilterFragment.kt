@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
+import android.widget.Button
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -97,10 +98,11 @@ class SearchFilterFragment : Fragment() {
             .takeWhile { it.isDigit() }.takeIf { it.isNotBlank() }?.toInt() ?: 1000
         val priceList = binding.rangeSliderPriceSearchFilter.values
         val areaList = binding.rangeSliderAreaSearchFilter.values
-        val types = binding.btnGroupHouseTypeSearchFilter.checkedButtonIds
+        val typeIds = binding.btnGroupHouseTypeSearchFilter.checkedButtonIds
+        val types = typeIds.filter { it != View.NO_ID }.map { binding.root.findViewById<Button>(it).text.toString() }
         searchFilterViewModel.saveFilterSetting(
             districtName, legalDongName, built,
-            priceList, areaList, types.map { it.toString() }
+            priceList, areaList, types
         )
         requireActivity().onBackPressed()
     }

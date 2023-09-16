@@ -1,10 +1,12 @@
 package com.ssafy.tott.ui.map
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.tott.domain.model.Building
+import com.ssafy.tott.domain.model.Region
 import com.ssafy.tott.domain.model.SearchFilter
 import com.ssafy.tott.domain.usecase.SearchBuildingUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +20,13 @@ class SearchMapViewModel @Inject constructor(val useCase: SearchBuildingUseCase)
     ViewModel() {
     private val _buildings = MutableStateFlow<List<Building>>(listOf())
     val buildings = _buildings.asStateFlow()
+
+    private val _region = MutableLiveData<Region>()
+    val region: LiveData<Region> = _region
+
+    init {
+        _region.value = Region("강남구", 11680, mapOf("역삼1동" to 10100))
+    }
 
     private val districtName = MutableLiveData<String>(null)
     private val legalDongName = MutableLiveData<String>(null)
@@ -71,8 +80,10 @@ class SearchMapViewModel @Inject constructor(val useCase: SearchBuildingUseCase)
     }
 
     private fun loadFilteredData() {
-        val districtName = districtName.value ?: return
-        val legalDongName = legalDongName.value ?: return
+        val region = region.value
+        val districtCode = region?.code ?: 0
+        val legalDongName = legalDongName.value ?: ""
+        val legalDongCode = region?.legalDong?.get(legalDongName) ?: 0
         val built = built.value ?: DEFAULT_BUILT
         val minArea = minArea.value ?: MIN_AREA
         val maxArea = maxArea.value ?: MAX_AREA
@@ -80,7 +91,7 @@ class SearchMapViewModel @Inject constructor(val useCase: SearchBuildingUseCase)
         val maxPrice = maxPrice.value ?: MAX_PRICE
         val type = type.value ?: BUILDING_TYPES
         val searchFilter = SearchFilter(
-            districtName, legalDongName, minPrice,
+            districtCode, legalDongCode, minPrice,
             maxPrice, minArea, maxArea,
             type, built
         )

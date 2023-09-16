@@ -195,6 +195,12 @@
             android:layout_height="wrap_content"
             android:text="@string/officetel_btn_search_filter" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_houseType_multiHouse_searchFilter"
+            style="@style/TOTT.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/multiHouse_btn_search_filter" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <com.google.android.material.textview.MaterialTextView

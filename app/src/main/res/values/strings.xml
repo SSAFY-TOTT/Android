@@ -49,4 +49,5 @@
     <string name="logout_home">로그아웃</string>
     <string name="extraMoney_home">정보 변경</string>
     <string name="searchBuilding_btn">검색</string>
+    <string name="multiHouse_btn_search_filter">연립다세대</string>
 </resources>
