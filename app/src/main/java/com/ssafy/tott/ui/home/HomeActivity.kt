@@ -32,6 +32,7 @@ class HomeActivity : AppCompatActivity() {
         initViewState()
         initButton()
         initToolbar()
+        initObserveBudget()
     }
 
     private fun initRecycleView() {
@@ -115,6 +116,17 @@ class HomeActivity : AppCompatActivity() {
 
         else -> {
             super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun initObserveBudget() {
+        lifecycleScope.launch {
+            viewModel.comprehensiveBudget.flowWithLifecycle(lifecycle).collect {
+                binding.tvTotalAccountMoneyHome.text =
+                    resources.getString(R.string.price_buildingDetail_item, it.accountMoney)
+                binding.tvTotalExtraMoneyHome.text =
+                    resources.getString(R.string.price_buildingDetail_item, it.extraMoney)
+            }
         }
     }
 }
