@@ -7,6 +7,7 @@ import com.ssafy.tott.data.model.request.SignupRequest.Companion.toData
 import com.ssafy.tott.data.model.response.AuthTokenRemoteResponse
 import com.ssafy.tott.data.model.response.BudgetResponse
 import com.ssafy.tott.domain.model.AuthToken
+import com.ssafy.tott.domain.model.ComprehensiveBudget
 import com.ssafy.tott.domain.model.ExtraMoney
 import com.ssafy.tott.domain.model.RegisterUser
 import com.ssafy.tott.domain.repository.UserRepository
@@ -51,6 +52,12 @@ class UserRepositoryImpl @Inject constructor(
     override fun getBudget(): Flow<Result<List<ExtraMoney>>> {
         return userRemoteDataSource.getBudget().map { result ->
             result.map(BudgetResponse::toDomain)
+        }
+    }
+
+    override fun getComprehensiveBudget(price: Int):Flow<Result<ComprehensiveBudget>> {
+        return userRemoteDataSource.getComprehensiveBudget(price).map {result->
+            result.map { it.toDomain() }
         }
     }
 }
