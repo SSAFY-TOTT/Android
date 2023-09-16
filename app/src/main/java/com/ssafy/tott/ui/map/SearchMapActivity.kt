@@ -81,6 +81,8 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         R.id.action_saveFilter -> {
             Log.d(this::class.simpleName, "onOptionsItemSelected: save")
+            clusterManager.clearItems()
+            map.clear()
             (supportFragmentManager.fragments.firstOrNull { it is SearchFilterFragment } as? SearchFilterFragment)?.savedFilterSetting()
             true
         }
@@ -122,6 +124,9 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
                 return View(applicationContext)
             }
         })
+        map.setOnCameraMoveListener {
+            clusterManager.cluster()
+        }
         observeBuildings()
         setupMapClickListener()
     }
@@ -140,6 +145,25 @@ class SearchMapActivity : AppCompatActivity(), OnMapReadyCallback {
                 SimpleHouseListDialogFragment.BUILDING_lIST_MODAL_TAG
             )
             true
+        }
+        clusterManager.setOnClusterClickListener {
+            if (it.items.all { marker -> marker.building.buildingDetails.isEmpty() }) {
+                Snackbar.make(this, binding.root, "매물이 없습니다.", Snackbar.LENGTH_LONG).show()
+                return@setOnClusterClickListener true
+            }
+            val houseSaleArticleList =
+                it.items.flatMap { it.building.toHouseSaleArticle() }.toTypedArray()
+            val modalBottomSheet = SimpleHouseListDialogFragment.newInstance(
+                houseSaleArticleList
+            )
+            modalBottomSheet.show(
+                supportFragmentManager,
+                SimpleHouseListDialogFragment.BUILDING_lIST_MODAL_TAG
+            )
+            true
+        }
+        map.setOnMapClickListener {
+            // 아이콘 안 띄우게 함
         }
     }
 
