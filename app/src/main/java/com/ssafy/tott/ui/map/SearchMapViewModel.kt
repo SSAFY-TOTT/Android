@@ -21,25 +21,14 @@ class SearchMapViewModel @Inject constructor(val useCase: SearchBuildingUseCase)
     private val _buildings = MutableStateFlow<List<Building>>(listOf())
     val buildings = _buildings.asStateFlow()
 
-    private val _region = MutableLiveData<Region>()
-    val region: LiveData<Region> = _region
-
-    init {
-        _region.value = Region("강남구", 11680, mapOf("역삼1동" to 10100))
-    }
-
-    private val districtName = MutableLiveData<String>(null)
-    private val legalDongName = MutableLiveData<String>(null)
+    private val districtCode = MutableLiveData<Int>(null)
+    private val legalDongCode = MutableLiveData<Int>(null)
     private val minPrice = MutableLiveData<Int>(MIN_PRICE)
     private val maxPrice = MutableLiveData<Int>(MAX_PRICE)
     private val minArea = MutableLiveData<Int>(MIN_AREA)
     private val maxArea = MutableLiveData<Int>(MAX_AREA)
     private val type = MutableLiveData<List<String>>(BUILDING_TYPES)
     private val built = MutableLiveData<Int>(DEFAULT_BUILT)
-
-    fun getDistrictName() = districtName.value
-
-    fun getLegalDongName() = legalDongName.value
 
     var priceList: List<Float> = listOf(MIN_PRICE, MAX_PRICE).map(Int::toFloat)
         get() = listOf(
@@ -63,15 +52,16 @@ class SearchMapViewModel @Inject constructor(val useCase: SearchBuildingUseCase)
         }
 
     fun saveFilterSetting(
-        districtName: String, legalDongName: String, built: Int,
+        districtCode: Int, legalDongCode: Int, built: Int,
         priceList: List<Float>, areaList: List<Float>, types: List<String>,
     ) {
         Log.d(
-            this::class.java.simpleName, "loadData: $districtName $legalDongName $built" +
+            this::class.java.simpleName,
+            "loadData: ${this.districtCode} ${this.legalDongCode} $built" +
                     "$priceList $areaList $types"
         )
-        this.districtName.value = districtName
-        this.legalDongName.value = legalDongName
+        this.districtCode.value = districtCode
+        this.legalDongCode.value = legalDongCode
         this.built.value = built
         this.priceList = priceList
         this.areaList = areaList
@@ -80,10 +70,8 @@ class SearchMapViewModel @Inject constructor(val useCase: SearchBuildingUseCase)
     }
 
     private fun loadFilteredData() {
-        val region = region.value
-        val districtCode = region?.code ?: 0
-        val legalDongName = legalDongName.value ?: ""
-        val legalDongCode = region?.legalDong?.get(legalDongName) ?: 0
+        val districtCode = districtCode.value ?: 0
+        val legalDongCode = legalDongCode.value ?: 0
         val built = built.value ?: DEFAULT_BUILT
         val minArea = minArea.value ?: MIN_AREA
         val maxArea = maxArea.value ?: MAX_AREA
