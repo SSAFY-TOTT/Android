@@ -5,6 +5,7 @@ import com.ssafy.tott.data.model.request.LoginRequest
 import com.ssafy.tott.data.model.request.SignupRequest
 import com.ssafy.tott.data.model.request.VerificationRequest
 import com.ssafy.tott.data.model.response.AuthTokenRemoteResponse
+import com.ssafy.tott.data.model.response.BudgeResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -16,6 +17,7 @@ interface UserService {
         @Body
         verificationRequest: VerificationRequest,
     ): Response<Unit>
+
     @POST("/api/auth/login")
     suspend fun fetchLogin(
         @Body
@@ -40,4 +42,8 @@ interface UserService {
         @Body
         budgetRequest: BudgetRequest
     ): Response<Unit>
+
+    @GET("/api/budget/auth/find")
+    suspend fun fetchGetBudgetMoney(
+    ): Response<BudgeResponse>
 }
