@@ -40,7 +40,7 @@ class BuildingDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         buildingDetailUI?.run {
             binding.tvAddressBuildingDetail.text = address
             binding.tvAreaBuildingDetail.text = getString(R.string.area_buildingDetail_item, area)
-            binding.tvPriceBuildingDetail.text =
+            binding.tvRentPriceBuildingDetail.text =
                 getString(R.string.price_buildingDetail_item, price)
             if (floor == null) {
                 binding.tvFloorBuildingDetail.visibility = View.INVISIBLE

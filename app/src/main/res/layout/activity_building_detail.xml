@@ -58,7 +58,7 @@
         android:layout_marginTop="16dp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/tv_built_buildingDetail"
-        map:layout_constraintStart_toStartOf="@+id/guildLine_start_buildingDetail"
+        app:layout_constraintStart_toStartOf="@+id/guildLine_start_buildingDetail"
         tools:text="위치" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -103,10 +103,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/guildLine_end_buildingDetail"
+        app:layout_constraintEnd_toEndOf="@+id/guildLine_end_buildingDetail"
         app:layout_constraintStart_toStartOf="@+id/guildLine_start_buildingDetail"
         app:layout_constraintTop_toBottomOf="@+id/tv_price_fix_buildingDetail"
-        map:layout_constraintStart_toStartOf="@id/guildLine_start_buildingDetail"
         tools:text="현재 추가로 필요한 금액은 4,000만원 입니다." />
 
     <com.google.android.material.textview.MaterialTextView
@@ -118,7 +117,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guildLine_end_buildingDetail"
         app:layout_constraintStart_toStartOf="@+id/guildLine_start_buildingDetail"
         app:layout_constraintTop_toBottomOf="@+id/tv_rent_price_buildingDetail"
-        map:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guildLine_end_buildingDetail"
         tools:text="연 이율은 8% 산정 총 32,000/년 입니다." />
 
     <com.google.android.material.slider.Slider
@@ -145,8 +144,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textStyle="bold"
-        map:layout_constraintStart_toStartOf="@id/guildLine_start_buildingDetail"
-        map:layout_constraintTop_toBottomOf="@+id/iv_room_buildingDetail"
+        app:layout_constraintStart_toStartOf="@id/guildLine_start_buildingDetail"
+        app:layout_constraintTop_toBottomOf="@+id/iv_room_buildingDetail"
         tools:text="전세 1억 4000만원" />
 
     <fragment
