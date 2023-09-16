@@ -12,7 +12,9 @@ class RegionRemoteDataSourceImpl @Inject constructor(private val regionService: 
     override fun getDistrictPairList() = flow<Result<List<RegionPairResponse>>> {
         val response = regionService.fetchGetDistrictList()
         if (response.isSuccessful) {
-            val data = response.body()?.get("districtList") ?: emptyList()
+            Log.d("RegionRemoteDataSourceImpl", "getDistrictPairList: body ${response.body()}")
+            val data = response.body()?.list ?: emptyList()
+            Log.d("RegionRemoteDataSourceImpl", "getDistrictPairList: body ${data}")
             emit(Result.success(data))
         } else {
             val errorResponse = getErrorResponse(response.errorBody()?.string() ?: "")
@@ -24,7 +26,7 @@ class RegionRemoteDataSourceImpl @Inject constructor(private val regionService: 
     override fun getLegalDongPairList(districtCode: Int) = flow<Result<List<RegionPairResponse>>> {
         val response = regionService.fetchGetLegalDongList(districtCode)
         if (response.isSuccessful) {
-            val data = response.body()?.get("legalDongList") ?: emptyList()
+            val data = response.body()?.list ?: emptyList()
             emit(Result.success(data))
         } else {
             val errorResponse = getErrorResponse(response.errorBody()?.string() ?: "")
