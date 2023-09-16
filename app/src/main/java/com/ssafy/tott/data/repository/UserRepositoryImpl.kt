@@ -1,10 +1,12 @@
 package com.ssafy.tott.data.repository
 
-import com.ssafy.tott.data.datasource.remote.UserRemoteDataSource
 import com.ssafy.tott.data.datasource.local.UserTokenDataSource
+import com.ssafy.tott.data.datasource.remote.UserRemoteDataSource
+import com.ssafy.tott.data.model.request.BudgetRequest.Companion.toData
 import com.ssafy.tott.data.model.request.SignupRequest.Companion.toData
 import com.ssafy.tott.data.model.response.AuthTokenRemoteResponse
 import com.ssafy.tott.domain.model.AuthToken
+import com.ssafy.tott.domain.model.ExtraMoney
 import com.ssafy.tott.domain.model.RegisterUser
 import com.ssafy.tott.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
@@ -39,5 +41,9 @@ class UserRepositoryImpl @Inject constructor(
 
     override fun getRefreshToken(): Flow<Result<String>> {
         return userTokenDataSource.getRefreshToken()
+    }
+
+    override fun saveBudget(extraMoneyList: List<ExtraMoney>): Flow<Result<Unit>> {
+        return userRemoteDataSource.saveBudget(extraMoneyList.toData())
     }
 }
