@@ -59,4 +59,6 @@
     <string name="extra_price_description">추가 자산 정보</string>
     <string name="extra_money_hint">단위: 만원</string>
     <string name="year_money_description">연소득</string>
+    <string name="rent_price_buildingDetail">대출 상한은 %1$,d만원 입니다.</string>
+    <string name="rate_rent_buildingDetail">연 이율은 최대 5.58\%% 산정 총 %1$,d원/년 입니다.</string>
 </resources>

@@ -17,7 +17,6 @@
         android:id="@+id/toolbar_searchMap"
         style="@style/TOTT.Toolbar"
         android:layout_width="match_parent"
-        app:layout_constraintBottom_toTopOf="@id/chipGroup_searchMap"
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/menu_search_map"
         app:title="집 검색" />
@@ -28,21 +27,21 @@
         android:background="@color/darkGray"
         app:layout_constraintTop_toBottomOf="@id/toolbar_searchMap" />
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipGroup_searchMap"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        app:layout_constraintBottom_toTopOf="@id/fragmentContainer_map_searchMap"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_searchMap">
+    <!--    <com.google.android.material.chip.ChipGroup-->
+    <!--        android:id="@+id/chipGroup_searchMap"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="4dp"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/fragmentContainer_map_searchMap"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/toolbar_searchMap">-->
 
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="chip" />
-    </com.google.android.material.chip.ChipGroup>
+    <!--        <com.google.android.material.chip.Chip-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="chip" />-->
+    <!--    </com.google.android.material.chip.ChipGroup>-->
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainer_map_searchMap"
@@ -50,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/chipGroup_searchMap"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_searchMap"
         tools:context=".ui.map.SearchMapActivity"
         tools:layout="@layout/fragment_dummy" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -123,7 +123,7 @@ class HomeActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.comprehensiveBudget.flowWithLifecycle(lifecycle).collect {
                 binding.tvTotalAccountMoneyHome.text =
-                    resources.getString(R.string.price_buildingDetail_item, it.accountMoney)
+                    resources.getString(R.string.price_buildingDetail_one, it.accountMoney)
                 binding.tvTotalExtraMoneyHome.text =
                     resources.getString(R.string.price_buildingDetail_item, it.extraMoney)
             }
