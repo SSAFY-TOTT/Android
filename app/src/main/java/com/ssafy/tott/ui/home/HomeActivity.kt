@@ -51,7 +51,7 @@ class HomeActivity : AppCompatActivity() {
                     }
                     recentListAdapter.submitList(it)
                 }
-            viewModel.favoriteBuildingDetails.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            viewModel.wishList.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collect {
                     binding.tvEmptyFavoriteViewListHome.visibility = if (it.isNotEmpty()) {
                         View.GONE

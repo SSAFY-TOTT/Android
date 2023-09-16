@@ -18,4 +18,8 @@ interface BuildingService {
     suspend fun fetchGetRecentBuildings(
         @Body buildingDetailIdListRequest: BuildingDetailIdListRequest
     ): Response<BuildingDetailsResponse>
+
+    @POST("/api/wishlist/auth/view")
+    suspend fun fetchGetWishListBuildings(
+    ): Response<BuildingDetailsResponse>
 }

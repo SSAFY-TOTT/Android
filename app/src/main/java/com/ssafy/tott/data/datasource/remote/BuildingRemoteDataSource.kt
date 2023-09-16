@@ -42,4 +42,15 @@ class BuildingRemoteDataSource @Inject constructor(private val buildingService: 
             emit(Result.failure(errorResponse.toNetworkException()))
         }
     }
+
+    override fun getWishList() = flow<Result<BuildingDetailsResponse?>> {
+        val response = buildingService.fetchGetWishListBuildings()
+        if (response.isSuccessful) {
+            emit(Result.success(response.body()))
+        } else {
+            val errorResponse = getErrorResponse(response.errorBody()?.string() ?: "")
+            Log.d("BuildingDataSourceRemote", "login: $errorResponse}")
+            emit(Result.failure(errorResponse.toNetworkException()))
+        }
+    }
 }
