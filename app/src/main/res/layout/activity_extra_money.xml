@@ -90,8 +90,7 @@
             android:id="@+id/editText_description2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/extra_price_description"
-            android:inputType="numberDecimal" />
+            android:hint="@string/extra_price_description" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -109,7 +108,8 @@
             android:id="@+id/editText_money_extra_money3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/extra_money_hint" />
+            android:hint="@string/extra_money_hint"
+            android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -125,8 +125,7 @@
             android:id="@+id/editText_description3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/extra_price_description"
-            android:inputType="numberDecimal" />
+            android:hint="@string/extra_price_description" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -143,7 +142,8 @@
             android:id="@+id/editText_money_extra_money4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/extra_money_hint" />
+            android:hint="@string/extra_money_hint"
+            android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -159,8 +159,7 @@
             android:id="@+id/editText_description4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/extra_price_description"
-            android:inputType="numberDecimal" />
+            android:hint="@string/extra_price_description" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.Guideline
