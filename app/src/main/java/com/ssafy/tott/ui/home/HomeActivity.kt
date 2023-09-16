@@ -93,7 +93,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_search_map, menu)
+        menuInflater.inflate(R.menu.menu_home, menu)
         return true
     }
 
