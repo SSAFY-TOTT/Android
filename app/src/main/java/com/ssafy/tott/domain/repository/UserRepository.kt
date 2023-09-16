@@ -13,4 +13,5 @@ interface UserRepository {
     fun getRefreshToken(): Flow<Result<String>>
     fun requestCert(accountNum: String, certNum: String): Flow<Result<Unit>>
     fun saveBudget(extraMoneyList: List<ExtraMoney>): Flow<Result<Unit>>
+    fun getBudget(): Flow<Result<List<ExtraMoney>>>
 }
