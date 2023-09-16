@@ -24,6 +24,7 @@ import com.ssafy.tott.R
 import com.ssafy.tott.databinding.ActivityBuildingDetailBinding
 import com.ssafy.tott.domain.model.HouseSaleArticle
 import com.ssafy.tott.ui.util.getParcelable
+import com.ssafy.tott.ui.util.loadRandomImage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -72,6 +73,7 @@ class BuildingDetailActivity : AppCompatActivity(), OnMapReadyCallback {
             binding.tvBuiltBuildingDetail.text =
                 getString(R.string.built_buildingDetail_item, built)
             viewModel.setCreditLine(price)
+            binding.ivRoomBuildingDetail.loadRandomImage()
         }
     }
 
