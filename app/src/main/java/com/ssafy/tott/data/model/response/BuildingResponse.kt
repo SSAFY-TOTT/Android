@@ -8,11 +8,11 @@ data class BuildingResponse(
     val lat: Double,
     @SerializedName("lng")
     val lng: Double,
-    @SerializedName("buildingDetails")
+    @SerializedName("houseDetailList")
     val buildingDetails: List<BuildingDetailResponse>,
     @SerializedName("buildingName")
     val buildingName: String,
-    @SerializedName("built")
+    @SerializedName("builtYear")
     val built: Int,
 ) {
     fun toDomain() = Building(

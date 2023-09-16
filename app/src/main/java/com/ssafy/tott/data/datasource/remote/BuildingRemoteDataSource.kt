@@ -18,24 +18,17 @@ class BuildingRemoteDataSource @Inject constructor(private val buildingService: 
     BuildingDataSource {
     override fun searchBuilding(searchFilter: SearchFilterRequest): Flow<Result<BuildingListResponse>> =
         flow {
-            val response = searchFilter.run {
-                buildingService.fetchSearchedBuilding(
-                    districtName = districtName,
-                    legalDongName = legalDongName,
-                    minPrice = minPrice,
-                    maxPrice = maxPrice,
-                    minArea = minArea,
-                    maxArea = maxArea,
-                    types = types,
-                    built = built
-                )
-            }
+            val response = buildingService.fetchSearchedBuilding(searchFilter)
             if (response.isSuccessful) {
                 val data = response.body() ?: BuildingListResponse(listOf(), "")
                 Log.d("BuildingRemoteDataSource", "searchBuilding suspendOnSuccess: $data")
                 emit(Result.success(data))
             } else {
-                emit(Result.failure(Throwable("연결에 실패했습니다.")))
+                val e = response.errorBody()?.string() ?: "error"
+                Log.d("BuildingDataSourceRemote", "login: $e}")
+                val errorResponse = getErrorResponse(e)
+                Log.d("BuildingDataSourceRemote", "login: $errorResponse}")
+                emit(Result.failure(errorResponse.toNetworkException()))
             }
         }.flowOn(Dispatchers.IO)
 

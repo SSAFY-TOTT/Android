@@ -1,8 +1,8 @@
 package com.ssafy.tott.domain.model
 
 data class SearchFilter(
-    val districtName: String,
-    val legalDongName: String,
+    val districtCode: Int,
+    val legalDongCode: Int,
     val minPrice: Int,
     val maxPrice: Int,
     val minArea: Int,
