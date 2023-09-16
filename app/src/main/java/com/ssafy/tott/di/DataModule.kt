@@ -1,16 +1,17 @@
 package com.ssafy.tott.di
 
 import com.ssafy.tott.data.datasource.BuildingDataSource
-import com.ssafy.tott.data.datasource.UserDataSource
+import com.ssafy.tott.data.datasource.remote.UserRemoteDataSource
 import com.ssafy.tott.data.datasource.local.DataStoreManager
 import com.ssafy.tott.data.datasource.local.UserTokenDataSource
 import com.ssafy.tott.data.datasource.local.UserTokenDataSourceImpl
 import com.ssafy.tott.data.datasource.remote.BuildingRemoteDataSource
 import com.ssafy.tott.data.datasource.remote.RegionRemoteDataSource
 import com.ssafy.tott.data.datasource.remote.RegionRemoteDataSourceImpl
-import com.ssafy.tott.data.datasource.remote.UserDataSourceRemote
+import com.ssafy.tott.data.datasource.remote.UserRemoteRemoteDataSourceImpl
 import com.ssafy.tott.data.datasource.remote.service.BuildingService
 import com.ssafy.tott.data.datasource.remote.service.RegionService
+import com.ssafy.tott.data.datasource.remote.service.UserAuthService
 import com.ssafy.tott.data.datasource.remote.service.UserService
 import com.ssafy.tott.data.repository.BuildingRepositoryImpl
 import com.ssafy.tott.data.repository.RegionRepositoryImpl
@@ -30,15 +31,18 @@ object DataModule {
     @Provides
     @Singleton
     fun provideUserRepository(
-        userDataSource: UserDataSource,
+        userRemoteDataSource: UserRemoteDataSource,
         userTokenDataSource: UserTokenDataSource,
     ): UserRepository =
-        UserRepositoryImpl(userDataSource, userTokenDataSource)
+        UserRepositoryImpl(userRemoteDataSource, userTokenDataSource)
 
     @Provides
     @Singleton
-    fun provideAccountDataSource(userService: UserService): UserDataSource =
-        UserDataSourceRemote(userService)
+    fun provideAccountDataSource(
+        userService: UserService,
+        userAuthService: UserAuthService,
+    ): UserRemoteDataSource =
+        UserRemoteRemoteDataSourceImpl(userService, userAuthService)
 
     @Provides
     @Singleton
