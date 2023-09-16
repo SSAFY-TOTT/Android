@@ -55,8 +55,8 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getComprehensiveBudget(price: Int):Flow<Result<ComprehensiveBudget>> {
-        return userRemoteDataSource.getComprehensiveBudget(price).map {result->
+    override fun getComprehensiveBudget(price: Int): Flow<Result<ComprehensiveBudget>> {
+        return userRemoteDataSource.getComprehensiveBudget(price).map { result ->
             result.map { it.toDomain() }
         }
     }

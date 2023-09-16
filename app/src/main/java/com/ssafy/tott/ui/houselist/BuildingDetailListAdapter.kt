@@ -10,6 +10,7 @@ import com.ssafy.tott.R
 import com.ssafy.tott.databinding.ItemBuildingDetailBinding
 import com.ssafy.tott.domain.model.HouseSaleArticle
 import com.ssafy.tott.ui.util.loadImage
+import com.ssafy.tott.ui.util.loadRandomImage
 
 class BuildingDetailListAdapter(private val clickListener: (buildingDetailUI: HouseSaleArticle) -> Unit) :
     ListAdapter<HouseSaleArticle, RecyclerView.ViewHolder>(diffUtil) {
@@ -44,8 +45,7 @@ class BuildingDetailListAdapter(private val clickListener: (buildingDetailUI: Ho
                     getString(R.string.address_buildingDetail_item, item.address)
                 binding.tvPriceItemBuildingDetail.text =
                     getString(R.string.price_buildingDetail_item, item.price)
-                // TODO: 실제 사진으로 변경
-                binding.ivRoomItemBuildingDetail.loadImage("https://user-images.githubusercontent.com/60271512/265007361-c1afed6e-303d-4cd4-a0e6-3e719116011b.png")
+                binding.ivRoomItemBuildingDetail.loadRandomImage()
             }
         }
     }

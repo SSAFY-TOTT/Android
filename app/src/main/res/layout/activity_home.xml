@@ -86,7 +86,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:text="@string/searchBuilding_title"
-        app:layout_constraintBottom_toTopOf="@id/inputLayout_districtName_home"
+        app:layout_constraintBottom_toTopOf="@id/tv_recentViewList_home"
         app:layout_constraintStart_toStartOf="@id/tv_totalMoney_home"
         app:layout_constraintTop_toBottomOf="@id/tv_explain_totalExtraMoney_home" />
 
@@ -97,51 +97,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="@string/searchBuilding_btn"
-        app:layout_constraintBottom_toTopOf="@id/inputLayout_legalDongName_home"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_home" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputLayout_districtName_home"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_recentViewList_home"
-        app:layout_constraintEnd_toStartOf="@id/inputLayout_legalDongName_home"
-        app:layout_constraintStart_toStartOf="@id/guideline_start_vertical_home"
-        app:layout_constraintTop_toBottomOf="@id/tv_searchBuilding_home">
-
-        <com.google.android.material.textfield.MaterialAutoCompleteTextView
-            android:id="@+id/autoTextView_districtName_home"
-            style="@style/TextAppearance.Material3.BodyLarge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="none"
-            android:text="강남구"
-            tools:text="강남구" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputLayout_legalDongName_home"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/inputLayout_districtName_home"
+        app:layout_constraintBottom_toBottomOf="@id/tv_searchBuilding_home"
         app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_home"
-        app:layout_constraintStart_toEndOf="@id/inputLayout_districtName_home"
-        app:layout_constraintTop_toTopOf="@+id/inputLayout_districtName_home">
-
-        <com.google.android.material.textfield.MaterialAutoCompleteTextView
-            android:id="@+id/autoTextView_legalDongName_home"
-            style="@style/TextAppearance.Material3.BodyLarge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="none"
-            android:text="역삼1동"
-            tools:text="역삼1동" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toTopOf="@id/tv_searchBuilding_home" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_recentViewList_home"
@@ -153,17 +111,7 @@
         android:text="@string/recentList_title"
         app:layout_constraintBottom_toTopOf="@id/rv_recentViewList_home"
         app:layout_constraintStart_toStartOf="@id/tv_totalMoney_home"
-        app:layout_constraintTop_toBottomOf="@id/inputLayout_districtName_home" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_more_recentViewList_home"
-        style="@style/TOTT.OutlinedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/moreView"
-        app:layout_constraintBottom_toTopOf="@id/rv_recentViewList_home"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_home" />
+        app:layout_constraintTop_toBottomOf="@id/tv_searchBuilding_home" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recentViewList_home"
@@ -204,15 +152,6 @@
         app:layout_constraintStart_toStartOf="@id/tv_totalMoney_home"
         app:layout_constraintTop_toBottomOf="@id/rv_recentViewList_home" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_more_favoriteViewList_home"
-        style="@style/TOTT.OutlinedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="@string/moreView"
-        app:layout_constraintBottom_toTopOf="@id/rv_favoriteViewList_home"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end_vertical_home" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_favoriteViewList_home"

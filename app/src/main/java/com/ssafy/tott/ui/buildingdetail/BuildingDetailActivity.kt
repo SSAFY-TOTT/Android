@@ -1,26 +1,36 @@
 package com.ssafy.tott.ui.buildingdetail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.snackbar.Snackbar
 import com.google.maps.android.ktx.addMarker
 import com.ssafy.tott.R
 import com.ssafy.tott.databinding.ActivityBuildingDetailBinding
 import com.ssafy.tott.domain.model.HouseSaleArticle
 import com.ssafy.tott.ui.util.getParcelable
+import com.ssafy.tott.ui.util.loadRandomImage
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BuildingDetailActivity : AppCompatActivity(), OnMapReadyCallback {
+    private val viewModel: BuildingDetailViewModel by viewModels()
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityBuildingDetailBinding
     private var buildingDetailUI: HouseSaleArticle? = null
@@ -34,13 +44,25 @@ class BuildingDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         initLayout()
         initMap()
         initToolbar()
+        initObserve()
+        initButton()
+    }
+
+    private fun initButton() {
+        binding.btnLinkBuildingDetail.setOnClickListener {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://m.shinhan.com/rib/mnew/index.jsp#220011120000")
+            )
+            startActivity(intent)
+        }
     }
 
     private fun initLayout() {
         buildingDetailUI?.run {
             binding.tvAddressBuildingDetail.text = address
             binding.tvAreaBuildingDetail.text = getString(R.string.area_buildingDetail_item, area)
-            binding.tvRentPriceBuildingDetail.text =
+            binding.tvPriceFixBuildingDetail.text =
                 getString(R.string.price_buildingDetail_item, price)
             if (floor == null) {
                 binding.tvFloorBuildingDetail.visibility = View.INVISIBLE
@@ -50,6 +72,8 @@ class BuildingDetailActivity : AppCompatActivity(), OnMapReadyCallback {
             }
             binding.tvBuiltBuildingDetail.text =
                 getString(R.string.built_buildingDetail_item, built)
+            viewModel.setCreditLine(price)
+            binding.ivRoomBuildingDetail.loadRandomImage()
         }
     }
 
@@ -81,7 +105,7 @@ class BuildingDetailActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_search_map, menu)
+        menuInflater.inflate(R.menu.menu_building_detail, menu)
         return true
     }
 
@@ -97,6 +121,32 @@ class BuildingDetailActivity : AppCompatActivity(), OnMapReadyCallback {
 
         else -> {
             super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun initObserve() {
+        lifecycleScope.launch {
+            viewModel.uiError.flowWithLifecycle(
+                lifecycle, Lifecycle.State.STARTED
+            ).collect {
+                if (it != null) {
+                    Snackbar.make(binding.root, it.message ?: "오류 발생", Snackbar.LENGTH_LONG).show()
+                }
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.budget.observe(this@BuildingDetailActivity) { budget ->
+                binding.tvRentPriceBuildingDetail.text =
+                    resources.getString(
+                        R.string.rent_price_buildingDetail,
+                        budget.creditLine / 10000
+                    )
+                binding.tvRateInterestBuildingDetail.text =
+                    resources.getString(
+                        R.string.rate_rent_buildingDetail,
+                        (budget.creditLine * 5.58 / 100).toInt()
+                    )
+            }
         }
     }
 

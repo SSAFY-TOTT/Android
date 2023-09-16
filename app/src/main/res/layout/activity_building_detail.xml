@@ -57,8 +57,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/tv_built_buildingDetail"
         app:layout_constraintStart_toStartOf="@+id/guildLine_start_buildingDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tv_built_buildingDetail"
         tools:text="위치" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -66,11 +66,12 @@
         style="@style/TextAppearance.Material3.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:drawableStart="@drawable/ic_area"
         android:drawablePadding="8dp"
         app:layout_constraintStart_toStartOf="@+id/guildLine_start_buildingDetail"
-        app:layout_constraintTop_toBottomOf="@+id/tv_rate_hint_buildingDetail"
+        app:layout_constraintTop_toBottomOf="@id/btn_link_buildingDetail"
+        tools:layout_editor_absoluteY="405dp"
         tools:text="35평" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -103,39 +104,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:text="@string/rent_price_buildingDetail"
         app:layout_constraintEnd_toEndOf="@+id/guildLine_end_buildingDetail"
         app:layout_constraintStart_toStartOf="@+id/guildLine_start_buildingDetail"
-        app:layout_constraintTop_toBottomOf="@+id/tv_price_fix_buildingDetail"
-        tools:text="현재 추가로 필요한 금액은 4,000만원 입니다." />
+        app:layout_constraintTop_toBottomOf="@+id/tv_price_fix_buildingDetail" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_rate_interest_buildingDetail"
         style="@style/TextAppearance.Material3.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/rate_rent_buildingDetail"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/guildLine_end_buildingDetail"
-        app:layout_constraintStart_toStartOf="@+id/guildLine_start_buildingDetail"
-        app:layout_constraintTop_toBottomOf="@+id/tv_rent_price_buildingDetail"
         app:layout_constraintEnd_toEndOf="@id/guildLine_end_buildingDetail"
-        tools:text="연 이율은 8% 산정 총 32,000/년 입니다." />
-
-    <com.google.android.material.slider.Slider
-        android:id="@+id/slider"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@+id/guildLine_end_buildingDetail"
         app:layout_constraintStart_toStartOf="@+id/guildLine_start_buildingDetail"
-        app:layout_constraintTop_toBottomOf="@+id/tv_rate_interest_buildingDetail" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_rent_price_buildingDetail" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_rate_hint_buildingDetail"
-        style="@style/TextAppearance.Material3.BodySmall"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_link_buildingDetail"
+        style="@style/TOTT.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/guildLine_end_buildingDetail"
-        app:layout_constraintTop_toBottomOf="@+id/slider"
-        tools:text="* 파란색 바는 추가 대출이 필요한 금액입니다." />
+        android:layout_marginVertical="10dp"
+        android:text="신한은행 대출상담 바로가기"
+        app:layout_constraintBottom_toTopOf="@id/tv_area_buildingDetail"
+        app:layout_constraintEnd_toEndOf="@id/guildLine_end_buildingDetail"
+        app:layout_constraintStart_toStartOf="@id/guildLine_start_buildingDetail"
+        app:layout_constraintTop_toBottomOf="@id/tv_rate_interest_buildingDetail" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_price_fix_buildingDetail"
@@ -143,10 +139,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:text="@string/price_buildingDetail_item"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/guildLine_start_buildingDetail"
         app:layout_constraintTop_toBottomOf="@+id/iv_room_buildingDetail"
-        tools:text="전세 1억 4000만원" />
+        tools:text="1,4000만원" />
 
     <fragment
         android:id="@+id/map_buildingDetail"

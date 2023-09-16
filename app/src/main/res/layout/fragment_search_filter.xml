@@ -232,12 +232,12 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_max_rent_searchFilter"
         style="@style/TextAppearance.Material3.BodyMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="전세대출 한도액 : 50,000만원"
+        android:text="@string/creditLine_filter"
         app:layout_constraintBottom_toTopOf="@+id/rangeSlider_price_searchFilter"
         app:layout_constraintEnd_toStartOf="@+id/guideline_end_vertical_searchFilter" />
 
