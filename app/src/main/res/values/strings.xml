@@ -50,4 +50,11 @@
     <string name="extraMoney_home">정보 변경</string>
     <string name="searchBuilding_btn">검색</string>
     <string name="multiHouse_btn_search_filter">연립다세대</string>
+
+    <!--  추가 자산 -->
+    <string name="toolbar_change_information">정보 변경</string>
+    <string name="extra_price">추가 자산</string>
+    <string name="extra_price_description">추가 자산 정보</string>
+    <string name="extra_money_hint">단위: 만원</string>
+    <string name="year_money_description">연소득</string>
 </resources>

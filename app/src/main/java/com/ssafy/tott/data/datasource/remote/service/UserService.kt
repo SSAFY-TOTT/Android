@@ -15,7 +15,6 @@ interface UserService {
         verificationRequest: VerificationRequest,
     ): Response<Unit>
 
-
     @POST("/api/auth/login")
     suspend fun fetchLogin(
         @Body
@@ -28,7 +27,7 @@ interface UserService {
         signupRequest: SignupRequest,
     ): Response<Unit>
 
-    @POST("api/auth/refresh")
+    @POST("/api/auth/refresh")
     suspend fun refreshToken(
         @Body
         refreshToken: String,
