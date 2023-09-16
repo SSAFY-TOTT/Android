@@ -13,8 +13,10 @@ import com.ssafy.tott.data.datasource.remote.service.BuildingService
 import com.ssafy.tott.data.datasource.remote.service.RegionService
 import com.ssafy.tott.data.datasource.remote.service.UserService
 import com.ssafy.tott.data.repository.BuildingRepositoryImpl
+import com.ssafy.tott.data.repository.RegionRepositoryImpl
 import com.ssafy.tott.data.repository.UserRepositoryImpl
 import com.ssafy.tott.domain.repository.BuildingRepository
+import com.ssafy.tott.domain.repository.RegionRepository
 import com.ssafy.tott.domain.repository.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -58,4 +60,10 @@ object DataModule {
     @Singleton
     fun provideRegionDataSource(regionService: RegionService): RegionRemoteDataSource =
         RegionRemoteDataSourceImpl(regionService)
+
+
+    @Provides
+    @Singleton
+    fun provideRegionRepository(regionDataSource: RegionRemoteDataSource): RegionRepository =
+        RegionRepositoryImpl(regionDataSource)
 }

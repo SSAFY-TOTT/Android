@@ -9,10 +9,8 @@ data class RegionPairResponse(
     @SerializedName("code")
     val code: Int,
 ) {
-    companion object {
-        fun RegionPairResponse.toDomain() = RegionPair(
-            name = name,
-            code = code,
-        )
-    }
+    fun toDomain() = RegionPair(
+        name = name,
+        code = code,
+    )
 }
