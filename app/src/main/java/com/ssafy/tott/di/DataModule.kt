@@ -6,8 +6,11 @@ import com.ssafy.tott.data.datasource.local.DataStoreManager
 import com.ssafy.tott.data.datasource.local.UserTokenDataSource
 import com.ssafy.tott.data.datasource.local.UserTokenDataSourceImpl
 import com.ssafy.tott.data.datasource.remote.BuildingRemoteDataSource
+import com.ssafy.tott.data.datasource.remote.RegionRemoteDataSource
+import com.ssafy.tott.data.datasource.remote.RegionRemoteDataSourceImpl
 import com.ssafy.tott.data.datasource.remote.UserDataSourceRemote
 import com.ssafy.tott.data.datasource.remote.service.BuildingService
+import com.ssafy.tott.data.datasource.remote.service.RegionService
 import com.ssafy.tott.data.datasource.remote.service.UserService
 import com.ssafy.tott.data.repository.BuildingRepositoryImpl
 import com.ssafy.tott.data.repository.UserRepositoryImpl
@@ -49,4 +52,10 @@ object DataModule {
     @Singleton
     fun provideUserTokenDataSource(dataStoreManager: DataStoreManager): UserTokenDataSource =
         UserTokenDataSourceImpl(dataStoreManager)
+
+
+    @Provides
+    @Singleton
+    fun provideRegionDataSource(regionService: RegionService): RegionRemoteDataSource =
+        RegionRemoteDataSourceImpl(regionService)
 }
